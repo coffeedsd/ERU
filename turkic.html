@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тюркская группа - Единство народов России</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f13;
+            --bg-secondary: #1a1a23;
+            --bg-card: #242430;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent-red: #ef4444;
+            --accent-gold: #f59e0b;
+            --accent-blue: #3b82f6;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        .header { position: fixed; top: 0; left: 0; right: 0; height: 70px; background: rgba(15, 15, 19, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 50px; }
+        .logo { display: flex; align-items: center; gap: 12px; font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, #fff 0%, var(--accent-gold) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--accent-red), var(--accent-gold)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; -webkit-text-fill-color: white; }
+        .back-link { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+        .back-link:hover { color: var(--accent-gold); }
+        
+        .hero { margin-top: 70px; padding: 60px 50px; background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(239, 68, 68, 0.1)); text-align: center; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 15px; background: linear-gradient(135deg, #fff 0%, var(--accent-gold) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { color: var(--text-secondary); max-width: 700px; margin: 0 auto; }
+        
+        .content { padding: 50px; max-width: 1200px; margin: 0 auto; }
+        
+        .people-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
+        
+        .people-card { 
+            background: var(--bg-card); 
+            border-radius: 16px; 
+            overflow: hidden;
+            border: 1px solid var(--border-color); 
+            transition: all 0.3s; 
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            cursor: pointer;
+        }
+        .people-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+            border-color: var(--accent-gold); 
+        }
+        
+        .people-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+        
+        .people-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .people-content {
+            padding: 25px;
+        }
+        
+        .people-card h3 { 
+            color: var(--accent-gold); 
+            font-size: 1.3rem; 
+            margin-bottom: 12px; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .people-card p { 
+            color: var(--text-secondary); 
+            line-height: 1.6; 
+            margin-bottom: 10px; 
+            font-size: 0.9rem;
+        }
+        
+        .stat-row { 
+            display: flex; 
+            gap: 10px; 
+            margin-top: 15px; 
+            flex-wrap: wrap; 
+        }
+        
+        .stat-tag { 
+            padding: 6px 12px; 
+            background: rgba(245, 158, 11, 0.2); 
+            color: var(--accent-gold); 
+            border-radius: 6px; 
+            font-size: 0.8rem; 
+        }
+        
+        .more-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .features { 
+            background: var(--bg-secondary); 
+            padding: 40px; 
+            border-radius: 16px; 
+            margin-top: 40px; 
+        }
+        .features h2 { 
+            color: var(--accent-gold); 
+            margin-bottom: 20px; 
+            text-align: center;
+        }
+        .features-list { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 20px; 
+        }
+        .feature-item { 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 10px; 
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .feature-icon { 
+            color: var(--accent-gold); 
+            font-size: 1.5rem; 
+        }
+        
+        .footer { 
+            background: var(--bg-secondary); 
+            padding: 30px 50px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 50px; 
+        }
+        
+        @media (max-width: 768px) {
+            .header { padding: 0 20px; }
+            .hero { padding: 40px 20px; }
+            .content { padding: 30px 20px; }
+            .hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">🌙</div>
+            <span>Тюркская группа</span>
+        </a>
+        <a href="index.html" class="back-link">← На главную</a>
+    </header>
+
+    <section class="hero">
+        <h1>Тюркская языковая группа</h1>
+        <p>Распространённая от Поволжья до Сибири и Дальнего Востока. Народы с богатой кочевой историей, общими чертами в языке и культуре. Нажмите на карточку, чтобы узнать подробнее.</p>
+    </section>
+
+    <div class="content">
+        
+        <div class="people-grid">
+            
+            <!-- Татары -->
+            <a href="tatar.html" class="people-card">
+                <div class="people-image">
+                    <img src="images/tatar-mosque.jpg" alt="Татарская мечеть Кул Шариф">
+                </div>
+                <div class="people-content">
+                    <h3>🌙 Татары</h3>
+                    <p>Второй по численности народ России. Исторически связаны с Волжской Булгарией и Золотой Ордой. Богатая культура, торговые традиции.</p>
+                    <p><strong>Регион:</strong> Татарстан, Башкортостан, Ульяновская обл.</p>
+                    <div class="stat-row">
+                        <span class="stat-tag">4.7 млн</span>
+                        <span class="stat-tag">Ислам</span>
+                    </div>
+                    <div class="more-indicator">
+                        Подробнее о традициях →
+                    </div>
+                </div>
+            </a>
+
+            <!-- Башкиры -->
+            <a href="bashkir.html" class="people-card">
+                <div class="people-image">
+                    <img src="images/bashkir-yurt.jpg" alt="Башкирская юрта">
+                </div>
+                <div class="people-content">
+                    <h3>🐝 Башкиры</h3>
+                    <p>Народ Южного Урала с традициями коневодства и пчеловодства. Известны национальным героем Салаватом Юлаевым.</p>
+                    <p><strong>Регион:</strong> Башкортостан</p>
+                    <div class="stat-row">
+                        <span class="stat-tag">1.5 млн</span>
+                        <span class="stat-tag">Ислам</span>
+                    </div>
+                    <div class="more-indicator">
+                        Подробнее о традициях →
+                    </div>
+                </div>
+            </a>
+
+            <!-- Чуваши -->
+            <a href="chuvash.html" class="people-card">
+                <div class="people-image">
+                    <img src="images/chuvash-pattern.jpg" alt="Чувашский орнамент">
+                </div>
+                <div class="people-content">
+                    <h3>🌾 Чуваши</h3>
+                    <p>Потомки булгар с уникальным языком. Сохранили архаичные черты булгарского языка и языческие традиции.</p>
+                    <p><strong>Регион:</strong> Чувашия, Поволжье</p>
+                    <div class="stat-row">
+                        <span class="stat-tag">1.4 млн</span>
+                        <span class="stat-tag">Православие</span>
+                    </div>
+                    <div class="more-indicator">
+                        Подробнее о традициях →
+                    </div>
+                </div>
+            </a>
+
+            <!-- Якуты -->
+            <a href="yakut.html" class="people-card">
+                <div class="people-image">
+                    <img src="images/yakut-oymyakon.jpg" alt="Якутская зима">
+                </div>
+                <div class="people-content">
+                    <h3>❄️ Якуты (Саха)</h3>
+                    <p>Самый крупный народ Сибири. Традиционно занимаются оленеводством и коневодством в суровых климатических условиях.</p>
+                    <p><strong>Регион:</strong> Республика Саха (Якутия)</p>
+                    <div class="stat-row">
+                        <span class="stat-tag">480 тыс.</span>
+                        <span class="stat-tag">Традиционные верования, Православие</span>
+                    </div>
+                    <div class="more-indicator">
+                        Подробнее о традициях →
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="features">
+            <h2>Общие черты тюркских народов</h2>
+            <div class="features-list">
+                <div class="feature-item">
+                    <span class="feature-icon">🗣️</span>
+                    <div>
+                        <strong>Общий языковой корень</strong>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px;">Схожая грамматика, агглютинация, общие слова</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🐴</span>
+                    <div>
+                        <strong>Кочевая культура</strong>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px;">Коневодство, скотоводство, юрты</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">☪️</span>
+                    <div>
+                        <strong>Ислам (у большинства)</strong>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px;">Ханства, мечети, суфизм</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎵</span>
+                    <div>
+                        <strong>Эпос</strong>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 5px;">«Урал-батыр», «Кёбёкей», «Олонхо»</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">© 2026 Арсений Вартанян | Сафоновский филиал ОГБПОУ СмолАПО</p>
+    </footer>
+</body>
+</html>
+
+<!-- Created by Arseniy Vartanyan -->

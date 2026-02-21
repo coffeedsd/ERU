@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чеченцы - Традиции и культура</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f13;
+            --bg-secondary: #1a1a23;
+            --bg-card: #242430;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent-red: #ef4444;
+            --accent-gold: #f59e0b;
+            --accent-green: #22c55e;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        
+        .header { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            height: 70px; 
+            background: rgba(15, 15, 19, 0.95); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid var(--border-color); 
+            z-index: 1000; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 0 50px; 
+        }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            background: linear-gradient(135deg, #fff 0%, var(--accent-green) 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            text-decoration: none; 
+        }
+        .logo-icon { 
+            width: 40px; 
+            height: 40px; 
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-gold)); 
+            border-radius: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.4rem; 
+            -webkit-text-fill-color: white; 
+        }
+        .nav-path {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .nav-path a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .nav-path a:hover {
+            color: var(--accent-gold);
+        }
+        .nav-path span {
+            color: var(--text-secondary);
+        }
+        
+        .hero { 
+            margin-top: 70px; 
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(34,197,94,0.4), rgba(245,158,11,0.4)),
+                        url('images3/chechen-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .hero h1 { 
+            font-size: 3.5rem; 
+            margin-bottom: 15px; 
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .hero p { 
+            color: rgba(255,255,255,0.9); 
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .content { 
+            padding: 50px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        
+        .info-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .info-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+        
+        .info-card-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+        
+        .info-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+            cursor: zoom-in;
+        }
+        
+        .info-card:hover .info-card-image img {
+            transform: scale(1.05);
+        }
+        
+        .info-card-content {
+            padding: 25px;
+        }
+        
+        .info-card h3 {
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        
+        .info-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .gallery-item {
+            aspect-ratio: 4/3;
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            position: relative;
+            cursor: zoom-in;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 20px 15px 15px;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .facts-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+        
+        .facts-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .facts-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .fact-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .footer { 
+            background: var(--bg-secondary); 
+            padding: 30px 50px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 50px; 
+        }
+        
+        @media (max-width: 768px) {
+            .header { padding: 0 20px; }
+            .hero { height: 400px; }
+            .hero h1 { font-size: 2rem; }
+            .content { padding: 30px 20px; }
+            .nav-path span { display: none; }
+        }
+
+        /* LIGHTBOX */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            z-index: 10001;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">⚔️</div>
+            <span>Чеченцы</span>
+        </a>
+        <div class="nav-path">
+            <a href="index.html">Главная</a>
+            <span>→</span>
+            <a href="north-caucasian.html">Северокавказские народы</a>
+            <span>→</span>
+            <a href="#" style="color: var(--accent-gold);">Чеченцы</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Чеченцы (Нохчий)</h1>
+            <p>Горский народ с богатой воинской традицией, древними башенными комплексами и кодексом чести «адац»</p>
+        </div>
+    </section>
+
+    <div class="content">
+        
+        <section class="info-section">
+            <h2 class="section-title">📋 Общая информация</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images3/chechen-people.jpg" alt="Чеченцы в национальных костюмах" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Численность</h3>
+                        <p>В России проживает около 1,5 миллионов чеченцев. Основное население Чеченской Республики (столица — Грозный). Также проживают в Дагестане, Ингушетии, Москве.</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images3/chechen-language.jpg" alt="Чеченский язык и письменность" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Язык</h3>
+                        <p>Чеченский язык (нохчийн мотт) относится к нахской группе северокавказских языков. Близок к ингушскому. Использует кириллицу с дополнительными буквами.</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images3/chechen-religion.jpg" alt="Чеченская мечеть" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Религия</h3>
+                        <p>Ислам (суннитского толка, ханафитский мазхаб). Принят в VIII—XIX веках. Сохранились элементы доисламских традиций: культ предков, священные места (пхарчхош).</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images3/chechen-map.jpg" alt="Карта Чечни и Северного Кавказа" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Расселение</h3>
+                        <p>Чеченцы населяют Северный Кавказ, преимущественно Чеченскую Республику. Крупные диаспоры в Москве, Санкт-Петербурге, на Урале. За рубежом — в Турции, Иордании, Сирии, Казахстане.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2 class="section-title">🎭 Традиции и культура</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images3/chechen-costume.jpg" alt="Чеченский национальный костюм" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Национальный костюм</h3>
+                        <p>Мужской костюм: черкеска (кезар кIаптар), бешмет, папаха (холхазан куй), кинжал (хьалха). Женский: хонга (платье), курта (рубаха), головной убор (кIалакх), украшенный монетами.</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images3/chechen-food.jpg" alt="Чеченская кухня: жижиг-галнаш, хингалш" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Кухня</h3>
+                        <p>Жижиг-галнаш (варёное мясо с лапшой), хингалш (пельмени), чапалахаш (кукурузная каша), шашлык, чурчхела. Традиционный напиток — чеченский чай с мятой, шалфеем, мёдом.</p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images3/chechen-tower-detail.jpg" alt="Чеченские башенные комплексы" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Башенная архитектура</h3>
+                        <p>Уникальные средневековые башни: жилые, боевые, полубоевые. Комплексы в Аргунском и Веденском ущельях. Символ чеченской культуры и мастерства.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images3/chechen-music.jpg" alt="Чеченская народная музыка" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Музыка и танцы</h3>
+                        <p>Лезгинка — энергичный мужской танец, ставший визитной карточкой. Инструменты: децигь (скрипка), аккордеон, барабан. Эпические сказания «вайнахский эпос».</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2 class="section-title">🎉 Народные праздники</h2>
+            <ul class="facts-list">
+                <li>
+                    <span class="fact-icon">🌾</span>
+                    <div>
+                        <strong>Ураза-байрам (Ид аль-Фитр)</strong>
+                        <p style="color: var(--text-secondary); margin-top: 5px;">Окончание Рамадана. Праздничный намаз, угощения, помощь бедным, посещение родных. Готовят жижиг-галнаш, сладости.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="fact-icon">🐑</span>
+                    <div>
+                        <strong>Курбан-байрам (Ид аль-Адха)</strong>
+                        <p style="color: var(--text-secondary); margin-top: 5px;">Праздник жертвоприношения. Забой барана, раздача мяса, семейные застолья, молитвы о мире и благополучии.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="fact-icon">⚔️</span>
+                    <div>
+                        <strong>День чеченского языка</strong>
+                        <p style="color: var(--text-secondary); margin-top: 5px;">25 апреля. Праздник национальной культуры, конкурсы чтения поэтов, фольклорные выступления.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="fact-icon">🏔️</span>
+                    <div>
+                        <strong>День горца</strong>
+                        <p style="color: var(--text-secondary); margin-top: 5px;">Праздник традиционной культуры. Борьба, скачки, национальные танцы, демонстрация костюмов и ремёсел.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2 class="section-title">📸 Галерея</h2>
+            <div class="gallery">
+                <div class="gallery-item" onclick="openLightbox('images3/chechen-dance.jpg')">
+                    <img src="images3/chechen-dance.jpg" alt="Чеченский лезгинка">
+                    <div class="gallery-caption">Национальный танец лезгинка</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox('images3/chechen-horse.jpg')">
+                    <img src="images3/chechen-horse.jpg" alt="Чеченские всадники">
+                    <div class="gallery-caption">Коневодство и скачки</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox('images3/chechen-crafts.jpg')">
+                    <img src="images3/chechen-crafts.jpg" alt="Чеченские национальные промыслы">
+                    <div class="gallery-caption">Серебряные украшения и кинжалы</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox('images3/chechen-grozny.jpg')">
+                    <img src="images3/chechen-grozny.jpg" alt="Грозный, мечеть имени Ахмата Кадырова">
+                    <div class="gallery-caption">Мечеть «Сердце Чечни»</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section" style="background: var(--bg-card); padding: 40px; border-radius: 16px; border: 1px solid var(--border-color);">
+            <h2 class="section-title">💡 Интересные факты</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: 12px;">
+                    <h4 style="color: var(--accent-gold); margin-bottom: 10px;">⚔️ Адац</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">«Адац» — древний кодекс чести чеченцев, регулирующий поведение, отношения между людьми, гостеприимство и защиту слабых.</p>
+                </div>
+                <div style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: 12px;">
+                    <h4 style="color: var(--accent-gold); margin-bottom: 10px;">🏛️ Тейпы</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Чеченское общество основано на тейпах (родах) — крупных родовых объединениях с общими предками и территориями.</p>
+                </div>
+                <div style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: 12px;">
+                    <h4 style="color: var(--accent-gold); margin-bottom: 10px;">🎵 Вайнахский эпос</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">«Вайнахский эпос» — собрание древних сказаний, героических песен и преданий чеченцев и ингушей.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">
+            <a href="north-caucasian.html" style="color: var(--accent-gold); text-decoration: none;">← Назад к северокавказским народам</a> | 
+            © 2026 Арсений Вартанян
+        </p>
+    </footer>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="event.stopPropagation(); closeLightbox()">&times;</span>
+        <img src="" alt="Увеличенное изображение" id="lightbox-img" onclick="event.stopPropagation()">
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>
+
+<!-- Created by Arseniy Vartanyan -->

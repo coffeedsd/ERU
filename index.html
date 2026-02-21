@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Единство народов России</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================
+           CSS ПЕРЕМЕННЫЕ - ЦВЕТОВАЯ СИСТЕМА САЙТА
+           ========================================== */
+        :root {
+            --bg-primary: #0f0f13;
+            --bg-secondary: #1a1a23;
+            --bg-card: #242430;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent-red: #ef4444;
+            --accent-gold: #f59e0b;
+            --accent-blue: #3b82f6;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg-primary); 
+            color: var(--text-primary); 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+        }
+
+        /* ==========================================
+           ШАПКА САЙТА
+           ========================================== */
+        .header { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            height: 70px; 
+            background: rgba(15, 15, 19, 0.95); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid var(--border-color); 
+            z-index: 1000; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 0 50px; 
+        }
+
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            background: linear-gradient(135deg, #fff 0%, var(--accent-gold) 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            cursor: pointer;
+        }
+
+        .logo-icon { 
+            width: 40px; 
+            height: 40px; 
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-gold)); 
+            border-radius: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.4rem; 
+            -webkit-text-fill-color: white; 
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-gold);
+        }
+
+        /* ==========================================
+           ГЛАВНЫЙ БЛОК - ОПИСАНИЕ САЙТА
+           ========================================== */
+        .hero { 
+            margin-top: 70px; 
+            min-height: 40vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+            padding: 50px 20px; 
+            background: radial-gradient(ellipse at center, rgba(239, 68, 68, 0.1) 0%, transparent 70%),
+                        radial-gradient(ellipse at top right, rgba(59, 130, 246, 0.1) 0%, transparent 50%); 
+        }
+
+        .hero h1 { 
+            font-size: 2.8rem; 
+            font-weight: 700; 
+            margin-bottom: 15px; 
+            background: linear-gradient(135deg, #fff 0%, var(--accent-gold) 50%, var(--accent-red) 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+
+        .hero p { 
+            font-size: 1rem; 
+            color: var(--text-secondary); 
+            max-width: 600px; 
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-gold));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+        }
+
+        /* ==========================================
+           СЕКЦИЯ ГРУПП НАРОДОВ - 6 КНОПОК
+           ========================================== */
+        .groups-section { 
+            padding: 50px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+
+        .section-title { 
+            text-align: center; 
+            font-size: 1.8rem; 
+            margin-bottom: 40px; 
+            background: linear-gradient(135deg, #fff 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Сетка для 6 кнопок */
+        .groups-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 25px; 
+            margin-bottom: 30px; 
+        }
+
+        /* Стили кнопки-группы */
+        .group-button { 
+            background: var(--bg-card); 
+            border-radius: 16px; 
+            padding: 30px; 
+            border: 2px solid var(--border-color); 
+            transition: all 0.3s ease; 
+            cursor: pointer; 
+            position: relative; 
+            overflow: hidden;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* Верхняя полоса-акцент с градиентом */
+        .group-button::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            height: 4px; 
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-gold), var(--accent-blue));
+            border-radius: 16px 16px 0 0; 
+        }
+
+        /* Эффект при наведении */
+        .group-button:hover { 
+            transform: translateY(-6px); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border-color: var(--accent-gold);
+        }
+
+        /* Эффект при нажатии (active) */
+        .group-button:active {
+            transform: translateY(-2px) scale(0.98);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Иконка группы */
+        .group-icon { 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 14px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 2rem; 
+            margin-bottom: 20px; 
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .group-button h3 { 
+            font-size: 1.3rem; 
+            margin-bottom: 12px; 
+            color: var(--accent-gold);
+        }
+
+        .group-button p { 
+            color: var(--text-secondary); 
+            font-size: 0.9rem; 
+            line-height: 1.6; 
+            margin-bottom: 15px;
+        }
+
+        /* Список народов в кнопке */
+        .peoples-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .people-mini-tag {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* Индикатор "откроется в новой вкладке" */
+        .external-indicator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.2rem;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .group-button:hover .external-indicator {
+            opacity: 1;
+            color: var(--accent-gold);
+        }
+
+        /* ==========================================
+           СТАТИСТИКА
+           ========================================== */
+        .stats-section {
+            background: var(--bg-secondary);
+            padding: 60px 50px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .stats-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            height: 150px;
+        }
+
+        .stat-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            pointer-events: none;
+        }
+
+        .stat-item.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .stat-item h4 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .stat-item p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .stats-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .stat-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .stat-dot.active {
+            background: var(--accent-gold);
+        }
+
+        /* ==========================================
+           СЕКЦИЯ О СОЗДАТЕЛЕ
+           ========================================== */
+        .author-section {
+            padding: 50px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .author-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 35px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .author-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .author-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--accent-gold);
+        }
+
+        .author-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .author-label {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent-blue);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            margin-top: 10px;
+        }
+
+        /* ==========================================
+           ПОДВАЛ
+           ========================================== */
+        .footer { 
+            background: var(--bg-secondary); 
+            padding: 30px 50px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 30px; 
+        }
+
+        .footer .author { 
+            color: var(--text-primary); 
+            font-weight: 600; 
+            font-size: 1rem; 
+            margin-bottom: 5px;
+        }
+
+        .footer .institution { 
+            color: var(--text-secondary); 
+            font-size: 0.85rem; 
+            line-height: 1.5;
+        }
+
+        /* ==========================================
+           АНИМАЦИИ
+           ========================================== */
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* ==========================================
+           АДАПТИВНОСТЬ
+           ========================================== */
+                /* ==========================================
+           КНОПКА "НАВЕРХ"
+           ========================================== */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-gold));
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+
+        .scroll-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-top-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
+        }
+
+        .scroll-top-btn:active {
+            transform: translateY(-2px);
+        }
+
+@media (max-width: 768px) {
+            .header { padding: 0 20px; }
+            .nav-links { display: none; }
+            .hero h1 { font-size: 1.8rem; }
+            .groups-section, .author-section { padding: 30px 20px; }
+            .groups-grid { grid-template-columns: 1fr; }
+            .author-card { flex-direction: column; align-items: center; text-align: center; }
+            .stats-container { grid-template-columns: 1fr; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- ==========================================
+         ШАПКА С НАВИГАЦИЕЙ
+         ========================================== -->
+    <header class="header">
+        <div class="logo" onclick="goHome()">
+            <div class="logo-icon">🇷🇺</div>
+            <span>Единство России</span>
+        </div>
+        <nav class="nav-links">
+            <a class="nav-link" onclick="scrollToSection('groups')">Группы народов</a>
+            <a class="nav-link" onclick="scrollToSection('stats')">Статистика</a>
+            <a class="nav-link" onclick="scrollToSection('author')">Об авторе</a>
+        </nav>
+    </header>
+
+    <!-- ==========================================
+         ГЛАВНЫЙ БЛОК - ОПИСАНИЕ САЙТА
+         ========================================== -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Единство народов России</h1>
+            <p>Многонациональная культура, традиции и история самой большой страны мира. Узнайте о богатстве и разнообразии народов, объединённых общей судьбой.</p>
+            <button class="cta-button" onclick="scrollToSection('groups')">Исследовать группы</button>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         СЕКЦИЯ ГРУПП НАРОДОВ - 6 КНОПОК
+         Каждая кнопка открывает новую страницу в новой вкладке
+         ========================================== -->
+    <section class="groups-section" id="groups">
+        <h2 class="section-title">Языковые группы народов России</h2>
+        <div class="groups-grid">
+            
+            <!-- 1. Славянская группа -->
+            <a href="slavic.html"  class="group-button" onclick="handleGroupClick(event, 'slavic')">
+                <span class="external-indicator">↗</span>
+                <div class="group-icon">🏛️</div>
+                <h3>Славянская группа</h3>
+                <p>Самая многочисленная языковая семья в России. Народы с общими историческими корнями, культурными традициями и православным наследием.</p>
+                <div class="peoples-preview">
+                    <span class="people-mini-tag">Русские</span>
+                    <span class="people-mini-tag">Украинцы</span>
+                    <span class="people-mini-tag">Белорусы</span>
+                </div>
+            </a>
+
+            <!-- 2. Тюркская группа -->
+            <a href="turkic.html"  class="group-button" onclick="handleGroupClick(event, 'turkic')">
+                <span class="external-indicator">↗</span>
+                <div class="group-icon">🌙</div>
+                <h3>Тюркская группа</h3>
+                <p>Народы с богатой кочевой историей, распространённые от Поволжья до Сибири. Общие черты в языке, культуре и традициях.</p>
+                <div class="peoples-preview">
+                    <span class="people-mini-tag">Татары</span>
+                    <span class="people-mini-tag">Башкиры</span>
+                    <span class="people-mini-tag">Чуваши</span>
+                    <span class="people-mini-tag">Якуты</span>
+                </div>
+            </a>
+
+            <!-- 3. Финно-угорская группа -->
+            <a href="finno-ugric.html"  class="group-button" onclick="handleGroupClick(event, 'finno-ugric')">
+                <span class="external-indicator">↗</span>
+                <div class="group-icon">🌲</div>
+                <h3>Финно-угорская группа</h3>
+                <p>Аборигенные народы европейской части России и Урала с уникальным языком и природоохранными традициями.</p>
+                <div class="peoples-preview">
+                    <span class="people-mini-tag">Марийцы</span>
+                    <span class="people-mini-tag">Удмурты</span>
+                    <span class="people-mini-tag">Коми</span>
+                </div>
+            </a>
+
+            <!-- 4. Северокавказская группа -->
+            <a href="north-caucasian.html"  class="group-button" onclick="handleGroupClick(event, 'north-caucasian')">
+                <span class="external-indicator">↗</span>
+                <div class="group-icon">🏔️</div>
+                <h3>Северокавказская группа</h3>
+                <p>Горские народы с богатой воинской традицией, гостеприимством и уникальной культурой Кавказа.</p>
+                <div class="peoples-preview">
+                    <span class="people-mini-tag">Чеченцы</span>
+                    <span class="people-mini-tag">Аварцы</span>
+                    <span class="people-mini-tag">Кабардинцы</span>
+                    <span class="people-mini-tag">Лезгины</span>
+                    <span class="people-mini-tag">Ингуши</span>
+                    <span class="people-mini-tag">Адыгейцы</span>
+                    <span class="people-mini-tag">Черкесы</span>
+                </div>
+            </a>
+
+            <!-- 5. Чукотско-камчатская группа -->
+            <a href="chukotka.html"  class="group-button" onclick="handleGroupClick(event, 'chukotka')">
+                <span class="external-indicator">↗</span>
+                <div class="group-icon">❄️</div>
+                <h3>Чукотско-камчатская группа</h3>
+                <p>Коренные народы Дальнего Востока с уникальной культурой оленеводства и приспособления к суровому климату.</p>
+                <div class="peoples-preview">
+                    <span class="people-mini-tag">Чукчи</span>
+                    <span class="people-mini-tag">Коряки</span>
+                    <span class="people-mini-tag">Ительмены</span>
+                </div>
+            </a>
+
+            <!-- 6. Эскимосско-алеутская группа -->
+            <a href="eskimo-aleut.html"  class="group-button" onclick="handleGroupClick(event, 'eskimo-aleut')">
+                <span class="external-indicator">↗</span>
+                <div class="group-icon">🐋</div>
+                <h3>Эскимосско-алеутская группа</h3>
+                <p>Народы Чукотки и Берингова пролива с тысячелетней традицией морского зверобойного промысла.</p>
+                <div class="peoples-preview">
+                    <span class="people-mini-tag">Эскимосы</span>
+                    <span class="people-mini-tag">Алеуты</span>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- ==========================================
+         СТАТИСТИКА
+         ========================================== -->
+    <section class="stats-section" id="stats">
+        <div class="stats-container">
+            <div class="stat-item active" data-index="0">
+                <h4>190+</h4>
+                <p>Народов проживает<br>в России</p>
+            </div>
+            <div class="stat-item" data-index="1">
+                <h4>6</h4>
+                <p>Основных языковых<br>групп</p>
+            </div>
+            <div class="stat-item" data-index="2">
+                <h4>38</h4>
+                <p>Языков имеют<br>государственный статус</p>
+            </div>
+            <div class="stat-item" data-index="3">
+                <h4>1000+</h4>
+                <p>Лет истории<br>многонационального государства</p>
+            </div>
+        </div>
+        <div class="stats-dots">
+            <div class="stat-dot active" data-index="0"></div>
+            <div class="stat-dot" data-index="1"></div>
+            <div class="stat-dot" data-index="2"></div>
+            <div class="stat-dot" data-index="3"></div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         СЕКЦИЯ О СОЗДАТЕЛЕ
+         ========================================== -->
+    <section class="author-section" id="author">
+        <h2 class="section-title">О создателе проекта</h2>
+        <div class="author-card">
+            <div class="author-avatar">👨‍💻</div>
+            <div class="author-info">
+                <h3>Арсений Вартанян</h3>
+                <p><strong>Группа:</strong> КС-01-25</p>
+                <p><strong>Учебное заведение:</strong> Сафоновский филиал ОГБПОУ «Смоленская академия профессионального образования»</p>
+                <p><strong>Адрес:</strong> 215500, Смоленская обл., г. Сафоново, ул. Октябрьская, д.37</p>
+                <span class="author-label">WEB-разработка</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         ПОДВАЛ
+         ========================================== -->
+    <footer class="footer">
+        <p class="author">© 2026 Арсений Вартанян</p>
+        <p class="institution">Сафоновский филиал ОГБПОУ СмолАПО<br>Конкурс WEB-проектов «Сафоновский муниципальный округ»</p>
+    </footer>
+
+    <!-- ==========================================
+         JAVASCRIPT ЛОГИКА
+         ========================================== -->
+    <script>
+        // ==========================================
+        // ФУНКЦИЯ: Обработка клика по группе
+        // Добавляет эффект нажатия перед переходом
+        // ==========================================
+        function handleGroupClick(event, groupId) {
+            // Добавляем класс для визуального эффекта нажатия
+            const button = event.currentTarget;
+            button.style.transform = 'translateY(-2px) scale(0.98)';
+            
+            // Сохраняем в localStorage информацию о последнем выборе
+            localStorage.setItem('lastVisitedGroup', groupId);
+            localStorage.setItem('visitTime', new Date().toISOString());
+            
+            // Разрешаем стандартное поведение ссылки (открытие в новой вкладке)
+            console.log('Открывается группа:', groupId);
+            
+            // Возвращаем true чтобы ссылка сработала
+            return true;
+        }
+
+        // ==========================================
+        // ФУНКЦИЯ: Плавная прокрутка к секции
+        // ==========================================
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const offset = 70;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // ==========================================
+        // ФУНКЦИЯ: Возврат на главную
+        // ==========================================
+        function goHome() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ==========================================
+                // ==========================================
+        // КНОПКА "НАВЕРХ"
+        // ==========================================
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Показываем/скрываем кнопку при скролле
+        window.addEventListener('scroll', function() {
+            const scrollBtn = document.getElementById('scrollTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollBtn.classList.add('visible');
+            } else {
+                scrollBtn.classList.remove('visible');
+            }
+        });
+
+// СТАТИСТИКА: Автоматическая ротация
+        // ==========================================
+        let currentStatIndex = 0;
+        let statInterval;
+
+        function initStatsRotation() {
+            const statItems = document.querySelectorAll('.stat-item');
+            const statDots = document.querySelectorAll('.stat-dot');
+            const totalStats = statItems.length;
+
+            if (totalStats === 0) return;
+
+            function showStat(index) {
+                statItems.forEach(item => item.classList.remove('active'));
+                statDots.forEach(dot => dot.classList.remove('active'));
+
+                statItems[index].classList.add('active');
+                statDots[index].classList.add('active');
+                currentStatIndex = index;
+            }
+
+            function nextStat() {
+                const nextIndex = (currentStatIndex + 1) % totalStats;
+                showStat(nextIndex);
+            }
+
+            function startRotation() {
+                statInterval = setInterval(nextStat, 3000);
+            }
+
+            function stopRotation() {
+                clearInterval(statInterval);
+            }
+
+            // Клик по точкам
+            statDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    stopRotation();
+                    showStat(index);
+                    startRotation();
+                });
+            });
+
+            startRotation();
+        }
+
+        // ==========================================
+        // ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализируем ротацию статистики
+            initStatsRotation();
+            // Добавляем анимацию появления для кнопок групп
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Анимируем появление кнопок групп
+            document.querySelectorAll('.group-button').forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                observer.observe(el);
+            });
+        });
+    </script>
+    <!-- ==========================================
+         КНОПКА "НАВЕРХ"
+         ========================================== -->
+    <button class="scroll-top-btn" onclick="scrollToTop()" id="scrollTopBtn">↑</button>
+
+</body>
+</html>

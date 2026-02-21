@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Русские - Традиции и культура</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f0f13;
+            --bg-secondary: #1a1a23;
+            --bg-card: #242430;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --accent-red: #ef4444;
+            --accent-gold: #f59e0b;
+            --accent-blue: #3b82f6;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+
+        .header { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            height: 70px; 
+            background: rgba(15, 15, 19, 0.95); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid var(--border-color); 
+            z-index: 1000; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            padding: 0 50px; 
+        }
+        .logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            background: linear-gradient(135deg, #fff 0%, var(--accent-gold) 100%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            text-decoration: none; 
+        }
+        .logo-icon { 
+            width: 40px; 
+            height: 40px; 
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-gold)); 
+            border-radius: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.4rem; 
+            -webkit-text-fill-color: white; 
+        }
+        .nav-path {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .nav-path a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .nav-path a:hover {
+            color: var(--accent-gold);
+        }
+        .nav-path span {
+            color: var(--text-secondary);
+        }
+
+        .hero { 
+            margin-top: 70px; 
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(239,68,68,0.4), rgba(245,158,11,0.4)),
+                        url('images/russian-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.6);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .hero h1 { 
+            font-size: 3.5rem; 
+            margin-bottom: 15px; 
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .hero p { 
+            color: rgba(255,255,255,0.9); 
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content { 
+            padding: 50px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+
+        .info-section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-card-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .info-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+            cursor: zoom-in;
+        }
+
+        .info-card:hover .info-card-image img {
+            transform: scale(1.05);
+        }
+
+        .info-card-content {
+            padding: 25px;
+        }
+
+        .info-card h3 {
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 4/3;
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            position: relative;
+            cursor: zoom-in;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 20px 15px 15px;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .facts-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .facts-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .facts-list li:last-child {
+            border-bottom: none;
+        }
+
+        .fact-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .footer { 
+            background: var(--bg-secondary); 
+            padding: 30px 50px; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            margin-top: 50px; 
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 0 20px; }
+            .hero { height: 400px; }
+            .hero h1 { font-size: 2rem; }
+            .content { padding: 30px 20px; }
+            .nav-path span { display: none; }
+        }
+
+        /* LIGHTBOX */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            z-index: 10001;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">🏛️</div>
+            <span>Русские</span>
+        </a>
+        <div class="nav-path">
+            <a href="index.html">Главная</a>
+            <span>→</span>
+            <a href="slavic.html">Славяне</a>
+            <span>→</span>
+            <a href="#" style="color: var(--accent-gold);">Русские</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Русские</h1>
+            <p>Самый многочисленный народ России с тысячелетней историей, богатейшей культурой и самобытными традициями</p>
+        </div>
+    </section>
+
+    <div class="content">
+
+        <section class="info-section">
+            <h2 class="section-title">📋 Общая информация</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images/russian-people.jpg" alt="Русские люди в национальных костюмах" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Численность</h3>
+                        <p>В России проживает около 130 миллионов русских, что составляет около 80% населения страны. За рубежом проживает ещё около 30 миллионов представителей народа.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images/russian-language.jpg" alt="Русский язык и литература" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Язык</h3>
+                        <p>Русский язык относится к восточнославянской группе славянских языков. Является одним из шести официальных языков ООН и самым распространённым славянским языком в мире.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images/russian-church.jpg" alt="Русская православная церковь" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Религия</h3>
+                        <p>Основная религия — православное христианство. Также распространены старообрядчество, различные протестантские течения и традиционные народные верования.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images/russian-terem.jpg" alt="Русский терем" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Расселение</h3>
+                        <p>Русские расселены по всей территории России — от Балтики до Тихого океана. Крупнейшие диаспоры за рубежом: в США, Германии, Казахстане, Украине и Израиле.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2 class="section-title">🎭 Традиции и культура</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images/russian-costume.jpg" alt="Русский национальный костюм сарафан" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Национальный костюм</h3>
+                        <p>Традиционный русский костюм — сарафан для женщин и кафтан/рубаха для мужчин. Украшался вышивкой, бисером, жемчугом. Кокошник — головной убор замужних женщин — стал символом русской культуры.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images/russian-blini.jpg" alt="Русские блины с икрой и сметаной" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Кухня</h3>
+                        <p>Блины, щи, каша, пироги, квас, медовуха — основа русской кухни. Каждое блюдо имеет ритуальное значение: блины на Масленицу, кутья на Рождество, пасха на Пасху.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images/russian-izba.jpg" alt="Русская деревянная изба" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Архитектура</h3>
+                        <p>Изба — традиционный деревянный дом с печью, сердцем русского быта. Крепости (кремли), церкви с луковичными главами, мостовые города — характерные черты.</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-image">
+                        <img src="images/russian-music.jpg" alt="Русская народная музыка" onclick="openLightbox(this.src)">
+                    </div>
+                    <div class="info-card-content">
+                        <h3>Музыка и танцы</h3>
+                        <p>Хоровое пение, частушки, балалайка, гусли — неотъемлемая часть культуры. Народные танцы: хоровод, пляска, барыня. Русская народная музыка легла в основу многих классических произведений.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <h2 class="section-title">🎉 Народные праздники</h2>
+            <ul class="facts-list">
+                <li>
+                    <span class="fact-icon">🥞</span>
+                    <div>
+                        <strong>Масленица</strong>
+                        <p style="color: var(--text-secondary); margin-top: 5px;">Проводы зимы, неделя праздника перед Великим постом. Главное блюдо — блины, символ солнца (круглые, румяные).</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="fact-icon">🥚</span>
+                    <div>
+                        <strong>Пасха</strong>
+                        <p style="color: var(--text-secondary); margin-top: 5px;">Светлое Христово Воскресение. Крашеные яйца, кулич (пасха), христосование "Христос воскресе! — Воистину воскресе!".</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="fact-icon">🌿</span>
+                    <div>
+                        <strong>Троица</strong>
+                        <p style="color: var(--text-secondary); margin-top: 5px;">Пятидесятница. Украшение домов и церквей берёзовыми ветками, плетение венков, гадания.</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="fact-icon">🎄</span>
+                    <div>
+                        <strong>Рождество</strong>
+                        <p style="color: var(--text-secondary); margin-top: 5px;">7 января. Святки, колядки, рождественская кутья (сладкая каша с изюмом и мёдом).</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="info-section">
+            <h2 class="section-title">📸 Галерея</h2>
+            <div class="gallery">
+                <div class="gallery-item" onclick="openLightbox('images/russian-dance.jpg')">
+                    <img src="images/russian-dance.jpg" alt="Русский народный хоровод">
+                    <div class="gallery-caption">Народные танцы</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox('images/russian-gzhel.jpg')">
+                    <img src="images/russian-gzhel.jpg" alt="Гжельская роспись синим по белому">
+                    <div class="gallery-caption">Гжельская роспись</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox('images/russian-matreshka.jpg')">
+                    <img src="images/russian-matreshka.jpg" alt="Русская матрёшка">
+                    <div class="gallery-caption">Матрёшка</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox('images/russian-samovar.jpg')">
+                    <img src="images/russian-samovar.jpg" alt="Русский самовар">
+                    <div class="gallery-caption">Самовар и чаепитие</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section" style="background: var(--bg-card); padding: 40px; border-radius: 16px; border: 1px solid var(--border-color);">
+            <h2 class="section-title">💡 Интересные факты</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: 12px;">
+                    <h4 style="color: var(--accent-gold); margin-bottom: 10px;">📝 Алфавит</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Современный русский алфавит содержит 33 буквы. До реформы 1918 года было 35 букв.</p>
+                </div>
+                <div style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: 12px;">
+                    <h4 style="color: var(--accent-gold); margin-bottom: 10px;">🎨 Лаковая миниатюра</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Палех, Мстёра, Холуй — центры уникальной лаковой миниатюры на шкатулках.</p>
+                </div>
+                <div style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: 12px;">
+                    <h4 style="color: var(--accent-gold); margin-bottom: 10px;">🎭 Куклы</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">Русская матрёшка (первые сделаны в 1890 году) — один из самых узнаваемых символов России.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">
+            <a href="slavic.html" style="color: var(--accent-gold); text-decoration: none;">← Назад к славянам</a> | 
+            © 2026 Арсений Вартанян
+        </p>
+    </footer>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="event.stopPropagation(); closeLightbox()">&times;</span>
+        <img src="" alt="Увеличенное изображение" id="lightbox-img" onclick="event.stopPropagation()">
+    </div>
+
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>
+
+<!-- Created by Arseniy Vartanyan -->
