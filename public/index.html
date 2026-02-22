@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeek Chat</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f0f13; 
+            color: #fff; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .header { 
+            padding: 15px 20px; 
+            background: #1a1a23; 
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+        }
+        .header-icon { 
+            width: 35px; 
+            height: 35px; 
+            background: #3b82f6; 
+            border-radius: 8px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .chat-container { 
+            flex: 1; 
+            overflow-y: auto; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px;
+        }
+        .message { 
+            max-width: 80%; 
+            padding: 12px 16px; 
+            border-radius: 12px; 
+            line-height: 1.5;
+        }
+        .message.user { 
+            background: #3b82f6; 
+            align-self: flex-end; 
+            border-bottom-right-radius: 4px;
+        }
+        .message.assistant { 
+            background: #242430; 
+            align-self: flex-start; 
+            border-bottom-left-radius: 4px;
+        }
+        .message.error { 
+            background: rgba(239, 68, 68, 0.1); 
+            border: 1px solid rgba(239, 68, 68, 0.3); 
+            color: #ef4444; 
+            align-self: center;
+        }
+        .input-area { 
+            padding: 15px 20px; 
+            background: #1a1a23; 
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex; 
+            gap: 10px;
+        }
+        .chat-input { 
+            flex: 1; 
+            background: #242430; 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 8px; 
+            padding: 12px 15px; 
+            color: #fff; 
+            font-size: 1rem;
+            outline: none;
+        }
+        .chat-input:focus { border-color: #3b82f6; }
+        .send-btn { 
+            background: #3b82f6; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            padding: 12px 24px; 
+            font-size: 1rem; 
+            cursor: pointer;
+        }
+        .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .typing { display: none; padding: 12px; background: #242430; border-radius: 12px; align-self: flex-start; }
+        .typing.active { display: flex; gap: 4px; }
+        .dot { width: 8px; height: 8px; background: #888; border-radius: 50%; animation: bounce 1.4s infinite; }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-10px); } }
+        code { background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+        pre { background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; overflow-x: auto; margin: 8px 0; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-icon">◈</div>
+        <div>
+            <h1>DeepSeek R1</h1>
+            <p>Глубокое рассуждение</p>
+        </div>
+    </div>
+
+    <div class="chat-container" id="chatContainer">
+        <div class="message assistant">Привет! Я DeepSeek R1. Чем могу помочь?</div>
+    </div>
+
+    <div class="typing" id="typing">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <div class="input-area">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Введите сообщение...">
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">Отправить</button>
+    </div>
+
+    <script>
+        let messages = [];
+
+        function addMessage(role, content) {
+            const container = document.getElementById('chatContainer');
+            const div = document.createElement('div');
+            div.className = `message ${role}`;
+            
+            if (role === 'assistant') {
+                content = content.replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
+                content = content.replace(/`([^`]+)`/g, '<code>$1</code>');
+                div.innerHTML = content;
+            } else {
+                div.textContent = content;
+            }
+            
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function setLoading(loading) {
+            document.getElementById('typing').classList.toggle('active', loading);
+            document.getElementById('sendBtn').disabled = loading;
+            document.getElementById('chatInput').disabled = loading;
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            addMessage('user', text);
+            messages.push({ role: 'user', content: text });
+            input.value = '';
+            setLoading(true);
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ messages: messages })
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) throw new Error(data.error);
+                
+                const reply = data.choices[0].message.content;
+                messages.push({ role: 'assistant', content: reply });
+                addMessage('assistant', reply);
+                
+            } catch (err) {
+                addMessage('error', `Ошибка: ${err.message}`);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        document.getElementById('chatInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
+</body>
+</html>
