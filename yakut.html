@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Якуты (Саха) - Традиции и культура</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300 ;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300  ;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f13;
@@ -332,6 +332,33 @@
         .scroll-top-btn:active {
             transform: translateY(-2px);
         }
+
+        /* Стили для кликабельных праздников */
+        .holiday-link {
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            padding-right: 20px;
+            transition: color 0.3s;
+        }
+        .holiday-link:hover {
+            color: var(--accent-gold);
+        }
+        .holiday-link::after {
+            content: '↗';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .holiday-link:hover::after {
+            transform: translateY(-50%) translateX(2px);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -455,28 +482,28 @@
                 <li>
                     <span class="fact-icon">☀️</span>
                     <div>
-                        <strong>Ысыах (Ыһыах)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-ysyakh.jpg')">Ысыах (Ыһыах)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный национальный праздник — встреча летнего солнцестояния. Обряд освящения кумися («алгысь»), кумысные забеги, народные игры, хоровод «осуохай», скачки.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐴</span>
                     <div>
-                        <strong>День якутской лошади</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-horse.jpg')">День якутской лошади</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник коневодов. Скачки, борьба на конях, конкурс красоты среди лошадей, угощения кумысом.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">❄️</span>
                     <div>
-                        <strong>День оленевода</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-reindeer.jpg')">День оленевода</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник северных якутов. Скачки на оленьих упряжках, конкурсы среди пастухов, обряды благословения стада.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🔥</span>
                     <div>
-                        <strong>Обряд Ысыах</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-ritual.jpg')">Обряд Ысыах</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Поклонение трём стихиям: Огню (Аан Тойон), Земле (Айыы Ийэ) и Воде (Дьахтар Айыы). Зажигание «алыс» (священного костра).</p>
                     </div>
                 </li>
