@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Коряки - Традиции и культура</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300 ;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300  ;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f13;
@@ -332,6 +332,33 @@
         .scroll-top-btn:active {
             transform: translateY(-2px);
         }
+
+        /* Стили для кликабельных праздников */
+        .holiday-link {
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            padding-right: 20px;
+            transition: color 0.3s;
+        }
+        .holiday-link:hover {
+            color: var(--accent-gold);
+        }
+        .holiday-link::after {
+            content: '↗';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .holiday-link:hover::after {
+            transform: translateY(-50%) translateX(2px);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -455,28 +482,28 @@
                 <li>
                     <span class="fact-icon">🦌</span>
                     <div>
-                        <strong>Олют (Праздник оленей)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/koryak-olyut.jpg')">Олют (Праздник оленей)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный праздник коряков. Состязания на оленьих упряжках, борьба, поднятие камней, метание копья. Благословение стада.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐟</span>
                     <div>
-                        <strong>Праздник первого улова</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/koryak-first-catch.jpg')">Праздник первого улова</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Весенний обряд благодарности духам воды. Первую рыбу возвращают в воду с мольбами о богатом улове.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🔥</span>
                     <div>
-                        <strong>День корякской культуры</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/koryak-culture-day.jpg')">День корякской культуры</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник в Палане. Фольклорные выступления, конкурсы национальных костюмов, ярмарки ремёсел.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong>Обряд инициации</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/koryak-initiation.jpg')">Обряд инициации</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Древний обряд посвящения юношей во взрослые. Испытания выносливостью, знание традиций, шаманские ритуалы.</p>
                     </div>
                 </li>
