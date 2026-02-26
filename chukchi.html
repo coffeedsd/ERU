@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Чукчи - Традиции и культура</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300 ;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300  ;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f13;
@@ -332,6 +332,33 @@
         .scroll-top-btn:active {
             transform: translateY(-2px);
         }
+
+        /* Стили для кликабельных праздников */
+        .holiday-link {
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            padding-right: 20px;
+            transition: color 0.3s;
+        }
+        .holiday-link:hover {
+            color: var(--accent-gold);
+        }
+        .holiday-link::after {
+            content: '↗';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .holiday-link:hover::after {
+            transform: translateY(-50%) translateX(2px);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -455,28 +482,28 @@
                 <li>
                     <span class="fact-icon">🦌</span>
                     <div>
-                        <strong>Кэвэт (Праздник оленей)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chukchi-kevet.jpg')">Кэвэт (Праздник оленей)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный праздник чукчей. Состязания на оленьих упряжках, борьба, поднятие камней, народные игры. Благословение стада.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐋</span>
                     <div>
-                        <strong>Нулинт (Праздник кита)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chukchi-nulint.jpg')">Нулинт (Праздник кита)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">У прибрежных чукчей. Обряд благодарности духу кита за удачную охоту. Танцы, песни, угощения.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🔥</span>
                     <div>
-                        <strong>День народов Чукотки</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chukchi-day.jpg')">День народов Чукотки</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник в Анадыре. Фольклорные выступления, конкурсы национальных костюмов, ярмарки ремёсел.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong>Шаманские обряды</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chukchi-shaman.jpg')">Шаманские обряды</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Традиционные ритуалы исцеления, предсказания погоды, благословения перед охотой. Использование бубна.</p>
                     </div>
                 </li>
