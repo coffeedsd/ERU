@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лезгины - Традиции и культура</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300 ;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300  ;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f13;
@@ -332,6 +332,33 @@
         .scroll-top-btn:active {
             transform: translateY(-2px);
         }
+
+        /* Стили для кликабельных праздников */
+        .holiday-link {
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            padding-right: 20px;
+            transition: color 0.3s;
+        }
+        .holiday-link:hover {
+            color: var(--accent-gold);
+        }
+        .holiday-link::after {
+            content: '↗';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .holiday-link:hover::after {
+            transform: translateY(-50%) translateX(2px);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -455,28 +482,28 @@
                 <li>
                     <span class="fact-icon">🌙</span>
                     <div>
-                        <strong>Ураза-байрам (Ид аль-Фитр)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/lezgin-uraza-bayram.jpg')">Ураза-байрам (Ид аль-Фитр)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Окончание Рамадана. Праздничный намаз, угощения фишем и сладостями, подарки детям, посещение родных.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐑</span>
                     <div>
-                        <strong>Курбан-байрам (Ид аль-Адха)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/lezgin-kurban-bayram.jpg')">Курбан-байрам (Ид аль-Адха)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник жертвоприношения. Забой барана, раздача мяса, семейные застолья, молитвы.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">💃</span>
                     <div>
-                        <strong>Лезгинка — общекавказский танец</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/lezgin-dance-festival.jpg')">Лезгинка — общекавказский танец</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Несмотря на название, лезгинка — общий танец многих кавказских народов. Лезгинская версия отличается особой пластикой и темпераментом.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🏛️</span>
                     <div>
-                        <strong>День Дербента</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/lezgin-derbent-day.jpg')">День Дербента</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник древнего города, где проживает много лезгин. Исторические реконструкции, фольклор, ярмарки ковров.</p>
                     </div>
                 </li>
