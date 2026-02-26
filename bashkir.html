@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Башкиры - Традиции и культура</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300 ;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300  ;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f13;
@@ -332,6 +332,33 @@
         .scroll-top-btn:active {
             transform: translateY(-2px);
         }
+
+        /* Стили для кликабельных праздников */
+        .holiday-link {
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            padding-right: 20px;
+            transition: color 0.3s;
+        }
+        .holiday-link:hover {
+            color: var(--accent-gold);
+        }
+        .holiday-link::after {
+            content: '↗';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .holiday-link:hover::after {
+            transform: translateY(-50%) translateX(2px);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -455,28 +482,28 @@
                 <li>
                     <span class="fact-icon">🐴</span>
                     <div>
-                        <strong>Сабантуй</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/bashkir-sabantuy.jpg')">Сабантуй</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный национальный праздник. Борьба куреш, скачки, стрельба из лука, поднятие камня, конкурсы национальной одежды. Проводится ежегодно с 1990-х годов.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐝</span>
                     <div>
-                        <strong>Бал тыйын (Медовый Спас)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/bashkir-honey.jpg')">Бал тыйын (Медовый Спас)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник первого мёда. Освящение мёда в мечети, угощение гостей, ярмарки мёда. Символ плодородия и достатка.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌙</span>
                     <div>
-                        <strong>Ураза-байрам и Курбан-байрам</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/bashkir-bairam.jpg')">Ураза-байрам и Курбан-байрам</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Исламские праздники с башкирскими традициями. Праздничные намазы, угощения, посещение родных, помощь нуждающимся.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">⚔️</span>
                     <div>
-                        <strong>День Салавата Юлаева</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/bashkir-salavat.jpg')">День Салавата Юлаева</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">17 июня. Национальный герой, борец за свободу башкирского народа. Парады, концерты, спортивные соревнования.</p>
                     </div>
                 </li>
