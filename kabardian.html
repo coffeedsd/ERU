@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Кабардинцы - Традиции и культура</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300 ;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300  ;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f13;
@@ -332,6 +332,33 @@
         .scroll-top-btn:active {
             transform: translateY(-2px);
         }
+
+        /* Стили для кликабельных праздников */
+        .holiday-link {
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            padding-right: 20px;
+            transition: color 0.3s;
+        }
+        .holiday-link:hover {
+            color: var(--accent-gold);
+        }
+        .holiday-link::after {
+            content: '↗';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .holiday-link:hover::after {
+            transform: translateY(-50%) translateX(2px);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -455,28 +482,28 @@
                 <li>
                     <span class="fact-icon">🐴</span>
                     <div>
-                        <strong>День кабардинской лошади</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/kabardian-horse-day.jpg')">День кабардинской лошади</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный праздник коневодов. Выставка лошадей, скачки, конкурс красоты, демонстрация традиционной снаряжки.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌙</span>
                     <div>
-                        <strong>Ураза-байрам и Курбан-байрам</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/kabardian-bayram.jpg')">Ураза-байрам и Курбан-байрам</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Исламские праздники с кабардинскими традициями. Праздничные намазы, угощения шыльпсом, посещение родных.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">⚔️</span>
                     <div>
-                        <strong>Турнир по кабардинской борьбе</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/kabardian-wrestling-tournament.jpg')">Турнир по кабардинской борьбе</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Национальная борьба «дзю» — древнее боевое искусство. Турниры с элементами исторической реконструкции.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong>Фестиваль адыгской культуры</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/kabardian-culture-festival.jpg')">Фестиваль адыгской культуры</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Общий праздник кабардинцев, черкесов и адыгейцев. Танцы, песни, конкурсы костюмов, кулинарные фестивали.</p>
                     </div>
                 </li>
