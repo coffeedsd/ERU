@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Черкесы - Традиции и культура</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300 ;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300  ;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f13;
@@ -332,6 +332,33 @@
         .scroll-top-btn:active {
             transform: translateY(-2px);
         }
+
+        /* Стили для кликабельных праздников */
+        .holiday-link {
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            padding-right: 20px;
+            transition: color 0.3s;
+        }
+        .holiday-link:hover {
+            color: var(--accent-gold);
+        }
+        .holiday-link::after {
+            content: '↗';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .holiday-link:hover::after {
+            transform: translateY(-50%) translateX(2px);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -455,28 +482,28 @@
                 <li>
                     <span class="fact-icon">🌙</span>
                     <div>
-                        <strong>Ураза-байрам и Курбан-байрам</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/circassian-bayram.jpg')">Ураза-байрам и Курбан-байрам</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Исламские праздники с черкесскими традициями. Праздничные намазы, угощения, посещение родных, помощь бедным.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong>День черкесского костюма</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/circassian-costume-day.jpg')">День черкесского костюма</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник демонстрации национальных костюмов. Парады, конкурсы, фотосессии, мастер-классы по изготовлению.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐴</span>
                     <div>
-                        <strong>Конные фестивали</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/circassian-horse-festival.jpg')">Конные фестивали</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Традиционные скачки и конные игры. Демонстрация мастерства верховой езды, национальной снаряжи.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🏛️</span>
                     <div>
-                        <strong>День республики КЧР</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/circassian-republic-day.jpg')">День республики КЧР</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник в Черкесске. Фольклорные фестивали, конкурсы костюмов, спортивные соревнования, ярмарки ремёсел.</p>
                     </div>
                 </li>
