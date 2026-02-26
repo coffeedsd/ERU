@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Татары - Традиции и культура</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300 ;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300  ;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f13;
@@ -332,6 +332,33 @@
         .scroll-top-btn:active {
             transform: translateY(-2px);
         }
+
+        /* Стили для кликабельных праздников */
+        .holiday-link {
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            padding-right: 20px;
+            transition: color 0.3s;
+        }
+        .holiday-link:hover {
+            color: var(--accent-gold);
+        }
+        .holiday-link::after {
+            content: '↗';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .holiday-link:hover::after {
+            transform: translateY(-50%) translateX(2px);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -455,28 +482,28 @@
                 <li>
                     <span class="fact-icon">🌙</span>
                     <div>
-                        <strong>Ураза-байрам (Ид аль-Фитр)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/tatar-uraza.jpg')">Ураза-байрам (Ид аль-Фитр)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Окончание Рамадана. Праздничный намаз, угощения, подарки детям, помощь бедным. Готовят бэлеш, чак-чак.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐑</span>
                     <div>
-                        <strong>Курбан-байрам (Ид аль-Адха)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/tatar-kurban.jpg')">Курбан-байрам (Ид аль-Адха)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник жертвоприношения. Забой барана, раздача мяса родным и бедным, семейные застолья.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌷</span>
                     <div>
-                        <strong>Сабантуй</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/tatar-sabantuy.jpg')">Сабантуй</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Древний тюркский праздник плуга. Борьба куреш, скачки, бег в мешках, национальная борьба, конкурсы красоты.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong>Навруз</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/tatar-navruz.jpg')">Навруз</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Весенний праздник Нового года по лунному календарю. Символ обновления природы, зажигание костров.</p>
                     </div>
                 </li>
