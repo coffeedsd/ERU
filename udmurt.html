@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Удмурты - Традиции и культура</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300 ;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300  ;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f13;
@@ -332,6 +332,33 @@
         .scroll-top-btn:active {
             transform: translateY(-2px);
         }
+
+        /* Стили для кликабельных праздников */
+        .holiday-link {
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            padding-right: 20px;
+            transition: color 0.3s;
+        }
+        .holiday-link:hover {
+            color: var(--accent-gold);
+        }
+        .holiday-link::after {
+            content: '↗';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .holiday-link:hover::after {
+            transform: translateY(-50%) translateX(2px);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -455,28 +482,28 @@
                 <li>
                     <span class="fact-icon">🌾</span>
                     <div>
-                        <strong>Гербер (Гербер юбилей)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/udmurt-gerber.jpg')">Гербер (Гербер юбилей)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный национальный праздник — День удмуртского языка и культуры. Проводится ежегодно в Ижевске. Концерты, выставки, народные гуляния.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌸</span>
                     <div>
-                        <strong>Выль пукон (Весенний праздник)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/udmurt-spring.jpg')">Выль пукон (Весенний праздник)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Встреча весны. Обряды на плодородие, гадания, народные игры, хороводы.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌾</span>
                     <div>
-                        <strong>Корка пукон (Жатвенный праздник)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/udmurt-harvest.jpg')">Корка пукон (Жатвенный праздник)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник окончания уборки урожая. Благодарность духам за хлеб, семейные застолья.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎄</span>
                     <div>
-                        <strong>Шунды пукон (Рождество)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/udmurt-christmas.jpg')">Шунды пукон (Рождество)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Традиционное празднование с колядками, обрядовыми блюдами, посещением родных.</p>
                     </div>
                 </li>
