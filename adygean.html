@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Адыгейцы - Традиции и культура</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300 ;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300  ;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f13;
@@ -332,6 +332,33 @@
         .scroll-top-btn:active {
             transform: translateY(-2px);
         }
+
+        /* Стили для кликабельных праздников */
+        .holiday-link {
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            padding-right: 20px;
+            transition: color 0.3s;
+        }
+        .holiday-link:hover {
+            color: var(--accent-gold);
+        }
+        .holiday-link::after {
+            content: '↗';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .holiday-link:hover::after {
+            transform: translateY(-50%) translateX(2px);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -455,28 +482,28 @@
                 <li>
                     <span class="fact-icon">🐴</span>
                     <div>
-                        <strong>День адыгейского коня</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/adygean-horse-day.jpg')">День адыгейского коня</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный праздник коневодов. Скачки, конкурс красоты лошадей, демонстрация традиционной снаряжи, народные гуляния.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌙</span>
                     <div>
-                        <strong>Ураза-байрам и Курбан-байрам</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/adygean-bayram.jpg')">Ураза-байрам и Курбан-байрам</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Исламские праздники с адыгейскими традициями. Праздничные намазы, угощения шыпсом, посещение родных.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong>Шхуно — праздник урожая</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/adygean-shxuno.jpg')">Шхуно — праздник урожая</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Древний праздник сбора урожая. Обряды благодарности, народные игры, хороводы, угощения.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🏛️</span>
                     <div>
-                        <strong>День республики Адыгея</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/adygean-republic-day.jpg')">День республики Адыгея</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник в Майкопе. Фольклорные фестивали, конкурсы костюмов, спортивные соревнования, ярмарки.</p>
                     </div>
                 </li>
