@@ -332,6 +332,33 @@
         .scroll-top-btn:active {
             transform: translateY(-2px);
         }
+
+        /* Стили для кликабельных праздников */
+        .holiday-link {
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            padding-right: 20px;
+            transition: color 0.3s;
+        }
+        .holiday-link:hover {
+            color: var(--accent-gold);
+        }
+        .holiday-link::after {
+            content: '↗';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .holiday-link:hover::after {
+            transform: translateY(-50%) translateX(2px);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -455,28 +482,28 @@
                 <li>
                     <span class="fact-icon">🦭</span>
                     <div>
-                        <strong>Праздник морской выдры</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/aleut-otter.jpg')">Праздник морской выдры</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Обряд благодарности после удачной охоты. Танцы, песни, угощения. Морская выдра — основной промысловый зверь.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong>Танцы и песни</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/aleut-dance.jpg')">Танцы и песни</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Традиционные алеутские песни-рассказы (аягax̂) исполняются с барабаном. Танцы имитируют движения морских животных.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">⛪</span>
                     <div>
-                        <strong>Преображение Господне</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/aleut-transfiguration.jpg')">Преображение Господне</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный православный праздник. Крестный ход вокруг церкви, освящение воды, народные гуляния.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎪</span>
                     <div>
-                        <strong>День алеутской культуры</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/aleut-culture-day.jpg')">День алеутской культуры</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник на Командорских островах. Мастер-классы по ткачеству из травы, выставки, фольклорные выступления.</p>
                     </div>
                 </li>
