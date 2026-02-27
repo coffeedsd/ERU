@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Белорусы - Традиции и культура</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300  ;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300   ;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f13;
@@ -359,6 +359,67 @@
             transform: translateY(-50%) translateX(2px);
             opacity: 1;
         }
+
+        /* ВИКТОРИНА СТИЛИ */
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 600px) {
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+        }
+        .quiz-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            text-align: left;
+        }
+        .quiz-btn:hover:not(:disabled) {
+            background: var(--accent-gold);
+            color: var(--bg-primary);
+            border-color: var(--accent-gold);
+        }
+        .quiz-btn.correct {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: white;
+        }
+        .quiz-btn.wrong {
+            background: #ef4444;
+            border-color: #ef4444;
+            color: white;
+        }
+        .quiz-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .quiz-feedback {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+        .quiz-feedback.correct {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid #22c55e;
+            color: #22c55e;
+            display: block;
+        }
+        .quiz-feedback.wrong {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -550,6 +611,35 @@
             </div>
         </section>
 
+        <!-- ==========================================
+             ВИКТОРИНА
+             ========================================== -->
+        <section class="info-section" style="background: var(--bg-card); padding: 40px; border-radius: 16px; border: 1px solid var(--border-color); margin-top: 50px;">
+            <h2 class="section-title">🎯 Викторина: Насколько хорошо вы знаете белорусскую культуру?</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 30px;">Ответьте на вопросы на основе информации с этой страницы.</p>
+            
+            <div id="quiz-box">
+                <div id="question-box"></div>
+                <div id="result-box" style="display: none; text-align: center;">
+                    <h3 style="color: var(--accent-gold); font-size: 2rem; margin-bottom: 20px;">🎉 Викторина завершена!</h3>
+                    <p style="font-size: 1.3rem; margin-bottom: 10px;">Правильных ответов:</p>
+                    <p style="font-size: 3rem; font-weight: bold; margin-bottom: 20px;"><span id="final-score" style="color: #22c55e;">0</span> <span style="color: var(--text-secondary);">/ 8</span></p>
+                    <p id="result-text" style="color: var(--text-secondary); margin-bottom: 30px; font-size: 1.1rem;"></p>
+                    <button onclick="startQuiz()" style="background: linear-gradient(135deg, var(--accent-red), var(--accent-gold)); color: white; border: none; padding: 15px 40px; border-radius: 10px; font-size: 1.1rem; cursor: pointer;">🔄 Пройти ещё раз</button>
+                </div>
+            </div>
+            
+            <div id="progress-box" style="margin-top: 30px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span style="color: var(--text-secondary);">Прогресс</span>
+                    <span id="progress-num" style="color: var(--accent-gold);">1/8</span>
+                </div>
+                <div style="background: var(--bg-secondary); height: 8px; border-radius: 4px; overflow: hidden;">
+                    <div id="progress-line" style="background: linear-gradient(90deg, var(--accent-red), var(--accent-gold)); height: 100%; width: 12.5%; transition: width 0.3s;"></div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
     <footer class="footer">
@@ -605,6 +695,103 @@
                 scrollBtn.classList.remove('visible');
             }
         });
+
+        // ==========================================
+        // ВИКТОРИНА
+        // ==========================================
+        const questions = [
+            { q: "Сколько белорусов проживает в России?", a: ["Около 200 тысяч", "Около 800 тысяч", "Около 2 миллионов", "Около 5 миллионов"], correct: 1 },
+            { q: "К какой языковой группе относится белорусский язык?", a: ["Западнославянской", "Южнославянской", "Восточнославянской", "Севернославянской"], correct: 2 },
+            { q: "Какое блюдо является визитной карточкой белорусской кухни?", a: ["Борщ", "Блины", "Драники", "Вареники"], correct: 2 },
+            { q: "Почему белорусский костюм отличается белым цветом?", a: ["Отсюда название народа", "Так удобнее работать", "Белый цвет дешевле", "Традиция крестьян"], correct: 0 },
+            { q: "Какой праздник является самым любимым народным праздником?", a: ["Рождество", "Пасха", "Купалье", "Масленица"], correct: 2 },
+            { q: "Как называется традиционное белорусское жилище?", a: ["Хата", "Изба", "Сруб", "Терем"], correct: 2 },
+            { q: "Какой инструмент является традиционным для белорусов?", a: ["Балалайка", "Бандура", "Цимбалы", "Гусли"], correct: 2 },
+            { q: "Какие два замка включены в список ЮНЕСКО?", a: ["Мирский и Несвижский", "Вавель и Мальборк", "Кремль и Эрмитаж", "Петергоф и Царское Село"], correct: 0 }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+        let answered = false;
+
+        function startQuiz() {
+            currentQ = 0;
+            score = 0;
+            answered = false;
+            document.getElementById('result-box').style.display = 'none';
+            document.getElementById('question-box').style.display = 'block';
+            document.getElementById('progress-box').style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = questions[currentQ];
+            let html = '<h3 style="color: var(--accent-gold); margin-bottom: 15px;">Вопрос ' + (currentQ + 1) + ' из 8</h3>';
+            html += '<p style="font-size: 1.1rem; margin-bottom: 20px;">' + q.q + '</p>';
+            html += '<div class="quiz-options">';
+            for (let i = 0; i < q.a.length; i++) {
+                html += '<button class="quiz-btn" id="btn' + i + '" onclick="answer(' + i + ')">' + q.a[i] + '</button>';
+            }
+            html += '</div>';
+            html += '<div class="quiz-feedback" id="feedback"></div>';
+            document.getElementById('question-box').innerHTML = html;
+            document.getElementById('progress-num').textContent = (currentQ + 1) + '/8';
+            document.getElementById('progress-line').style.width = ((currentQ + 1) / 8 * 100) + '%';
+        }
+
+        function answer(idx) {
+            if (answered) return;
+            answered = true;
+            
+            const q = questions[currentQ];
+            const btns = document.querySelectorAll('.quiz-btn');
+            const feedback = document.getElementById('feedback');
+            
+            for (let i = 0; i < btns.length; i++) {
+                btns[i].disabled = true;
+                if (i === q.correct) {
+                    btns[i].classList.add('correct');
+                } else if (i === idx && i !== q.correct) {
+                    btns[i].classList.add('wrong');
+                }
+            }
+            
+            if (idx === q.correct) {
+                score++;
+                feedback.textContent = '✓ Правильно!';
+                feedback.className = 'quiz-feedback correct';
+            } else {
+                feedback.textContent = '✗ Неправильно';
+                feedback.className = 'quiz-feedback wrong';
+            }
+            
+            setTimeout(function() {
+                currentQ++;
+                if (currentQ < questions.length) {
+                    answered = false;
+                    showQuestion();
+                } else {
+                    showResults();
+                }
+            }, 1500);
+        }
+
+        function showResults() {
+            document.getElementById('question-box').style.display = 'none';
+            document.getElementById('progress-box').style.display = 'none';
+            document.getElementById('result-box').style.display = 'block';
+            document.getElementById('final-score').textContent = score;
+            
+            let msg = '';
+            if (score === 8) msg = '🏆 Отлично! Вы эксперт!';
+            else if (score >= 6) msg = '👍 Хороший результат!';
+            else if (score >= 4) msg = '📚 Неплохо, но можно лучше.';
+            else msg = '🎓 Стоит перечитать материал.';
+            document.getElementById('result-text').textContent = msg;
+        }
+
+        // Старт при загрузке
+        startQuiz();
     </script>
 </body>
 </html>
