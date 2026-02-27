@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Юпики - Традиции и культура</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300 ;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300 ;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f13;
@@ -332,6 +332,33 @@
         .scroll-top-btn:active {
             transform: translateY(-2px);
         }
+
+        /* Стили для кликабельных праздников */
+        .holiday-link {
+            color: var(--text-primary);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            padding-right: 20px;
+            transition: color 0.3s;
+        }
+        .holiday-link:hover {
+            color: var(--accent-gold);
+        }
+        .holiday-link::after {
+            content: '↗';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .holiday-link:hover::after {
+            transform: translateY(-50%) translateX(2px);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -455,28 +482,28 @@
                 <li>
                     <span class="fact-icon">🐋</span>
                     <div>
-                        <strong>Праздник кита (Нулинт)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yupik-whale.jpg')">Праздник кита (Нулинт)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный праздник после удачной охоты. Обряд благодарности духу моря. Танцы, песни, угощения из китового мяса.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong>Танцы маскарада</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yupik-mask.jpg')">Танцы маскарада</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Зимние обрядовые танцы в масках духов животных. Исполняются для успешной охоты и благополучия.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐕</span>
                     <div>
-                        <strong>Старт собачьих упряжек</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yupik-sled.jpg')">Старт собачьих упряжек</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Соревнования на традиционных упряжках. Проверка выносливости собак и мастерства погонщика.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎪</span>
                     <div>
-                        <strong>День эскимосской культуры</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yupik-culture-day.jpg')">День эскимосской культуры</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник в Новом Чаплино. Соревнования по метании гарпуна, стрельбе из лука, национальные игры.</p>
                     </div>
                 </li>
@@ -581,4 +608,3 @@
 </html>
 
 <!-- Created by Arseniy Vartanyan -->
-
