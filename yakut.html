@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Якуты (Саха) - Традиции и культура</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300   ;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f13;
@@ -182,6 +182,46 @@
             color: var(--text-secondary);
             line-height: 1.7;
             font-size: 0.95rem;
+        }
+
+        /* Стили для кликабельной кнопки Кухня */
+        .kitchen-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .kitchen-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+        }
+
+        .kitchen-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+
+        .kitchen-card:hover .info-card-content h3 {
+            color: var(--accent-gold);
+        }
+
+        .kitchen-card .info-card-content h3::after {
+            content: '↗';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+
+        .kitchen-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1;
+            color: var(--accent-gold);
         }
         
         .gallery {
@@ -420,6 +460,164 @@
             color: #ef4444;
             display: block;
         }
+
+        /* МОДАЛЬНОЕ ОКНО РЕЦЕПТА - УВЕЛИЧЕННОЕ */
+        .recipe-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+        .recipe-modal.active {
+            display: flex;
+        }
+        .recipe-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 1200px;
+            width: 95%;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+        }
+        .recipe-image {
+            flex: 0 0 55%;
+            position: relative;
+            overflow: hidden;
+            min-height: 600px;
+        }
+        .recipe-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .recipe-content {
+            flex: 1;
+            padding: 50px;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+        .recipe-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            z-index: 10001;
+            background: rgba(0,0,0,0.6);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        .recipe-close:hover {
+            background: var(--accent-gold);
+            transform: rotate(90deg);
+            border-color: var(--accent-gold);
+        }
+        .recipe-title {
+            color: var(--accent-gold);
+            font-size: 2.2rem;
+            margin-bottom: 35px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        .recipe-section {
+            margin-bottom: 35px;
+        }
+        .recipe-section h4 {
+            color: var(--accent-red);
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .recipe-list {
+            list-style: none;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        .recipe-list li {
+            padding: 12px 0;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.7;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .recipe-list li:last-child {
+            border-bottom: none;
+        }
+        .recipe-list li::before {
+            content: '•';
+            color: var(--accent-gold);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.4rem;
+            line-height: 1.2;
+        }
+        
+        @media (max-width: 1024px) {
+            .recipe-container {
+                max-width: 95%;
+            }
+            .recipe-image {
+                flex: 0 0 50%;
+                min-height: 500px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .recipe-modal {
+                padding: 20px;
+            }
+            .recipe-container {
+                flex-direction: column;
+                max-height: 95vh;
+                width: 100%;
+            }
+            .recipe-image {
+                flex: 0 0 250px;
+                min-height: 250px;
+                height: 250px;
+            }
+            .recipe-content {
+                padding: 30px;
+            }
+            .recipe-title {
+                font-size: 1.6rem;
+                margin-bottom: 25px;
+            }
+            .recipe-close {
+                top: 15px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 2.5rem;
+            }
+            .recipe-section h4 {
+                font-size: 1.1rem;
+            }
+            .recipe-list {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -505,9 +703,10 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <!-- КЛИКАБЕЛЬНАЯ КАРТОЧКА КУХНИ -->
+                <div class="info-card kitchen-card" onclick="openRecipeModal()">
                     <div class="info-card-image">
-                        <img src="images/yakut-food.jpg" alt="Якутская кухня: строганина, кымыс" onclick="openLightbox(this.src)">
+                        <img src="images/yakut-food.jpg" alt="Якутская кухня: строганина, кымыс">
                     </div>
                     <div class="info-card-content">
                         <h3>Кухня</h3>
@@ -655,6 +854,60 @@
         <img src="" alt="Увеличенное изображение" id="lightbox-img" onclick="event.stopPropagation()">
     </div>
 
+    <!-- МОДАЛЬНОЕ ОКНО РЕЦЕПТА СТРОГАНИНЫ -->
+    <div class="recipe-modal" id="recipeModal">
+        <span class="recipe-close" onclick="closeRecipeModal()">&times;</span>
+        <div class="recipe-container">
+            <div class="recipe-image">
+                <img src="images/yakut-food.jpg" alt="Якутская строганина">
+            </div>
+            <div class="recipe-content">
+                <h2 class="recipe-title">Рецепт якутской строганины</h2>
+                
+                <div class="recipe-section">
+                    <h4>🐟 Основные ингредиенты:</h4>
+                    <ul class="recipe-list">
+                        <li>Свежемороженая рыба (омуль, нельма, сиг, чир) — 1 кг</li>
+                        <li>Мороженая рыба должна быть крепкой, но не ледяной</li>
+                        <li>Температура рыбы: -8°C до -12°C (оптимальная для нарезки)</li>
+                    </ul>
+                </div>
+
+                <div class="recipe-section">
+                    <h4>🔪 Для нарезки:</h4>
+                    <ul class="recipe-list">
+                        <li>Острый нож с длинным лезвием (специальный нож для строганины)</li>
+                        <li>Доска из твёрдой породы дерева</li>
+                        <li>Терпение и навык тонкой нарезки</li>
+                    </ul>
+                </div>
+
+                <div class="recipe-section">
+                    <h4>🧂 Для подачи:</h4>
+                    <ul class="recipe-list">
+                        <li>Крупная соль — по вкусу</li>
+                        <li>Чёрный молотый перец — щепотка</li>
+                        <li>Лук репчатый (свежий или маринованный) — 1 шт.</li>
+                        <li>Растительное масло — 2 ст. л. (по желанию)</li>
+                        <li>Лимонный сок — 1 ч. л. (по желанию)</li>
+                    </ul>
+                </div>
+
+                <div class="recipe-section">
+                    <h4>🍽️ Приготовление:</h4>
+                    <ul class="recipe-list">
+                        <li>Рыбу очистить от чешуи, выпотрошить, удалить голову и хвост</li>
+                        <li>Нарезать тонкими длинными лентами толщиной 1–2 мм</li>
+                        <li>Нарезать поперёк волокон, а не вдоль</li>
+                        <li>Выложить на тарелку веером или горкой</li>
+                        <li>Посыпать солью, перцем, добавить лук</li>
+                        <li>Подавать сразу, пока рыба не оттаяла</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ==========================================
          КНОПКА "НАВЕРХ"
          ========================================== -->
@@ -672,8 +925,29 @@
             document.body.style.overflow = '';
         }
 
+        // Модальное окно рецепта
+        function openRecipeModal() {
+            document.getElementById('recipeModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeRecipeModal() {
+            document.getElementById('recipeModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Закрытие по клику на фон
+        document.getElementById('recipeModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeRecipeModal();
+            }
+        });
+
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'Escape') {
+                closeLightbox();
+                closeRecipeModal();
+            }
         });
 
         // ==========================================
