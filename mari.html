@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Марийцы - Традиции и культура</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300    ;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-primary: #0f0f13;
@@ -224,14 +224,21 @@
             color: var(--accent-gold);
         }
         
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+        /* ГАЛЕРЕЯ С КАРУСЕЛЬЮ */
+        .gallery-wrapper {
+            position: relative;
             margin-top: 30px;
+            overflow: hidden;
         }
-        
+
+        .gallery-container {
+            display: flex;
+            gap: 20px;
+            transition: transform 0.4s ease;
+        }
+
         .gallery-item {
+            flex: 0 0 calc(25% - 15px);
             aspect-ratio: 4/3;
             background: var(--bg-card);
             border-radius: 12px;
@@ -240,18 +247,36 @@
             position: relative;
             cursor: zoom-in;
         }
-        
+
+        @media (max-width: 1024px) {
+            .gallery-item {
+                flex: 0 0 calc(33.333% - 14px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-item {
+                flex: 0 0 calc(50% - 10px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-item {
+                flex: 0 0 100%;
+            }
+        }
+
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
         }
-        
+
         .gallery-item:hover img {
             transform: scale(1.05);
         }
-        
+
         .gallery-caption {
             position: absolute;
             bottom: 0;
@@ -261,6 +286,48 @@
             padding: 20px 15px 15px;
             color: white;
             font-size: 0.9rem;
+        }
+
+        /* СТРЕЛКИ КАРУСЕЛИ - ПОЯВЛЯЮТСЯ ПРИ НАВЕДЕНИИ, ПРОЗРАЧНО-ОРАНЖЕВЫЕ */
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(245, 158, 11, 0.3);
+            border: 2px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            transition: all 0.3s ease;
+            z-index: 10;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .gallery-wrapper:hover .gallery-arrow {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .gallery-arrow:hover {
+            background: rgba(245, 158, 11, 0.5);
+            border-color: var(--accent-gold);
+            transform: translateY(-50%) scale(1.1);
+            color: white;
+        }
+
+        .gallery-arrow.prev {
+            left: 10px;
+        }
+
+        .gallery-arrow.next {
+            right: 10px;
         }
         
         .facts-list {
@@ -299,6 +366,13 @@
             .hero h1 { font-size: 2rem; }
             .content { padding: 30px 20px; }
             .nav-path span { display: none; }
+            .gallery-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+                opacity: 1;
+                visibility: visible;
+            }
         }
 
         /* LIGHTBOX */
@@ -772,22 +846,42 @@
 
         <section class="info-section">
             <h2 class="section-title">📸 Галерея</h2>
-            <div class="gallery">
-                <div class="gallery-item" onclick="openLightbox('images2/mari-shumbrat.jpg')">
-                    <img src="images2/mari-shumbrat.jpg" alt="Праздник Шумбрат">
-                    <div class="gallery-caption">Праздник Шумбрат (Новый год)</div>
-                </div>
-                <div class="gallery-item" onclick="openLightbox('images2/mari-forest.jpg')">
-                    <img src="images2/mari-forest.jpg" alt="Священная марийская роща">
-                    <div class="gallery-caption">Священная роща (кюсюдо)</div>
-                </div>
-                <div class="gallery-item" onclick="openLightbox('images2/mari-crafts.jpg')">
-                    <img src="images2/mari-crafts.jpg" alt="Марийские народные промыслы">
-                    <div class="gallery-caption">Ткачество и вышивка</div>
-                </div>
-                <div class="gallery-item" onclick="openLightbox('images2/mari-embroidery.jpg')">
-                    <img src="images2/mari-embroidery.jpg" alt="Марийская вышивка">
-                    <div class="gallery-caption">Узоры марийской вышивки</div>
+            <div class="gallery-wrapper">
+                <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
+                <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
+                <div class="gallery-container" id="galleryContainer">
+                    <div class="gallery-item" onclick="openLightbox('images2/mari-shumbrat.jpg')">
+                        <img src="images2/mari-shumbrat.jpg" alt="Праздник Шумбрат">
+                        <div class="gallery-caption">Праздник Шумбрат (Новый год)</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images2/mari-forest.jpg')">
+                        <img src="images2/mari-forest.jpg" alt="Священная марийская роща">
+                        <div class="gallery-caption">Священная роща (кюсюдо)</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images2/mari-crafts.jpg')">
+                        <img src="images2/mari-crafts.jpg" alt="Марийские народные промыслы">
+                        <div class="gallery-caption">Ткачество и вышивка</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images2/mari-embroidery.jpg')">
+                        <img src="images2/mari-embroidery.jpg" alt="Марийская вышивка">
+                        <div class="gallery-caption">Узоры марийской вышивки</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images6/mari-costume.jpg')">
+                        <img src="images6/mari-costume.jpg" alt="Марийский национальный костюм">
+                        <div class="gallery-caption">Традиционный костюм</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images6/mari-sacred-grove.jpg')">
+                        <img src="images6/mari-sacred-grove.jpg" alt="Языческий обряд в роще">
+                        <div class="gallery-caption">Обряд в священной роще</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images6/mari-dance.jpg')">
+                        <img src="images6/mari-dance.jpg" alt="Марийский народный танец">
+                        <div class="gallery-caption">Народный танец</div>
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('images6/mari-izba.jpg')">
+                        <img src="images6/mari-izba.jpg" alt="Интерьер марийской избы">
+                        <div class="gallery-caption">Интерьер избы</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -906,6 +1000,84 @@
     <button class="scroll-top-btn" onclick="scrollToTop()" id="scrollTopBtn">↑</button>
 
     <script>
+        // ==========================================
+        // ГАЛЕРЕЯ КАРУСЕЛЬ (БЕСКОНЕЧНАЯ ЛЕНТА)
+        // ==========================================
+        let galleryPosition = 0;
+        const galleryContainer = document.getElementById('galleryContainer');
+        let galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+        const originalItemsCount = galleryItems.length;
+
+        function getItemsPerView() {
+            const width = window.innerWidth;
+            if (width <= 480) return 1;
+            if (width <= 768) return 2;
+            if (width <= 1024) return 3;
+            return 4;
+        }
+
+        function initGallery() {
+            // Дублируем элементы для бесконечной прокрутки
+            // Клонируем первые 4 элемента в конец
+            galleryItems.slice(0, 4).forEach(item => {
+                const clone = item.cloneNode(true);
+                galleryContainer.appendChild(clone);
+            });
+            // Клонируем последние 4 элемента в начало
+            galleryItems.slice(-4).reverse().forEach(item => {
+                const clone = item.cloneNode(true);
+                galleryContainer.insertBefore(clone, galleryContainer.firstChild);
+            });
+            
+            // Обновляем список элементов
+            galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+            // Начинаем с позиции 4 (после клонированных элементов в начале)
+            galleryPosition = 4;
+            
+            updateGallery(false);
+        }
+
+        function moveGallery(direction) {
+            galleryPosition += direction;
+            updateGallery(true);
+            
+            // Проверяем, нужно ли сделать скачок для бесконечности
+            setTimeout(() => {
+                // Если дошли до клонов в конце, прыгаем в начало
+                if (galleryPosition >= originalItemsCount + 4) {
+                    galleryPosition = 4;
+                    updateGallery(false);
+                }
+                // Если дошли до клонов в начале, прыгаем в конец
+                if (galleryPosition < 4) {
+                    galleryPosition = originalItemsCount + 3;
+                    updateGallery(false);
+                }
+            }, 400); // Ждем окончания анимации
+        }
+
+        function updateGallery(animate) {
+            const itemWidth = galleryItems[0].offsetWidth;
+            const gap = 20;
+            const offset = galleryPosition * (itemWidth + gap);
+            
+            if (!animate) {
+                galleryContainer.style.transition = 'none';
+            } else {
+                galleryContainer.style.transition = 'transform 0.4s ease';
+            }
+            
+            galleryContainer.style.transform = `translateX(-${offset}px)`;
+        }
+
+        // Обновление при изменении размера окна
+        window.addEventListener('resize', function() {
+            updateGallery(false);
+        });
+
+        // Инициализация галереи
+        initGallery();
+
         function openLightbox(src) {
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
