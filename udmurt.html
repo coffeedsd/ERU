@@ -406,6 +406,38 @@
             z-index: 10001;
         }
 
+        .lightbox-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55px;
+            height: 55px;
+            background: rgba(245, 158, 11, 0.3);
+            border: 2px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #f5a623;
+            transition: all 0.3s ease;
+            z-index: 10001;
+            line-height: 1;
+        }
+        .lightbox-arrow:hover {
+            background: rgba(245, 158, 11, 0.6);
+            border-color: #f5a623;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        @media (max-width: 768px) {
+            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
+            .lightbox-prev { left: 8px; }
+            .lightbox-next { right: 8px; }
+        }
         /* ==========================================
            КНОПКА "НАВЕРХ"
            ========================================== */
@@ -945,7 +977,9 @@
     <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close" onclick="event.stopPropagation(); closeLightbox()">&times;</span>
+        <button class="lightbox-arrow lightbox-prev" onclick="event.stopPropagation(); lightboxNav(-1)">&#8592;</button>
         <img src="" alt="Увеличенное изображение" id="lightbox-img" onclick="event.stopPropagation()">
+        <button class="lightbox-arrow lightbox-next" onclick="event.stopPropagation(); lightboxNav(1)">&#8594;</button>
     </div>
 
     <!-- МОДАЛЬНОЕ ОКНО РЕЦЕПТА ПЕРЕПЕЧЕЙ -->
@@ -1078,16 +1112,52 @@
         // Инициализация галереи
         initGallery();
 
+        let lightboxSrcs = [];
+        let lightboxIndex = 0;
+
         function openLightbox(src) {
+            // Collect all gallery image sources
+            lightboxSrcs = [];
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                // Get src from onclick attribute or from img inside
+                const onclick = item.getAttribute('onclick') || '';
+                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                if (match) {
+                    lightboxSrcs.push(match[1]);
+                } else {
+                    const img = item.querySelector('img');
+                    if (img) lightboxSrcs.push(img.src);
+                }
+            });
+            // Deduplicate (clones)
+            lightboxSrcs = [...new Set(lightboxSrcs)];
+            
+            lightboxIndex = lightboxSrcs.indexOf(src);
+            if (lightboxIndex === -1) lightboxIndex = 0;
+            
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
+        }
+
+        function lightboxNav(dir) {
+            if (lightboxSrcs.length === 0) return;
+            lightboxIndex = (lightboxIndex + dir + lightboxSrcs.length) % lightboxSrcs.length;
+            document.getElementById('lightbox-img').src = lightboxSrcs[lightboxIndex];
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
             document.body.style.overflow = '';
         }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            if (e.key === 'ArrowLeft') lightboxNav(-1);
+            if (e.key === 'ArrowRight') lightboxNav(1);
+            if (e.key === 'Escape') closeLightbox();
+        });
 
         // Модальное окно рецепта
         function openRecipeModal() {
