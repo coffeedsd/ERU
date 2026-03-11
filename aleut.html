@@ -1210,6 +1210,8 @@
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
+        const PEOPLE_ID = 'aleut';
+
         const questions = [
             { q: "Что означает название «унангax̂»?", a: ["Морские люди", "Береговые люди", "Островные люди", "Горные люди"], correct: 1 },
             { q: "Сколько алеутов проживает в России?", a: ["Около 100 человек", "Около 400 человек", "Около 1 тысячи", "Около 5 тысяч"], correct: 1 },
@@ -1224,11 +1226,13 @@
         let currentQ = 0;
         let score = 0;
         let answered = false;
+        let quizAnswers = [];
 
         function startQuiz() {
             currentQ = 0;
             score = 0;
             answered = false;
+            quizAnswers = [];
             document.getElementById('result-box').style.display = 'none';
             document.getElementById('question-box').style.display = 'block';
             document.getElementById('progress-box').style.display = 'block';
@@ -1267,6 +1271,7 @@
                 }
             }
             
+            quizAnswers.push(idx);
             if (idx === q.correct) {
                 score++;
                 feedback.textContent = '✓ Правильно!';
@@ -1299,6 +1304,34 @@
             else if (score >= 4) msg = '📚 Неплохо, но можно лучше.';
             else msg = '🎓 Стоит перечитать материал.';
             document.getElementById('result-text').textContent = msg;
+        }
+
+
+        // ==========================================
+        // ОТПРАВКА РЕЗУЛЬТАТОВ ВИКТОРИНЫ НА БЭКЕНД
+        // ==========================================
+        const BACKEND_URL = 'https://eru-6h89.onrender.com';
+
+        async function sendQuizResult() {
+            const questionResults = questions.map((q, i) => ({
+                id: 'q' + i,
+                text: q.q,
+                correct: quizAnswers[i] === q.correct
+            }));
+            try {
+                await fetch(BACKEND_URL + '/api/quiz-result', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        peopleId: PEOPLE_ID,
+                        score: score,
+                        total: questions.length,
+                        questions: questionResults
+                    })
+                });
+            } catch(e) {
+                // Тихо игнорируем ошибку сети
+            }
         }
 
         // Старт при загрузке
