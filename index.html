@@ -444,8 +444,131 @@
         }
 
         /* ==========================================
-           СЕКЦИЯ О СОЗДАТЕЛЕ
+           БЛОК СТАТИСТИКИ ВИКТОРИН
            ========================================== */
+        .quiz-section {
+            margin-top: 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .quiz-stats-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .quiz-stats-title {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 30px;
+            letter-spacing: 0.03em;
+        }
+
+        .quiz-stats-loading {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            padding: 20px 0;
+        }
+
+        .quiz-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .quiz-stats-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .quiz-stats-card h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .quiz-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .quiz-bar-label {
+            width: 120px;
+            flex-shrink: 0;
+            color: var(--text-primary);
+            font-size: 0.82rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .quiz-bar-track {
+            flex: 1;
+            height: 8px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .quiz-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-red));
+            transition: width 1.2s ease;
+            width: 0%;
+        }
+
+        .quiz-bar-fill.hard {
+            background: linear-gradient(90deg, #ef4444, #7f1d1d);
+        }
+
+        .quiz-bar-pct {
+            width: 38px;
+            flex-shrink: 0;
+            text-align: right;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+        }
+
+        .quiz-total-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .quiz-total-item {
+            text-align: center;
+        }
+
+        .quiz-total-item .num {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .quiz-total-item .lbl {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-stats-grid { grid-template-columns: 1fr; }
+        }
         .author-section {
             padding: 50px;
             max-width: 900px;
@@ -711,32 +834,21 @@
         <div class="stats-wrapper">
             <button class="stats-arrow" id="statsPrev" onclick="moveStat(-1)">&#8592;</button>
             <div class="stats-container" id="statsContainer">
-                <!-- Слайд 1 -->
                 <div class="stat-item active" data-index="0">
                     <h4>190+</h4>
                     <p>Народов проживает<br>в России</p>
                 </div>
-                <!-- Слайд 2 -->
                 <div class="stat-item" data-index="1">
                     <h4>6</h4>
                     <p>Основных языковых<br>групп</p>
                 </div>
-                <!-- Слайд 3 -->
                 <div class="stat-item" data-index="2">
                     <h4>38</h4>
                     <p>Языков имеют<br>государственный статус</p>
                 </div>
-                <!-- Слайд 4 -->
                 <div class="stat-item" data-index="3">
                     <h4>1000+</h4>
                     <p>Лет истории<br>многонационального государства</p>
-                </div>
-                <!-- Слайд 5 — Живая статистика викторин -->
-                <div class="stat-item quiz-stat" data-index="4" id="quizStatSlide">
-                    <h4>🏆 Топ по викторинам</h4>
-                    <div id="quizStatContent">
-                        <div class="quiz-stat-loading">Загрузка статистики...</div>
-                    </div>
                 </div>
             </div>
             <button class="stats-arrow" id="statsNext" onclick="moveStat(1)">&#8594;</button>
@@ -746,7 +858,18 @@
             <div class="stat-dot" data-index="1"></div>
             <div class="stat-dot" data-index="2"></div>
             <div class="stat-dot" data-index="3"></div>
-            <div class="stat-dot" data-index="4"></div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         СТАТИСТИКА ВИКТОРИН
+         ========================================== -->
+    <section class="stats-section quiz-section" id="quiz-stats">
+        <div class="quiz-stats-inner">
+            <h2 class="quiz-stats-title">🏆 Статистика викторин</h2>
+            <div class="quiz-stats-grid" id="quizStatsGrid">
+                <div class="quiz-stats-loading">Загрузка статистики...</div>
+            </div>
         </div>
     </section>
 
@@ -847,11 +970,10 @@
 // ==========================================
 // СТАТИСТИКА: Слайдер со стрелками
 // ==========================================
-const BACKEND_URL = 'https://eru-6h89.onrender.com'; // ← сюда вставишь свой URL после деплоя
+const BACKEND_URL = 'https://eru-6h89.onrender.com';
 
 let currentStatIndex = 0;
 let statInterval;
-let quizStatsLoaded = false;
 
 const statItems = document.querySelectorAll('.stat-item');
 const statDots = document.querySelectorAll('.stat-dot');
@@ -862,12 +984,10 @@ function showStat(index, direction = 1) {
     const next = document.querySelector(`.stat-item[data-index="${index}"]`);
     if (!next || current === next) return;
 
-    // Убираем текущий
-    current.classList.add(direction >= 0 ? 'exit-left' : 'exit-right');
+    current.classList.add('exit-left');
     current.classList.remove('active');
-    setTimeout(() => current.classList.remove('exit-left', 'exit-right'), 500);
+    setTimeout(() => current.classList.remove('exit-left'), 500);
 
-    // Показываем следующий
     next.style.transform = direction >= 0 ? 'translateX(40px)' : 'translateX(-40px)';
     next.classList.add('active');
     setTimeout(() => { next.style.transform = ''; }, 10);
@@ -877,11 +997,6 @@ function showStat(index, direction = 1) {
     if (activeDot) activeDot.classList.add('active');
 
     currentStatIndex = index;
-
-    // Загружаем живую статистику когда переходим на 5й слайд
-    if (index === 4 && !quizStatsLoaded) {
-        loadQuizStats();
-    }
 }
 
 function moveStat(direction) {
@@ -902,7 +1017,6 @@ function stopStatRotation() {
     clearInterval(statInterval);
 }
 
-// Клик по точкам
 statDots.forEach((dot, index) => {
     dot.addEventListener('click', () => {
         stopStatRotation();
@@ -914,52 +1028,75 @@ statDots.forEach((dot, index) => {
 startStatRotation();
 
 // ==========================================
-// ЗАГРУЗКА ЖИВОЙ СТАТИСТИКИ ВИКТОРИН
+// ЗАГРУЗКА СТАТИСТИКИ ВИКТОРИН (отдельный блок)
 // ==========================================
 async function loadQuizStats() {
     try {
         const res = await fetch(`${BACKEND_URL}/api/stats`);
-        if (!res.ok) throw new Error('Server error');
+        if (!res.ok) throw new Error('error');
         const data = await res.json();
-
-        quizStatsLoaded = true;
         renderQuizStats(data);
-    } catch (e) {
-        document.getElementById('quizStatContent').innerHTML =
-            '<div class="quiz-stat-loading" style="color:rgba(160,160,176,0.5);font-size:0.85rem;">Статистика появится после первых прохождений</div>';
+    } catch(e) {
+        document.getElementById('quizStatsGrid').innerHTML =
+            '<div class="quiz-stats-loading">Статистика появится после первых прохождений викторин</div>';
     }
 }
 
 function renderQuizStats(data) {
-    const container = document.getElementById('quizStatContent');
+    const grid = document.getElementById('quizStatsGrid');
 
     if (!data.topBest || data.topBest.length === 0) {
-        container.innerHTML = '<div class="quiz-stat-loading" style="color:rgba(160,160,176,0.5);font-size:0.85rem;">Статистика появится после первых прохождений</div>';
+        grid.innerHTML = '<div class="quiz-stats-loading">Статистика появится после первых прохождений викторин</div>';
         return;
     }
 
-    const bars = data.topBest.map(p => `
+    const bestBars = data.topBest.map(p => `
         <div class="quiz-bar-row">
             <span class="quiz-bar-label">${p.name}</span>
-            <div class="quiz-bar-track">
-                <div class="quiz-bar-fill" data-pct="${p.accuracy}"></div>
-            </div>
+            <div class="quiz-bar-track"><div class="quiz-bar-fill" data-pct="${p.accuracy}"></div></div>
             <span class="quiz-bar-pct">${p.accuracy}%</span>
+        </div>`).join('');
+
+    const hardBars = data.topHardest.map(p => `
+        <div class="quiz-bar-row">
+            <span class="quiz-bar-label">${p.name}</span>
+            <div class="quiz-bar-track"><div class="quiz-bar-fill hard" data-pct="${100 - p.accuracy}"></div></div>
+            <span class="quiz-bar-pct">${p.accuracy}%</span>
+        </div>`).join('');
+
+    grid.innerHTML = `
+        <div class="quiz-stats-card">
+            <h3>🥇 Лучше всего знают</h3>
+            ${bestBars}
         </div>
-    `).join('');
+        <div class="quiz-stats-card">
+            <h3>📚 Сложнее всего даётся</h3>
+            ${hardBars}
+        </div>
+        <div class="quiz-total-row" style="grid-column:1/-1">
+            <div class="quiz-total-item">
+                <div class="num">${data.totalQuizzes}</div>
+                <div class="lbl">Всего прохождений</div>
+            </div>
+            <div class="quiz-total-item">
+                <div class="num">${data.overallAccuracy}%</div>
+                <div class="lbl">Средний результат</div>
+            </div>
+            <div class="quiz-total-item">
+                <div class="num">${data.allPeoples ? data.allPeoples.length : 0}</div>
+                <div class="lbl">Народов изучено</div>
+            </div>
+        </div>`;
 
-    container.innerHTML = `
-        <div class="quiz-stat-bars">${bars}</div>
-        <div class="quiz-stat-meta">Всего прохождений: ${data.totalQuizzes} · Средний результат: ${data.overallAccuracy}%</div>
-    `;
-
-    // Анимируем полоски
     setTimeout(() => {
-        container.querySelectorAll('.quiz-bar-fill').forEach(bar => {
+        grid.querySelectorAll('.quiz-bar-fill').forEach(bar => {
             bar.style.width = bar.dataset.pct + '%';
         });
     }, 100);
 }
+
+// Загружаем при старте
+loadQuizStats();
 
         // ==========================================
         // ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ
