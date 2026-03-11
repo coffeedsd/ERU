@@ -276,12 +276,42 @@
             overflow: hidden;
         }
 
-        .stats-container {
-            max-width: 600px;
+        .stats-wrapper {
+            max-width: 700px;
             margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .stats-arrow {
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            background: rgba(245, 158, 11, 0.15);
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--accent-gold);
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .stats-arrow:hover {
+            background: rgba(245, 158, 11, 0.35);
+            border-color: var(--accent-gold);
+            transform: scale(1.1);
+        }
+
+        .stats-container {
+            flex: 1;
             text-align: center;
             position: relative;
-            height: 150px;
+            height: 200px;
         }
 
         .stat-item {
@@ -290,15 +320,20 @@
             left: 0;
             right: 0;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: translateX(40px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
             pointer-events: none;
         }
 
         .stat-item.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
             pointer-events: auto;
+        }
+
+        .stat-item.exit-left {
+            opacity: 0;
+            transform: translateX(-40px);
         }
 
         .stat-item h4 {
@@ -315,11 +350,84 @@
             line-height: 1.5;
         }
 
+        /* Слайд живой статистики */
+        .stat-item.quiz-stat h4 {
+            font-size: 1rem;
+            -webkit-text-fill-color: unset;
+            background: none;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .quiz-stat-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .quiz-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+        }
+
+        .quiz-bar-label {
+            width: 110px;
+            flex-shrink: 0;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 0.78rem;
+        }
+
+        .quiz-bar-track {
+            flex: 1;
+            height: 8px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .quiz-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-red));
+            transition: width 1s ease;
+            width: 0%;
+        }
+
+        .quiz-bar-pct {
+            width: 36px;
+            flex-shrink: 0;
+            color: var(--accent-gold);
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-align: right;
+        }
+
+        .quiz-stat-meta {
+            margin-top: 10px;
+            font-size: 0.75rem;
+            color: rgba(160,160,176,0.6);
+        }
+
+        .quiz-stat-loading {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+
         .stats-dots {
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: 16px;
         }
 
         .stat-dot {
@@ -600,29 +708,45 @@
          СТАТИСТИКА
          ========================================== -->
     <section class="stats-section" id="stats">
-        <div class="stats-container">
-            <div class="stat-item active" data-index="0">
-                <h4>190+</h4>
-                <p>Народов проживает<br>в России</p>
+        <div class="stats-wrapper">
+            <button class="stats-arrow" id="statsPrev" onclick="moveStat(-1)">&#8592;</button>
+            <div class="stats-container" id="statsContainer">
+                <!-- Слайд 1 -->
+                <div class="stat-item active" data-index="0">
+                    <h4>190+</h4>
+                    <p>Народов проживает<br>в России</p>
+                </div>
+                <!-- Слайд 2 -->
+                <div class="stat-item" data-index="1">
+                    <h4>6</h4>
+                    <p>Основных языковых<br>групп</p>
+                </div>
+                <!-- Слайд 3 -->
+                <div class="stat-item" data-index="2">
+                    <h4>38</h4>
+                    <p>Языков имеют<br>государственный статус</p>
+                </div>
+                <!-- Слайд 4 -->
+                <div class="stat-item" data-index="3">
+                    <h4>1000+</h4>
+                    <p>Лет истории<br>многонационального государства</p>
+                </div>
+                <!-- Слайд 5 — Живая статистика викторин -->
+                <div class="stat-item quiz-stat" data-index="4" id="quizStatSlide">
+                    <h4>🏆 Топ по викторинам</h4>
+                    <div id="quizStatContent">
+                        <div class="quiz-stat-loading">Загрузка статистики...</div>
+                    </div>
+                </div>
             </div>
-            <div class="stat-item" data-index="1">
-                <h4>6</h4>
-                <p>Основных языковых<br>групп</p>
-            </div>
-            <div class="stat-item" data-index="2">
-                <h4>38</h4>
-                <p>Языков имеют<br>государственный статус</p>
-            </div>
-            <div class="stat-item" data-index="3">
-                <h4>1000+</h4>
-                <p>Лет истории<br>многонационального государства</p>
-            </div>
+            <button class="stats-arrow" id="statsNext" onclick="moveStat(1)">&#8594;</button>
         </div>
-        <div class="stats-dots">
+        <div class="stats-dots" id="statsDots">
             <div class="stat-dot active" data-index="0"></div>
             <div class="stat-dot" data-index="1"></div>
             <div class="stat-dot" data-index="2"></div>
             <div class="stat-dot" data-index="3"></div>
+            <div class="stat-dot" data-index="4"></div>
         </div>
     </section>
 
@@ -720,58 +844,127 @@
             }
         });
 
-// СТАТИСТИКА: Автоматическая ротация
-        // ==========================================
-        let currentStatIndex = 0;
-        let statInterval;
+// ==========================================
+// СТАТИСТИКА: Слайдер со стрелками
+// ==========================================
+const BACKEND_URL = 'https://eru-6h89.onrender.com'; // ← сюда вставишь свой URL после деплоя
 
-        function initStatsRotation() {
-            const statItems = document.querySelectorAll('.stat-item');
-            const statDots = document.querySelectorAll('.stat-dot');
-            const totalStats = statItems.length;
+let currentStatIndex = 0;
+let statInterval;
+let quizStatsLoaded = false;
 
-            if (totalStats === 0) return;
+const statItems = document.querySelectorAll('.stat-item');
+const statDots = document.querySelectorAll('.stat-dot');
+const totalStats = statItems.length;
 
-            function showStat(index) {
-                statItems.forEach(item => item.classList.remove('active'));
-                statDots.forEach(dot => dot.classList.remove('active'));
+function showStat(index, direction = 1) {
+    const current = document.querySelector('.stat-item.active');
+    const next = document.querySelector(`.stat-item[data-index="${index}"]`);
+    if (!next || current === next) return;
 
-                statItems[index].classList.add('active');
-                statDots[index].classList.add('active');
-                currentStatIndex = index;
-            }
+    // Убираем текущий
+    current.classList.add(direction >= 0 ? 'exit-left' : 'exit-right');
+    current.classList.remove('active');
+    setTimeout(() => current.classList.remove('exit-left', 'exit-right'), 500);
 
-            function nextStat() {
-                const nextIndex = (currentStatIndex + 1) % totalStats;
-                showStat(nextIndex);
-            }
+    // Показываем следующий
+    next.style.transform = direction >= 0 ? 'translateX(40px)' : 'translateX(-40px)';
+    next.classList.add('active');
+    setTimeout(() => { next.style.transform = ''; }, 10);
 
-            function startRotation() {
-                statInterval = setInterval(nextStat, 3000);
-            }
+    statDots.forEach(d => d.classList.remove('active'));
+    const activeDot = document.querySelector(`.stat-dot[data-index="${index}"]`);
+    if (activeDot) activeDot.classList.add('active');
 
-            function stopRotation() {
-                clearInterval(statInterval);
-            }
+    currentStatIndex = index;
 
-            // Клик по точкам
-            statDots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    stopRotation();
-                    showStat(index);
-                    startRotation();
-                });
-            });
+    // Загружаем живую статистику когда переходим на 5й слайд
+    if (index === 4 && !quizStatsLoaded) {
+        loadQuizStats();
+    }
+}
 
-            startRotation();
-        }
+function moveStat(direction) {
+    stopStatRotation();
+    const next = (currentStatIndex + direction + totalStats) % totalStats;
+    showStat(next, direction);
+    startStatRotation();
+}
+
+function startStatRotation() {
+    statInterval = setInterval(() => {
+        const next = (currentStatIndex + 1) % totalStats;
+        showStat(next, 1);
+    }, 4000);
+}
+
+function stopStatRotation() {
+    clearInterval(statInterval);
+}
+
+// Клик по точкам
+statDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        stopStatRotation();
+        showStat(index, index >= currentStatIndex ? 1 : -1);
+        startStatRotation();
+    });
+});
+
+startStatRotation();
+
+// ==========================================
+// ЗАГРУЗКА ЖИВОЙ СТАТИСТИКИ ВИКТОРИН
+// ==========================================
+async function loadQuizStats() {
+    try {
+        const res = await fetch(`${BACKEND_URL}/api/stats`);
+        if (!res.ok) throw new Error('Server error');
+        const data = await res.json();
+
+        quizStatsLoaded = true;
+        renderQuizStats(data);
+    } catch (e) {
+        document.getElementById('quizStatContent').innerHTML =
+            '<div class="quiz-stat-loading" style="color:rgba(160,160,176,0.5);font-size:0.85rem;">Статистика появится после первых прохождений</div>';
+    }
+}
+
+function renderQuizStats(data) {
+    const container = document.getElementById('quizStatContent');
+
+    if (!data.topBest || data.topBest.length === 0) {
+        container.innerHTML = '<div class="quiz-stat-loading" style="color:rgba(160,160,176,0.5);font-size:0.85rem;">Статистика появится после первых прохождений</div>';
+        return;
+    }
+
+    const bars = data.topBest.map(p => `
+        <div class="quiz-bar-row">
+            <span class="quiz-bar-label">${p.name}</span>
+            <div class="quiz-bar-track">
+                <div class="quiz-bar-fill" data-pct="${p.accuracy}"></div>
+            </div>
+            <span class="quiz-bar-pct">${p.accuracy}%</span>
+        </div>
+    `).join('');
+
+    container.innerHTML = `
+        <div class="quiz-stat-bars">${bars}</div>
+        <div class="quiz-stat-meta">Всего прохождений: ${data.totalQuizzes} · Средний результат: ${data.overallAccuracy}%</div>
+    `;
+
+    // Анимируем полоски
+    setTimeout(() => {
+        container.querySelectorAll('.quiz-bar-fill').forEach(bar => {
+            bar.style.width = bar.dataset.pct + '%';
+        });
+    }, 100);
+}
 
         // ==========================================
         // ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ
         // ==========================================
         document.addEventListener('DOMContentLoaded', function() {
-            // Инициализируем ротацию статистики
-            initStatsRotation();
             // Добавляем анимацию появления для кнопок групп
             const observerOptions = {
                 threshold: 0.1,
