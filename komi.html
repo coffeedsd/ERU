@@ -438,6 +438,38 @@
             .lightbox-prev { left: 8px; }
             .lightbox-next { right: 8px; }
         }
+        .lightbox-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55px;
+            height: 55px;
+            background: rgba(245, 158, 11, 0.3);
+            border: 2px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #f5a623;
+            transition: all 0.3s ease;
+            z-index: 10001;
+            line-height: 1;
+        }
+        .lightbox-arrow:hover {
+            background: rgba(245, 158, 11, 0.6);
+            border-color: #f5a623;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        @media (max-width: 768px) {
+            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
+            .lightbox-prev { left: 8px; }
+            .lightbox-next { right: 8px; }
+        }
         /* ==========================================
            КНОПКА "НАВЕРХ"
            ========================================== */
@@ -1207,6 +1239,8 @@
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
+        const PEOPLE_ID = 'komi';
+
         const questions = [
             { q: "Сколько коми проживает в России?", a: ["Около 100 тысяч", "Около 220 тысяч", "Около 500 тысяч", "Около 1 миллиона"], correct: 1 },
             { q: "Какая столица Республики Коми?", a: ["Ухта", "Воркута", "Сыктывкар", "Печора"], correct: 2 },
@@ -1221,11 +1255,13 @@
         let currentQ = 0;
         let score = 0;
         let answered = false;
+        let quizAnswers = [];
 
         function startQuiz() {
             currentQ = 0;
             score = 0;
             answered = false;
+            quizAnswers = [];
             document.getElementById('result-box').style.display = 'none';
             document.getElementById('question-box').style.display = 'block';
             document.getElementById('progress-box').style.display = 'block';
@@ -1264,6 +1300,7 @@
                 }
             }
             
+            quizAnswers.push(idx);
             if (idx === q.correct) {
                 score++;
                 feedback.textContent = '✓ Правильно!';
@@ -1296,6 +1333,34 @@
             else if (score >= 4) msg = '📚 Неплохо, но можно лучше.';
             else msg = '🎓 Стоит перечитать материал.';
             document.getElementById('result-text').textContent = msg;
+        }
+
+
+        // ==========================================
+        // ОТПРАВКА РЕЗУЛЬТАТОВ ВИКТОРИНЫ НА БЭКЕНД
+        // ==========================================
+        const BACKEND_URL = 'https://eru-6h89.onrender.com';
+
+        async function sendQuizResult() {
+            const questionResults = questions.map((q, i) => ({
+                id: 'q' + i,
+                text: q.q,
+                correct: quizAnswers[i] === q.correct
+            }));
+            try {
+                await fetch(BACKEND_URL + '/api/quiz-result', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        peopleId: PEOPLE_ID,
+                        score: score,
+                        total: questions.length,
+                        questions: questionResults
+                    })
+                });
+            } catch(e) {
+                // Тихо игнорируем ошибку сети
+            }
         }
 
         // Старт при загрузке
