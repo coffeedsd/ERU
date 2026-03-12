@@ -1337,7 +1337,7 @@
             document.body.style.overflow = '';
         }
         document.getElementById('infoModal').addEventListener('click', function(e) {
-            if (e.target === this) closeInfoModal();
+            if (!e.target.closest('.info-modal-container')) closeInfoModal();
         });
 
         // ==========================================
