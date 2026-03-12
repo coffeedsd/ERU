@@ -477,6 +477,38 @@
             cursor: pointer;
             z-index: 10001;
         }
+        .lightbox-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55px;
+            height: 55px;
+            background: rgba(245, 158, 11, 0.3);
+            border: 2px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #f5a623;
+            transition: all 0.3s ease;
+            z-index: 10001;
+            line-height: 1;
+        }
+        .lightbox-arrow:hover {
+            background: rgba(245, 158, 11, 0.6);
+            border-color: #f5a623;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        @media (max-width: 768px) {
+            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
+            .lightbox-prev { left: 8px; }
+            .lightbox-next { right: 8px; }
+        }
 
         /* ==========================================
            КНОПКА "НАВЕРХ"
@@ -888,28 +920,28 @@
                 <li>
                     <span class="fact-icon">🎄</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/ukrainian-christmas.jpg')">Рождество</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/ukrainian-christmas.jpg', false)">Рождество</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">7 января. Святвечер (6 января) с 12 блюдами без мяса. Колядки — рождественские песни-поздравления.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🥚</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/ukrainian-easter.jpg')">Пасха</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/ukrainian-easter.jpg', false)">Пасха</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Писанки — расписные яйца с древними символами. Кулич (паска) и освящение кошиков с едой в церкви.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌻</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/ukrainian-trinity.jpg')">Троица (Зелёные праздники)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/ukrainian-trinity.jpg', false)">Троица (Зелёные праздники)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Украшение домов зеленью, плетение венков, прыжки через костёр. Символ обновления природы.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🍞</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/ukrainian-harvest.jpg')">Жниварка (окончание жатвы)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/ukrainian-harvest.jpg', false)">Жниварка (окончание жатвы)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник завершения урожая. Сплетение венков из колосьев, праздничный обед в поле.</p>
                     </div>
                 </li>
@@ -922,35 +954,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images/ukrainian-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/ukrainian-dance.jpg', true)">
                         <img src="images/ukrainian-dance.jpg" alt="Украинский гопак">
                         <div class="gallery-caption">Народный танец гопак</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/ukrainian-petrykivka.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/ukrainian-petrykivka.jpg', true)">
                         <img src="images/ukrainian-petrykivka.jpg" alt="Петриковская роспись цветами">
                         <div class="gallery-caption">Петриковская роспись</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/ukrainian-rushnyk.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/ukrainian-rushnyk.jpg', true)">
                         <img src="images/ukrainian-rushnyk.jpg" alt="Украинский рушник с вышивкой">
                         <div class="gallery-caption">Рушник — обрядовое полотенце</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/ukrainian-bandura.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/ukrainian-bandura.jpg', true)">
                         <img src="images/ukrainian-bandura.jpg" alt="Украинская бандура">
                         <div class="gallery-caption">Бандура — национальный инструмент</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/ukrainian-pysanka.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/ukrainian-pysanka.jpg', true)">
                         <img src="images6/ukrainian-pysanka.jpg" alt="Украинские писанки">
                         <div class="gallery-caption">Писанки — расписные яйца</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/ukrainian-motanka.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/ukrainian-motanka.jpg', true)">
                         <img src="images6/ukrainian-motanka.jpg" alt="Украинская кукла-мотанка">
                         <div class="gallery-caption">Кукла-мотанка — оберег</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/ukrainian-cossack.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/ukrainian-cossack.jpg', true)">
                         <img src="images6/ukrainian-cossack.jpg" alt="Казак Мамай">
                         <div class="gallery-caption">Казак Мамай — народная картина</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/ukrainian-embroidery.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/ukrainian-embroidery.jpg', true)">
                         <img src="images6/ukrainian-embroidery.jpg" alt="Украинская вышивка">
                         <div class="gallery-caption">Традиционная вышивка</div>
                     </div>
@@ -1017,7 +1049,9 @@
     <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close" onclick="event.stopPropagation(); closeLightbox()">&times;</span>
+        <button class="lightbox-arrow lightbox-prev" onclick="event.stopPropagation(); lightboxNav(-1)">❮</button>
         <img src="" alt="Увеличенное изображение" id="lightbox-img" onclick="event.stopPropagation()">
+        <button class="lightbox-arrow lightbox-next" onclick="event.stopPropagation(); lightboxNav(1)">❯</button>
     </div>
 
     <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
@@ -1168,16 +1202,54 @@
         // Инициализация галереи
         initGallery();
 
-        function openLightbox(src) {
+        let lightboxSrcs = [];
+        let lightboxIndex = 0;
+
+        function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
+        }
+
+        function lightboxNav(dir) {
+            if (lightboxSrcs.length === 0) return;
+            lightboxIndex = (lightboxIndex + dir + lightboxSrcs.length) % lightboxSrcs.length;
+            document.getElementById('lightbox-img').src = lightboxSrcs[lightboxIndex];
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
             document.body.style.overflow = '';
         }
+
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            if (e.key === 'ArrowLeft') lightboxNav(-1);
+            if (e.key === 'ArrowRight') lightboxNav(1);
+            if (e.key === 'Escape') closeLightbox();
+        });
 
         // Модальное окно рецепта
         function openRecipeModal() {

@@ -477,6 +477,38 @@
             cursor: pointer;
             z-index: 10001;
         }
+        .lightbox-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55px;
+            height: 55px;
+            background: rgba(245, 158, 11, 0.3);
+            border: 2px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #f5a623;
+            transition: all 0.3s ease;
+            z-index: 10001;
+            line-height: 1;
+        }
+        .lightbox-arrow:hover {
+            background: rgba(245, 158, 11, 0.6);
+            border-color: #f5a623;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        @media (max-width: 768px) {
+            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
+            .lightbox-prev { left: 8px; }
+            .lightbox-next { right: 8px; }
+        }
 
         /* ==========================================
            КНОПКА "НАВЕРХ"
@@ -888,28 +920,28 @@
                 <li>
                     <span class="fact-icon">🌾</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/belarusian-kupalle.jpg')">Купалье (Иван Купала)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/belarusian-kupalle.jpg', false)">Купалье (Иван Купала)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Самый любимый народный праздник. Прыжки через костёр, плетение венков из цветов и трав, гадания на суженого, поиск цветка папоротника.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎄</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/belarusian-kaliady.jpg')">Каляды (Рождество)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/belarusian-kaliady.jpg', false)">Каляды (Рождество)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Колядки — обрядовые песни, которые исполняют группы людей («калядоўшчыкі»), ходя по домам. Щедрецы — богатые кутья на Святки.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🥚</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/belarusian-easter.jpg')">Вялікдзень (Пасха)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/belarusian-easter.jpg', false)">Вялікдзень (Пасха)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Крашанкі (крашеные яйца) і пісанкі (писанки). Освящение кошиков с едой. Игра «битка яйцамі».</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌸</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/belarusian-spring.jpg')">Гуканне вясны (Закликание весны)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/belarusian-spring.jpg', false)">Гуканне вясны (Закликание весны)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Древний обряд встречи весны. Вынос куклы-солнцеворота, пение веснянок, символическое «прогонянне» зимы.</p>
                     </div>
                 </li>
@@ -922,35 +954,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images/belarusian-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/belarusian-dance.jpg', true)">
                         <img src="images/belarusian-dance.jpg" alt="Белорусский народный танец лявониха">
                         <div class="gallery-caption">Народный танец «Лявониха»</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/belarusian-straw.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/belarusian-straw.jpg', true)">
                         <img src="images/belarusian-straw.jpg" alt="Белорусское соломенное плетение">
                         <div class="gallery-caption">Соломенное плетение «Дажынкі»</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/belarusian-linen.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/belarusian-linen.jpg', true)">
                         <img src="images/belarusian-linen.jpg" alt="Белорусское льняное полотно">
                         <div class="gallery-caption">Льняные изделия</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/belarusian-nature.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/belarusian-nature.jpg', true)">
                         <img src="images/belarusian-nature.jpg" alt="Белорусское Полесье">
                         <div class="gallery-caption">Природа Полесья</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/belarusian-straw-weaving.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/belarusian-straw-weaving.jpg', true)">
                         <img src="images6/belarusian-straw-weaving.jpg" alt="Белорусское соломенное плетение">
                         <div class="gallery-caption">Соломенное плетение ЮНЕСКО</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/belarusian-motanka.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/belarusian-motanka.jpg', true)">
                         <img src="images6/belarusian-motanka.jpg" alt="Белорусская кукла-мотанка">
                         <div class="gallery-caption">Кукла-мотанка — оберег</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/belarusian-castle.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/belarusian-castle.jpg', true)">
                         <img src="images6/belarusian-castle.jpg" alt="Мирский замок">
                         <div class="gallery-caption">Мирский замок ЮНЕСКО</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/belarusian-rushnik.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/belarusian-rushnik.jpg', true)">
                         <img src="images6/belarusian-rushnik.jpg" alt="Белорусский рушник">
                         <div class="gallery-caption">Рушник с красной вышивкой</div>
                     </div>
@@ -1017,7 +1049,9 @@
     <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close" onclick="event.stopPropagation(); closeLightbox()">&times;</span>
+        <button class="lightbox-arrow lightbox-prev" onclick="event.stopPropagation(); lightboxNav(-1)">❮</button>
         <img src="" alt="Увеличенное изображение" id="lightbox-img" onclick="event.stopPropagation()">
+        <button class="lightbox-arrow lightbox-next" onclick="event.stopPropagation(); lightboxNav(1)">❯</button>
     </div>
 
     <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
@@ -1150,16 +1184,54 @@
         // Инициализация галереи
         initGallery();
 
-        function openLightbox(src) {
+        let lightboxSrcs = [];
+        let lightboxIndex = 0;
+
+        function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
+        }
+
+        function lightboxNav(dir) {
+            if (lightboxSrcs.length === 0) return;
+            lightboxIndex = (lightboxIndex + dir + lightboxSrcs.length) % lightboxSrcs.length;
+            document.getElementById('lightbox-img').src = lightboxSrcs[lightboxIndex];
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
             document.body.style.overflow = '';
         }
+
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            if (e.key === 'ArrowLeft') lightboxNav(-1);
+            if (e.key === 'ArrowRight') lightboxNav(1);
+            if (e.key === 'Escape') closeLightbox();
+        });
 
         // Модальное окно рецепта
         function openRecipeModal() {

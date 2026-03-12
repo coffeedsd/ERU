@@ -1000,28 +1000,28 @@
                 <li>
                     <span class="fact-icon">🥞</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/russian-maslenitsa.jpg')">Масленица</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/russian-maslenitsa.jpg', false)">Масленица</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Проводы зимы, неделя праздника перед Великим постом. Главное блюдо — блины, символ солнца (круглые, румяные).</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🥚</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/russian-easter.jpg')">Пасха</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/russian-easter.jpg', false)">Пасха</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Светлое Христово Воскресение. Крашеные яйца, кулич (пасха), христосование "Христос воскресе! — Воистину воскресе!".</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌿</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/russian-trinity.jpg')">Троица</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/russian-trinity.jpg', false)">Троица</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Пятидесятница. Украшение домов и церквей берёзовыми ветками, плетение венков, гадания.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎄</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/russian-christmas.jpg')">Рождество</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/russian-christmas.jpg', false)">Рождество</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">7 января. Святки, колядки, рождественская кутья (сладкая каша с изюмом и мёдом).</p>
                     </div>
                 </li>
@@ -1034,35 +1034,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images/russian-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/russian-dance.jpg', true)">
                         <img src="images/russian-dance.jpg" alt="Русский народный хоровод">
                         <div class="gallery-caption">Народные танцы</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/russian-gzhel.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/russian-gzhel.jpg', true)">
                         <img src="images/russian-gzhel.jpg" alt="Гжельская роспись синим по белому">
                         <div class="gallery-caption">Гжельская роспись</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/russian-matreshka.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/russian-matreshka.jpg', true)">
                         <img src="images/russian-matreshka.jpg" alt="Русская матрёшка">
                         <div class="gallery-caption">Матрёшка</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/russian-samovar.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/russian-samovar.jpg', true)">
                         <img src="images/russian-samovar.jpg" alt="Русский самовар">
                         <div class="gallery-caption">Самовар и чаепитие</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/russian-khokhloma.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/russian-khokhloma.jpg', true)">
                         <img src="images6/russian-khokhloma.jpg" alt="Хохломская роспись">
                         <div class="gallery-caption">Хохломская роспись</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/russian-icon.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/russian-icon.jpg', true)">
                         <img src="images6/russian-icon.jpg" alt="Русская иконопись">
                         <div class="gallery-caption">Иконопись</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/russian-birch.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/russian-birch.jpg', true)">
                         <img src="images6/russian-birch.jpg" alt="Берестяные изделия">
                         <div class="gallery-caption">Берестяные изделия</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/russian-tea.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/russian-tea.jpg', true)">
                         <img src="images6/russian-tea.jpg" alt="Русское чаепитие">
                         <div class="gallery-caption">Чайная церемония</div>
                     </div>
@@ -1269,25 +1269,32 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
+        function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                // Collect all gallery image sources
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                // Deduplicate (clones)
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                // Single image — no navigation
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
