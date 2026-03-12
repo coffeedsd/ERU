@@ -224,6 +224,150 @@
             color: var(--accent-gold);
         }
         
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: "\2197";
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
+
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: "\2197";
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
+
         /* ГАЛЕРЕЯ С КАРУСЕЛЬЮ */
         .gallery-wrapper {
             position: relative;
@@ -406,70 +550,6 @@
             z-index: 10001;
         }
 
-        .lightbox-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 55px;
-            height: 55px;
-            background: rgba(245, 158, 11, 0.3);
-            border: 2px solid rgba(245, 158, 11, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            color: #f5a623;
-            transition: all 0.3s ease;
-            z-index: 10001;
-            line-height: 1;
-        }
-        .lightbox-arrow:hover {
-            background: rgba(245, 158, 11, 0.6);
-            border-color: #f5a623;
-            color: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
-        @media (max-width: 768px) {
-            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
-            .lightbox-prev { left: 8px; }
-            .lightbox-next { right: 8px; }
-        }
-        .lightbox-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 55px;
-            height: 55px;
-            background: rgba(245, 158, 11, 0.3);
-            border: 2px solid rgba(245, 158, 11, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            color: #f5a623;
-            transition: all 0.3s ease;
-            z-index: 10001;
-            line-height: 1;
-        }
-        .lightbox-arrow:hover {
-            background: rgba(245, 158, 11, 0.6);
-            border-color: #f5a623;
-            color: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
-        @media (max-width: 768px) {
-            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
-            .lightbox-prev { left: 8px; }
-            .lightbox-next { right: 8px; }
-        }
         /* ==========================================
            КНОПКА "НАВЕРХ"
            ========================================== */
@@ -786,9 +866,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images/bashkir-people.jpg" alt="Башкиры в национальных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images/bashkir-people.jpg" alt="Башкиры в национальных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +876,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images/bashkir-language.jpg" alt="Башкирский язык" onclick="openLightbox(this.src)">
+                        <img src="images/bashkir-language.jpg" alt="Башкирский язык">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +886,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images/bashkir-islam.jpg" alt="Башкирская мечеть" onclick="openLightbox(this.src)">
+                        <img src="images/bashkir-islam.jpg" alt="Башкирская мечеть">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +896,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images/bashkir-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images/bashkir-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +911,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images/bashkir-costume.jpg" alt="Башкирский национальный костюм" onclick="openLightbox(this.src)">
+                        <img src="images/bashkir-costume.jpg" alt="Башкирский национальный костюм">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +932,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('housing')">
                     <div class="info-card-image">
-                        <img src="images/bashkir-yurt.jpg" alt="Башкирская юрта" onclick="openLightbox(this.src)">
+                        <img src="images/bashkir-yurt.jpg" alt="Башкирская юрта">
                     </div>
                     <div class="info-card-content">
                         <h3>Жилище</h3>
@@ -862,9 +942,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('music')">
                     <div class="info-card-image">
-                        <img src="images/bashkir-music.jpg" alt="Башкирская народная музыка" onclick="openLightbox(this.src)">
+                        <img src="images/bashkir-music.jpg" alt="Башкирская народная музыка">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1009,11 +1089,29 @@
     <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close" onclick="event.stopPropagation(); closeLightbox()">&times;</span>
-        <button class="lightbox-arrow lightbox-prev" onclick="event.stopPropagation(); lightboxNav(-1)">&#8592;</button>
         <img src="" alt="Увеличенное изображение" id="lightbox-img" onclick="event.stopPropagation()">
-        <button class="lightbox-arrow lightbox-next" onclick="event.stopPropagation(); lightboxNav(1)">&#8594;</button>
     </div>
 
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
     <!-- МОДАЛЬНОЕ ОКНО РЕЦЕПТА ЧАК-ЧАКА И БИШБАРМАКА -->
     <div class="recipe-modal" id="recipeModal">
         <span class="recipe-close" onclick="closeRecipeModal()">&times;</span>
@@ -1143,52 +1241,16 @@
         // Инициализация галереи
         initGallery();
 
-        let lightboxSrcs = [];
-        let lightboxIndex = 0;
-
         function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
-        }
-
-        function lightboxNav(dir) {
-            if (lightboxSrcs.length === 0) return;
-            lightboxIndex = (lightboxIndex + dir + lightboxSrcs.length) % lightboxSrcs.length;
-            document.getElementById('lightbox-img').src = lightboxSrcs[lightboxIndex];
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
             document.body.style.overflow = '';
         }
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (!document.getElementById('lightbox').classList.contains('active')) return;
-            if (e.key === 'ArrowLeft') lightboxNav(-1);
-            if (e.key === 'ArrowRight') lightboxNav(1);
-            if (e.key === 'Escape') closeLightbox();
-        });
 
         // Модальное окно рецепта
         function openRecipeModal() {
@@ -1198,6 +1260,54 @@
 
         function closeRecipeModal() {
             document.getElementById('recipeModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        const infoCards = {
+            population: {img:'images/bashkir-people.jpg',title:`Численность башкир`,text:`<p>По данным переписи, в России проживает около 1,6 миллиона башкир. Башкиры — коренной народ Южного Урала, давший название Республике Башкортостан. В самой республике их доля составляет около 30% населения, и они являются государствообразующим народом региона.</p><p>Помимо Башкортостана, башкиры проживают в Челябинской, Оренбургской, Свердловской и Курганской областях, а также в Татарстане. Два соседних народа — татары и башкиры — тесно связаны исторически, культурно и лингвистически.</p><p>Башкирский народ сформировался на основе смешения тюркских, угорских и иранских этнических компонентов. Это обусловило богатство и самобытность башкирской культуры, вобравшей черты сразу нескольких великих цивилизаций Евразии.</p>`},
+            language: {img:'images/bashkir-language.jpg',title:`Башкирский язык`,text:`<p>Башкирский язык относится к кыпчакской ветви тюркских языков и является государственным языком Республики Башкортостан наряду с русским. Он близок к татарскому, однако имеет уникальные фонетические особенности — межзубные согласные, унаследованные от иранского субстрата.</p><p>Башкирский эпос «Урал-батыр» — один из древнейших и объёмнейших эпосов тюркских народов. В нём отражены космогонические мифы о сотворении мира, нравственные идеалы и историческая память башкирского народа. Эпос передавался устно сэсэнами — народными сказителями — на протяжении тысячелетий.</p><p>Письменность башкирского языка прошла путь от арабской графики через латиницу к кириллице. Сегодня на башкирском издаются газеты, снимается кино и работает телевидение. Язык преподаётся в школах республики как обязательный предмет.</p>`},
+            religion: {img:'images/bashkir-mosque.jpg',title:`Религия башкир`,text:`<p>Башкиры исповедуют ислам суннитского толка, принятый в X–XIV веках. Исламизация шла постепенно и наложилась на более древний пласт традиционных верований — шаманизм, культ природных духов и тотемизм, связанный с конём, медведем и орлом.</p><p>Традиционные верования башкир тесно связаны с природой Южного Урала. Культ коня особенно силён: конь был главной ценностью, мерилом богатства и участником всех важных обрядов. Священные деревья, родники и горные вершины почитались как места обитания духов.</p><p>Сабантуй — праздник плуга — главное народное торжество башкир. Он сочетает исламские и доисламские элементы: состязания по борьбе-куреш, конные скачки, перетягивание каната, подъём на столб за призом. Праздник объединяет людей разных возрастов и укрепляет общинные связи.</p>`},
+            settlement: {img:'images/bashkir.jpg',title:`Расселение башкир`,text:`<p>Башкиры — коренные жители Южного Урала. Их историческая территория — степи и лесостепи Предуралья и западных склонов Уральских гор, где башкирские роды пасли скот и охотились с древнейших времён. Уральские горы стали колыбелью башкирского народа.</p><p>Уфа — столица Башкортостана — один из крупнейших городов России с богатой историей. Республика богата нефтью, газом и природными ресурсами. Промышленные города Стерлитамак, Салават и Нефтекамск выросли в советское время вокруг нефтехимических предприятий.</p><p>Башкиры исторически вели полукочевой образ жизни: зимовали в деревнях, а с наступлением тепла перегоняли скот на летние горные пастбища — яйляу. Этот образ жизни сформировал любовь к свободе, простору и природе, ставшую чертой национального характера.</p>`},
+            costume: {img:'images/bashkir-costume.jpg',title:`Национальный костюм башкир`,text:`<p>Башкирский национальный костюм сочетает практичность кочевника и изысканность восточного вкуса. Мужчины носили рубаху-күлдәк, широкие штаны, бешмет — стёганый кафтан на вате — и меховую шапку-малахай или расшитую тюбетейку.</p><p>Женский костюм включал длинное платье с оборками и нагрудное украшение-хакал из монет, кораллов и бус. Серебряные украшения занимали особое место: нагрудники, браслеты, серьги, накосники и перевязи через плечо. Чем состоятельнее семья — тем больше серебра на праздничном костюме.</p><p>Башкирские мастерицы прославились искусством вышивки тамбурным швом по бархату и шёлку. Конская сбруя и облачение всадника были предметом особой гордости: украшенный серебром пояс, сафьяновые сапоги и расшитое седло говорили о положении и достатке хозяина.</p>`},
+            housing: {img:'images/bashkir-house.jpg',title:`Жилище башкир`,text:`<p>Традиционное жилище башкир — юрта (тирмэ), разборный войлочный дом кочевников. Юрта ставилась за несколько часов и легко перевозилась при кочевье. Круглая форма и купольная крыша создавали устойчивость к степным ветрам, а войлочные стены хорошо держали тепло даже в морозы.</p><p>Внутри юрта делилась на мужскую и женскую половины. В центре находился очаг — символ семьи и рода. Стены и пол устилались яркими войлочными коврами — паласами с геометрическим орнаментом. Сундуки с приданым складывались у стен и сами были произведениями декоративного искусства.</p><p>С переходом к оседлости башкиры стали строить срубные избы по образцу соседних народов. Сегодня юрта ставится на Сабантуях, фестивалях и национальных праздниках как символ культурной идентичности. Туристические юрточные лагеря в горах Башкирии пользуются большой популярностью.</p>`},
+            music: {img:'images/bashkir-music.jpg',title:`Музыка и танцы башкир`,text:`<p>Башкирская музыка поражает своеобразием. Горловое пение — узляу — уникальная техника двухголосного пения, при которой исполнитель одновременно выводит мелодию и создаёт низкий бурдонный звук. Эта техника требует многолетней тренировки и передаётся в семьях как сокровище.</p><p>Курай — национальный музыкальный инструмент башкир — продольная флейта из полого стебля уральского растения. Его нежный, чуть меланхоличный звук стал символом башкирской души. Изображение курая помещено на гербе и флаге Республики Башкортостан — это высшее признание инструмента символом народа.</p><p>Башкирские танцы — «Три брата», «Юность», «Охота» — отличаются динамизмом и выразительными движениями, имитирующими птиц, животных и сцены охоты. Кубаиры — героические сказания-песни сэсэнов — хранят память о батырах-богатырях и важных исторических событиях.</p>`},
+        };
+        function openInfoModal(cardId) {
+            const card = infoCards[cardId];
+            if (!card) return;
+            document.getElementById('infoModalImg').src = card.img;
+            document.getElementById('infoModalImg').alt = card.title;
+            document.getElementById('infoModalTitle').textContent = card.title;
+            document.getElementById('infoModalText').innerHTML = card.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        const infoCards = {
+            population: {img:'images/bashkir-people.jpg',title:`Численность башкир`,text:`<p>По данным переписи, в России проживает около 1,6 миллиона башкир. Башкиры — коренной народ Южного Урала и Предуралья, давший название Республике Башкортостан. В самой республике их доля составляет около 30% населения.</p><p>Помимо Башкортостана, башкиры живут в Челябинской, Оренбургской, Свердловской и Курганской областях, а также в Татарстане. Небольшие общины есть в Казахстане и других странах бывшего СССР.</p><p>Башкирский народ сформировался на стыке тюркского, угорского и иранского миров. Эта многослойность обусловила богатство и самобытность культуры, вобравшей черты разных цивилизаций Евразии. Башкиры — один из немногих народов, сохранивших живую традицию горлового пения и эпического сказительства.</p>`},
+            language: {img:'images/bashkir-language.jpg',title:`Башкирский язык`,text:`<p>Башкирский язык принадлежит к кыпчакской ветви тюркских языков и является государственным в Республике Башкортостан наряду с русским. Близкий родственник татарского, он имеет ряд фонетических особенностей, выделяющих его среди тюркских языков.</p><p>Характерные звуки башкирского — межзубный «ҫ» и «ҙ» — след древних иранских контактов, сближающий язык с авестийским и персидским. Эта черта уникальна среди тюркских языков и свидетельствует о связях предков башкир с сарматами и скифами Южного Урала.</p><p>Башкирский эпос «Урал-батыр» — один из объёмнейших героических эпосов тюркского мира. В нём отражены космогонические мифы о сотворении мира, нравственные идеалы и историческая память народа. Эпос включён в список нематериального наследия России.</p>`},
+            religion: {img:'images/bashkir-mosque.jpg',title:`Религия башкир`,text:`<p>Башкиры исповедуют ислам суннитского толка, принятый в X–XIV веках под влиянием Волжской Булгарии и среднеазиатских проповедников. Исламизация шла постепенно и наложилась на более древний пласт традиционных верований — шаманизм, культ природных духов и тотемизм.</p><p>Традиционные верования башкир тесно связаны с природой Южного Урала. Культ коня, медведя и орла; почитание священных деревьев, родников и гор; шаманские ритуалы лечения — всё это сохранялось параллельно с исламом и отражает многотысячелетнюю духовную традицию народа.</p><p>Сабантуй — главный народный праздник — включает состязания по борьбе курэш, конные скачки и перетягивание каната. Праздник уходит корнями в дославянскую эпоху и сочетает исламские и доисламские элементы. Башкирский Сабантуй включён в список нематериального культурного наследия России.</p>`},
+            settlement: {img:'images/bashkir.jpg',title:`Расселение башкир`,text:`<p>Башкиры — коренные жители Южного Урала. Их историческая территория охватывает степи и лесостепи Предуралья и западных склонов Уральского хребта. Здесь башкирские роды пасли скот и охотились задолго до прихода русских переселенцев в XVI–XVII веках.</p><p>Уфа — столица Башкортостана — один из крупнейших городов России с населением более миллиона человек. Республика богата нефтью, газом, лесом и цветными металлами. Промышленные города Стерлитамак, Салават и Нефтекамск выросли в советское время на основе нефтехимии.</p><p>Башкиры вели полукочевой образ жизни: зиму проводили в деревнях, летом перегоняли скот на горные пастбища — яйляу. Этот уклад отразился в культуре, хозяйстве и мировоззрении народа, ценящего свободу, простор и природу Уральских гор.</p>`},
+            costume: {img:'images/bashkir-costume.jpg',title:`Национальный костюм башкир`,text:`<p>Башкирский национальный костюм сочетает практичность кочевника с изысканным восточным вкусом. Мужчины носили рубаху-күлдәк, широкие штаны, бешмет — стёганый кафтан — и меховую шапку-малахай. Пояс с металлическими украшениями и нож в ножнах были обязательными атрибутами.</p><p>Женский костюм включал длинное платье с оборками и нагрудное украшение-хакал из монет, кораллов и серебряных подвесок. Особое место занимали украшения: массивные нагрудники, браслеты, серьги и накосники из серебра. По количеству серебра на женщине судили о достатке её семьи.</p><p>Башкирские мастерицы прославились искусством тамбурной вышивки по бархату и шёлку. Вышитые сапоги-ситэк из мягкой кожи с цветочным орнаментом — настоящие произведения искусства. Войлочные узорные ковры-паласы украшали и юрту, и избу, передаваясь из поколения в поколение.</p>`},
+            housing: {img:'images/bashkir-house.jpg',title:`Жилище башкир`,text:`<p>Традиционное жилище башкир — юрта (тирмэ), разборный войлочный дом кочевников. Юрта ставилась за несколько часов и легко перевозилась при перекочёвке. Войлочные покрытия надёжно защищали от степных ветров и ночного холода.</p><p>Внутри юрта разделялась на мужскую и женскую половины. В центре находился очаг — сердце семьи и символ её благополучия. Стены и пол устилались яркими коврами-паласами, у стен стояли сундуки с приданым и домашней утварью. Убранство богатой юрты могло поразить европейского путешественника.</p><p>С переходом к оседлости башкиры строили срубные избы, сохраняя при этом элементы кочевого быта в интерьере. Сегодня юрта возрождается как символ народной идентичности: её ставят на праздниках, свадьбах и фестивале Сабантуй, напоминая потомкам о жизни предков-кочевников.</p>`},
+            music: {img:'images/bashkir-music.jpg',title:`Музыка и танцы башкир`,text:`<p>Башкирская музыка поражает своеобразием и глубиной. Горловое пение — узляу — уникальная техника, при которой певец одновременно создаёт мелодию и низкий бурдонный тон. Это древнейшее искусство, сохранившееся у немногих народов мира — башкир, тувинцев и монголов.</p><p>Курай — национальный инструмент башкир — продольная флейта из полого стебля зонтичного растения. Его нежный, чуть печальный звук стал символом башкирской души. Изображение курая помещено на гербе и флаге Республики Башкортостан. Под курай поют эпические сказания о батырах-богатырях.</p><p>Башкирские танцы «Три брата», «Юность» и «Охота» отличаются динамизмом и выразительными движениями, имитирующими птиц, зверей и сцены охоты. Кубаиры — героические сказания-песни — исполняются сказителями-сэсэнами и хранят историческую память народа.</p>`},
+        };
+        function openInfoModal(cardId) {
+            const card = infoCards[cardId];
+            if (!card) return;
+            document.getElementById('infoModalImg').src = card.img;
+            document.getElementById('infoModalImg').alt = card.title;
+            document.getElementById('infoModalTitle').textContent = card.title;
+            document.getElementById('infoModalText').innerHTML = card.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
             document.body.style.overflow = '';
         }
 
@@ -1238,8 +1348,6 @@
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
-        const PEOPLE_ID = 'bashkir';
-
         const questions = [
             { q: "Сколько башкир проживает в России?", a: ["Около 3 миллионов", "Около 500 тысяч", "Около 1,5 миллионов", "Около 5 миллионов"], correct: 2 },
             { q: "К какой группе языков относится башкирский язык?", a: ["Монгольской", "Иранской", "Кыпчакской", "Славянской"], correct: 2 },
@@ -1254,13 +1362,11 @@
         let currentQ = 0;
         let score = 0;
         let answered = false;
-        let quizAnswers = [];
 
         function startQuiz() {
             currentQ = 0;
             score = 0;
             answered = false;
-            quizAnswers = [];
             document.getElementById('result-box').style.display = 'none';
             document.getElementById('question-box').style.display = 'block';
             document.getElementById('progress-box').style.display = 'block';
@@ -1299,7 +1405,6 @@
                 }
             }
             
-            quizAnswers.push(idx);
             if (idx === q.correct) {
                 score++;
                 feedback.textContent = '✓ Правильно!';
@@ -1332,37 +1437,6 @@
             else if (score >= 4) msg = '📚 Неплохо, но можно лучше.';
             else msg = '🎓 Стоит перечитать материал.';
             document.getElementById('result-text').textContent = msg;
-            
-            // Отправляем результат на бэкенд
-            sendQuizResult();
-        }
-
-
-        // ==========================================
-        // ОТПРАВКА РЕЗУЛЬТАТОВ ВИКТОРИНЫ НА БЭКЕНД
-        // ==========================================
-        const BACKEND_URL = 'https://eru-6h89.onrender.com';
-
-        async function sendQuizResult() {
-            const questionResults = questions.map((q, i) => ({
-                id: 'q' + i,
-                text: q.q,
-                correct: quizAnswers[i] === q.correct
-            }));
-            try {
-                await fetch(BACKEND_URL + '/api/quiz-result', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        peopleId: PEOPLE_ID,
-                        score: score,
-                        total: questions.length,
-                        questions: questionResults
-                    })
-                });
-            } catch(e) {
-                // Тихо игнорируем ошибку сети
-            }
         }
 
         // Старт при загрузке
