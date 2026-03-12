@@ -953,28 +953,28 @@
                 <li>
                     <span class="fact-icon">🐟</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/itelmen-first-catch.jpg')">Праздник первого улова</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/itelmen-first-catch.jpg', false)">Праздник первого улова</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Весенний обряд благодарности духам воды. Первую рыбу возвращают в воду с мольбами о богатом улове на весь сезон.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐻</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/itelmen-bear.jpg')">Праздник медведя</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/itelmen-bear.jpg', false)">Праздник медведя</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Древний обряд после удачной охоты на медведя. Танцы, песни, угощения. Медведь — священное животное, «хозяин тайги».</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🔥</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/itelmen-culture-day.jpg')">День ительменской культуры</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/itelmen-culture-day.jpg', false)">День ительменской культуры</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник в Тигиле. Фольклорные выступления, конкурсы национальных костюмов, ярмарки ремёсел, рыбацкие соревнования.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/itelmen-initiation.jpg')">Обряд инициации</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/itelmen-initiation.jpg', false)">Обряд инициации</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Древний обряд посвящения юношей во взрослые. Испытания выносливостью, знание традиций, шаманские ритуалы.</p>
                     </div>
                 </li>
@@ -987,35 +987,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images4/itelmen-fishing.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/itelmen-fishing.jpg', true)">
                         <img src="images4/itelmen-fishing.jpg" alt="Ительмены на рыбалке">
                         <div class="gallery-caption">Рыболовство — основа жизни</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/itelmen-nature.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/itelmen-nature.jpg', true)">
                         <img src="images4/itelmen-nature.jpg" alt="Природа Камчатки">
                         <div class="gallery-caption">Реки и тайга Камчатки</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/itelmen-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/itelmen-dance.jpg', true)">
                         <img src="images4/itelmen-dance.jpg" alt="Ительменский народный танец">
                         <div class="gallery-caption">Традиционные танцы</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/itelmen-tigil.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/itelmen-tigil.jpg', true)">
                         <img src="images4/itelmen-tigil.jpg" alt="Посёлок Тигиль">
                         <div class="gallery-caption">Тигиль — культурный центр</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/itelmen-salmon-fishing.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/itelmen-salmon-fishing.jpg', true)">
                         <img src="images6/itelmen-salmon-fishing.jpg" alt="Ловля лосося">
                         <div class="gallery-caption">Ловля лосося</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/itelmen-festival.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/itelmen-festival.jpg', true)">
                         <img src="images6/itelmen-festival.jpg" alt="Праздник Алхалалай">
                         <div class="gallery-caption">Праздник Алхалалай</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/itelmen-yaranga-old.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/itelmen-yaranga-old.jpg', true)">
                         <img src="images6/itelmen-yaranga-old.jpg" alt="Старая яранга">
                         <div class="gallery-caption">Традиционное жилище</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/itelmen-bone-fisherman.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/itelmen-bone-fisherman.jpg', true)">
                         <img src="images6/itelmen-bone-fisherman.jpg" alt="Резьба по кости">
                         <div class="gallery-caption">Резьба по кости</div>
                     </div>
@@ -1235,26 +1235,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
+                function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';

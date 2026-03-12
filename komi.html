@@ -953,28 +953,28 @@
                 <li>
                     <span class="fact-icon">🦌</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/komi-voyvyz.jpg')">Войвыз (День оленевода)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/komi-voyvyz.jpg', false)">Войвыз (День оленевода)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный праздник коми-оленеводов. Скачки на оленьих упряжках, борьба, народные игры, обряды благословения стада.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌲</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/komi-gyrin.jpg')">Гырын (Гырын выль)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/komi-gyrin.jpg', false)">Гырын (Гырын выль)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Весенний праздник пробуждения природы. Обряды в лесу, гадания, первый выгон скота на пастбище.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐟</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/komi-vodzan.jpg')">Водзан выль (День воды)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/komi-vodzan.jpg', false)">Водзан выль (День воды)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник в честь духа воды. Первый улов рыбы, обряды на берегу реки, угощения из рыбы.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌾</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/komi-harvest.jpg')">Урожай (Берд ювсь)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/komi-harvest.jpg', false)">Урожай (Берд ювсь)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник окончания сенокоса и сбора урожая. Благодарность духам, семейные застолья, песни.</p>
                     </div>
                 </li>
@@ -987,35 +987,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images2/komi-reindeer.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images2/komi-reindeer.jpg', true)">
                         <img src="images2/komi-reindeer.jpg" alt="Коми-оленеводы с оленями">
                         <div class="gallery-caption">Оленеводство — традиционный промысел</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images2/komi-nature.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images2/komi-nature.jpg', true)">
                         <img src="images2/komi-nature.jpg" alt="Природа Республики Коми">
                         <div class="gallery-caption">Леса и тундра Коми</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images2/komi-voyvyz.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images2/komi-voyvyz.jpg', true)">
                         <img src="images2/komi-voyvyz.jpg" alt="Праздник Войвыз">
                         <div class="gallery-caption">Праздник Войвыз</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images2/komi-crafts.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images2/komi-crafts.jpg', true)">
                         <img src="images2/komi-crafts.jpg" alt="Коми роспись по дереву">
                         <div class="gallery-caption">Резьба и роспись по дереву</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/komi-costume.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/komi-costume.jpg', true)">
                         <img src="images6/komi-costume.jpg" alt="Коми национальный костюм">
                         <div class="gallery-caption">Традиционный костюм</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/komi-reindeer-festival.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/komi-reindeer-festival.jpg', true)">
                         <img src="images6/komi-reindeer-festival.jpg" alt="Коми женщины на празднике оленеводов">
                         <div class="gallery-caption">Праздник оленеводов</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/komi-forest.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/komi-forest.jpg', true)">
                         <img src="images6/komi-forest.jpg" alt="Девственные леса Коми">
                         <div class="gallery-caption">Девственные леса ЮНЕСКО</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/komi-izba.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/komi-izba.jpg', true)">
                         <img src="images6/komi-izba.jpg" alt="Интерьер коми избы">
                         <div class="gallery-caption">Интерьер избы</div>
                     </div>
@@ -1220,26 +1220,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
+                function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';

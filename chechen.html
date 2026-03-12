@@ -953,28 +953,28 @@
                 <li>
                     <span class="fact-icon">🌾</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/chechen-uraza-bayram.jpg')">Ураза-байрам (Ид аль-Фитр)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chechen-uraza-bayram.jpg', false)">Ураза-байрам (Ид аль-Фитр)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Окончание Рамадана. Праздничный намаз, угощения, помощь бедным, посещение родных. Готовят жижиг-галнаш, сладости.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐑</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/chechen-kurban-bayram.jpg')">Курбан-байрам (Ид аль-Адха)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chechen-kurban-bayram.jpg', false)">Курбан-байрам (Ид аль-Адха)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник жертвоприношения. Забой барана, раздача мяса, семейные застолья, молитвы о мире и благополучии.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">⚔️</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/chechen-language-day.jpg')">День чеченского языка</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chechen-language-day.jpg', false)">День чеченского языка</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">25 апреля. Праздник национальной культуры, конкурсы чтения поэтов, фольклорные выступления.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🏔️</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/chechen-mountain-day.jpg')">День горца</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chechen-mountain-day.jpg', false)">День горца</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник традиционной культуры. Борьба, скачки, национальные танцы, демонстрация костюмов и ремёсел.</p>
                     </div>
                 </li>
@@ -987,35 +987,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images3/chechen-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/chechen-dance.jpg', true)">
                         <img src="images3/chechen-dance.jpg" alt="Чеченский лезгинка">
                         <div class="gallery-caption">Национальный танец лезгинка</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/chechen-horse.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/chechen-horse.jpg', true)">
                         <img src="images3/chechen-horse.jpg" alt="Чеченские всадники">
                         <div class="gallery-caption">Коневодство и скачки</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/chechen-crafts.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/chechen-crafts.jpg', true)">
                         <img src="images3/chechen-crafts.jpg" alt="Чеченские национальные промыслы">
                         <div class="gallery-caption">Серебряные украшения и кинжалы</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/chechen-grozny.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/chechen-grozny.jpg', true)">
                         <img src="images3/chechen-grozny.jpg" alt="Грозный, мечеть имени Ахмата Кадырова">
                         <div class="gallery-caption">Мечеть «Сердце Чечни»</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/chechen-towers.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/chechen-towers.jpg', true)">
                         <img src="images6/chechen-towers.jpg" alt="Чеченские башенные комплексы Вайнах">
                         <div class="gallery-caption">Башенные комплексы Вайнах</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/chechen-zhizhig-galnash.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/chechen-zhizhig-galnash.jpg', true)">
                         <img src="images6/chechen-zhizhig-galnash.jpg" alt="Жижиг-галнаш чеченское блюдо">
                         <div class="gallery-caption">Традиционное жижиг-галнаш</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/chechen-dagger.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/chechen-dagger.jpg', true)">
                         <img src="images6/chechen-dagger.jpg" alt="Чеченский кинжал хьалха">
                         <div class="gallery-caption">Традиционный кинжал хьалха</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/chechen-lezginka-performance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/chechen-lezginka-performance.jpg', true)">
                         <img src="images6/chechen-lezginka-performance.jpg" alt="Чеченский танец лезгинка выступление">
                         <div class="gallery-caption">Выступление лезгинки</div>
                     </div>
@@ -1220,26 +1220,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
+                function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';

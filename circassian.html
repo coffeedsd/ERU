@@ -953,28 +953,28 @@
                 <li>
                     <span class="fact-icon">🌙</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/circassian-bayram.jpg')">Ураза-байрам и Курбан-байрам</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/circassian-bayram.jpg', false)">Ураза-байрам и Курбан-байрам</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Исламские праздники с черкесскими традициями. Праздничные намазы, угощения, посещение родных, помощь бедным.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/circassian-costume-day.jpg')">День черкесского костюма</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/circassian-costume-day.jpg', false)">День черкесского костюма</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник демонстрации национальных костюмов. Парады, конкурсы, фотосессии, мастер-классы по изготовлению.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐴</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/circassian-horse-festival.jpg')">Конные фестивали</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/circassian-horse-festival.jpg', false)">Конные фестивали</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Традиционные скачки и конные игры. Демонстрация мастерства верховой езды, национальной снаряжи.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🏛️</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/circassian-republic-day.jpg')">День республики КЧР</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/circassian-republic-day.jpg', false)">День республики КЧР</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник в Черкесске. Фольклорные фестивали, конкурсы костюмов, спортивные соревнования, ярмарки ремёсел.</p>
                     </div>
                 </li>
@@ -987,35 +987,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images3/circassian-costume.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/circassian-costume.jpg', true)">
                         <img src="images3/circassian-costume.jpg" alt="Черкесский костюм с газырями">
                         <div class="gallery-caption">Костюм с серебряными газырями</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/circassian-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/circassian-dance.jpg', true)">
                         <img src="images3/circassian-dance.jpg" alt="Черкесский танец">
                         <div class="gallery-caption">Танец «къафэ»</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/circassian-diaspora.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/circassian-diaspora.jpg', true)">
                         <img src="images3/circassian-diaspora.jpg" alt="Черкесская диаспора">
                         <div class="gallery-caption">Черкесы в диаспоре (Турция, Иордания)</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/circassian-nature.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/circassian-nature.jpg', true)">
                         <img src="images3/circassian-nature.jpg" alt="Природа Карачаево-Черкесии">
                         <div class="gallery-caption">Горы Карачаево-Черкесии</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/circassian-flag.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/circassian-flag.jpg', true)">
                         <img src="images6/circassian-flag.jpg" alt="Черкесский флаг">
                         <div class="gallery-caption">Флаг черкесов</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/circassian-cuisine.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/circassian-cuisine.jpg', true)">
                         <img src="images6/circassian-cuisine.jpg" alt="Черкесская кухня">
                         <div class="gallery-caption">Традиционная кухня</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/circassian-gazyr.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/circassian-gazyr.jpg', true)">
                         <img src="images6/circassian-gazyr.jpg" alt="Черкесский костюм с газырями">
                         <div class="gallery-caption">Костюм с газырями</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/circassian-chicken.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/circassian-chicken.jpg', true)">
                         <img src="images6/circassian-chicken.jpg" alt="Черкесская курица">
                         <div class="gallery-caption">Блюдо из курицы</div>
                     </div>
@@ -1220,26 +1220,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
+                function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';

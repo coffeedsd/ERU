@@ -953,28 +953,28 @@
                 <li>
                     <span class="fact-icon">🐴</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/adygean-horse-day.jpg')">День адыгейского коня</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/adygean-horse-day.jpg', false)">День адыгейского коня</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный праздник коневодов. Скачки, конкурс красоты лошадей, демонстрация традиционной снаряжи, народные гуляния.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌙</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/adygean-bayram.jpg')">Ураза-байрам и Курбан-байрам</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/adygean-bayram.jpg', false)">Ураза-байрам и Курбан-байрам</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Исламские праздники с адыгейскими традициями. Праздничные намазы, угощения шыпсом, посещение родных.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/adygean-shxuno.jpg')">Шхуно — праздник урожая</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/adygean-shxuno.jpg', false)">Шхуно — праздник урожая</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Древний праздник сбора урожая. Обряды благодарности, народные игры, хороводы, угощения.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🏛️</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/adygean-republic-day.jpg')">День республики Адыгея</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/adygean-republic-day.jpg', false)">День республики Адыгея</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник в Майкопе. Фольклорные фестивали, конкурсы костюмов, спортивные соревнования, ярмарки.</p>
                     </div>
                 </li>
@@ -987,35 +987,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images3/adygean-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/adygean-dance.jpg', true)">
                         <img src="images3/adygean-dance.jpg" alt="Адыгейский танец">
                         <div class="gallery-caption">Танец «къафэ»</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/adygean-cheese.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/adygean-cheese.jpg', true)">
                         <img src="images3/adygean-cheese.jpg" alt="Адыгейский сыр">
                         <div class="gallery-caption">Знаменитый адыгейский сыр</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/adygean-nature.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/adygean-nature.jpg', true)">
                         <img src="images3/adygean-nature.jpg" alt="Природа Адыгеи">
                         <div class="gallery-caption">Горы и леса Адыгеи</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/adygean-dolmen.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/adygean-dolmen.jpg', true)">
                         <img src="images3/adygean-dolmen.jpg" alt="Дольмены Адыгеи">
                         <div class="gallery-caption">Древние дольмены</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/adygean-cheese-wiki.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/adygean-cheese-wiki.jpg', true)">
                         <img src="images6/adygean-cheese-wiki.jpg" alt="Адыгейский сыр круглый">
                         <div class="gallery-caption">Традиционный адыгейский сыр</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/adygean-dolmen-forest.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/adygean-dolmen-forest.jpg', true)">
                         <img src="images6/adygean-dolmen-forest.jpg" alt="Дольмен в лесу">
                         <div class="gallery-caption">Дольмен в лесу Адыгеи</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/adygean-horse-riding.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/adygean-horse-riding.jpg', true)">
                         <img src="images6/adygean-horse-riding.jpg" alt="Конный тур в Адыгее">
                         <div class="gallery-caption">Конные прогулки в горах</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/adygean-nature-canyon.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/adygean-nature-canyon.jpg', true)">
                         <img src="images6/adygean-nature-canyon.jpg" alt="Каньон реки Адыгеи">
                         <div class="gallery-caption">Гранитный каньон</div>
                     </div>
@@ -1220,26 +1220,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
+                function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';

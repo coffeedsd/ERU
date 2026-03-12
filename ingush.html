@@ -953,28 +953,28 @@
                 <li>
                     <span class="fact-icon">🌙</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/ingush-uraza-bayram.jpg')">Ураза-байрам (Ид аль-Фитр)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/ingush-uraza-bayram.jpg', false)">Ураза-байрам (Ид аль-Фитр)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Окончание Рамадана. Праздничный намаз, угощения, помощь бедным, посещение родных и башенных комплексов.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐑</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/ingush-kurban-bayram.jpg')">Курбан-байрам (Ид аль-Адха)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/ingush-kurban-bayram.jpg', false)">Курбан-байрам (Ид аль-Адха)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник жертвоприношения. Забой скота, раздача мяса, семейные застолья с жижиг-галнашом.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🏔️</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/ingush-culture-day.jpg')">День ингушской культуры</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/ingush-culture-day.jpg', false)">День ингушской культуры</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник национальных традиций. Фольклор, танцы, борьба, конкурсы костюмов, выставки ремёсел.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🏛️</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/ingush-magas-day.jpg')">День Магаса</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/ingush-magas-day.jpg', false)">День Магаса</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник столицы Ингушетии. Исторические реконструкции, спортивные соревнования, народные гуляния.</p>
                     </div>
                 </li>
@@ -987,35 +987,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images3/ingush-towers.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/ingush-towers.jpg', true)">
                         <img src="images3/ingush-towers.jpg" alt="Ингушские башни в Джейрахе">
                         <div class="gallery-caption">Башенный комплекс в Джейрахе</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/ingush-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/ingush-dance.jpg', true)">
                         <img src="images3/ingush-dance.jpg" alt="Ингушский танец">
                         <div class="gallery-caption">Национальный танец</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/ingush-erzi.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/ingush-erzi.jpg', true)">
                         <img src="images3/ingush-erzi.jpg" alt="Село Эрзи">
                         <div class="gallery-caption">Село Эрзи — музей под открытым небом</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/ingush-magas.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/ingush-magas.jpg', true)">
                         <img src="images3/ingush-magas.jpg" alt="Башня в Магасе">
                         <div class="gallery-caption">Башня согласия в Магасе</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/ingush-towers-pyaling.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/ingush-towers-pyaling.jpg', true)">
                         <img src="images6/ingush-towers-pyaling.jpg" alt="Ингушские башни Пялинг">
                         <div class="gallery-caption">Башни в Пялинге</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/ingush-zhizhig-galnash.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/ingush-zhizhig-galnash.jpg', true)">
                         <img src="images6/ingush-zhizhig-galnash.jpg" alt="Ингушское блюдо жижиг-галнаш">
                         <div class="gallery-caption">Традиционный жижиг-галнаш</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/ingush-tower-concord.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/ingush-tower-concord.jpg', true)">
                         <img src="images6/ingush-tower-concord.jpg" alt="Башня Согласия в Магасе">
                         <div class="gallery-caption">Башня Согласия</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/ingush-towers-caucasus.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/ingush-towers-caucasus.jpg', true)">
                         <img src="images6/ingush-towers-caucasus.jpg" alt="Ингушские башни на фоне гор">
                         <div class="gallery-caption">Башни на фоне Кавказских гор</div>
                     </div>
@@ -1220,26 +1220,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
+                function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';

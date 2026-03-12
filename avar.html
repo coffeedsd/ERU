@@ -953,28 +953,28 @@
                 <li>
                     <span class="fact-icon">🌙</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/avar-uraza-bayram.jpg')">Ураза-байрам (Ид аль-Фитр)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/avar-uraza-bayram.jpg', false)">Ураза-байрам (Ид аль-Фитр)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Окончание Рамадана. Праздничный намаз в мечетях, угощения, подарки детям, посещение родных и старших.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐑</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/avar-kurban-bayram.jpg')">Курбан-байрам (Ид аль-Адха)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/avar-kurban-bayram.jpg', false)">Курбан-байрам (Ид аль-Адха)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник жертвоприношения. Забой скота, раздача мяса бедным, семейные застолья с хинкалом.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">💃</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/avar-culture-day.jpg')">День аварской культуры</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/avar-culture-day.jpg', false)">День аварской культуры</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Ежегодный праздник в Махачкале. Фестивали лезгинки, конкурсы костюмов, выставки ремёсел, национальная борьба.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🏔️</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/avar-hunzah-gathering.jpg')">Сборы в Хунзахе</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/avar-hunzah-gathering.jpg', false)">Сборы в Хунзахе</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Традиционные народные гуляния в древней столице аварцев. Исторические реконструкции, спортивные соревнования.</p>
                     </div>
                 </li>
@@ -987,35 +987,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images3/avar-dance-detail.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/avar-dance-detail.jpg', true)">
                         <img src="images3/avar-dance-detail.jpg" alt="Аварский танец лезгинка">
                         <div class="gallery-caption">Лезгинка — гордый танец</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/avar-music.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/avar-music.jpg', true)">
                         <img src="images3/avar-music.jpg" alt="Аварская музыка и инструменты">
                         <div class="gallery-caption">Тар и зурна — национальные инструменты</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/avar-carpet.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/avar-carpet.jpg', true)">
                         <img src="images3/avar-carpet.jpg" alt="Аварские ковры">
                         <div class="gallery-caption">Кумыкские и аварские ковры</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/avar-hunzah.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/avar-hunzah.jpg', true)">
                         <img src="images3/avar-hunzah.jpg" alt="Село Хунзах">
                         <div class="gallery-caption">Древняя столица Хунзах</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/avar-hinkal.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/avar-hinkal.jpg', true)">
                         <img src="images6/avar-hinkal.jpg" alt="Аварский хинкал">
                         <div class="gallery-caption">Традиционный хинкал</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/avar-costume.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/avar-costume.jpg', true)">
                         <img src="images6/avar-costume.jpg" alt="Аварский национальный костюм">
                         <div class="gallery-caption">Национальный костюм</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/avar-hunzah-panorama.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/avar-hunzah-panorama.jpg', true)">
                         <img src="images6/avar-hunzah-panorama.jpg" alt="Панорама Хунзаха">
                         <div class="gallery-caption">Село Хунзах с высоты</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/avar-hinkal-cooking.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/avar-hinkal-cooking.jpg', true)">
                         <img src="images6/avar-hinkal-cooking.jpg" alt="Приготовление хинкала">
                         <div class="gallery-caption">Кусочки теста для хинкала</div>
                     </div>
@@ -1220,26 +1220,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
+                function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';

@@ -953,28 +953,28 @@
                 <li>
                     <span class="fact-icon">🌾</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/mari-shumbrat.jpg')">Шумбрат (Шорык йол)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/mari-shumbrat.jpg', false)">Шумбрат (Шорык йол)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный национальный праздник — Новый год по марийскому календарю. Жертвоприношения духам, обряды в священной роще, народные гуляния.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🔥</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/mari-peledysh.jpg')">Пеледыш пайрем (День матери)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/mari-peledysh.jpg', false)">Пеледыш пайрем (День матери)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник матери и плодородия. Весенние обряды, гадания, угощения, песни.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌲</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/mari-kugeche.jpg')">Кугече (Купала)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/mari-kugeche.jpg', false)">Кугече (Купала)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Летнее солнцестояние. Костры, плетение венков, прыжки через огонь, поиск цветка папоротника.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🙏</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/mari-prayer.jpg')">Моление в священной роще</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/mari-prayer.jpg', false)">Моление в священной роще</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Древний языческий обряд. Приношения духам-покровителям, молитвы о здоровье и урожае.</p>
                     </div>
                 </li>
@@ -987,35 +987,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images2/mari-shumbrat.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images2/mari-shumbrat.jpg', true)">
                         <img src="images2/mari-shumbrat.jpg" alt="Праздник Шумбрат">
                         <div class="gallery-caption">Праздник Шумбрат (Новый год)</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images2/mari-forest.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images2/mari-forest.jpg', true)">
                         <img src="images2/mari-forest.jpg" alt="Священная марийская роща">
                         <div class="gallery-caption">Священная роща (кюсюдо)</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images2/mari-crafts.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images2/mari-crafts.jpg', true)">
                         <img src="images2/mari-crafts.jpg" alt="Марийские народные промыслы">
                         <div class="gallery-caption">Ткачество и вышивка</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images2/mari-embroidery.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images2/mari-embroidery.jpg', true)">
                         <img src="images2/mari-embroidery.jpg" alt="Марийская вышивка">
                         <div class="gallery-caption">Узоры марийской вышивки</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/mari-costume.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/mari-costume.jpg', true)">
                         <img src="images6/mari-costume.jpg" alt="Марийский национальный костюм">
                         <div class="gallery-caption">Традиционный костюм</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/mari-sacred-grove.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/mari-sacred-grove.jpg', true)">
                         <img src="images6/mari-sacred-grove.jpg" alt="Языческий обряд в роще">
                         <div class="gallery-caption">Обряд в священной роще</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/mari-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/mari-dance.jpg', true)">
                         <img src="images6/mari-dance.jpg" alt="Марийский народный танец">
                         <div class="gallery-caption">Народный танец</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/mari-izba.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/mari-izba.jpg', true)">
                         <img src="images6/mari-izba.jpg" alt="Интерьер марийской избы">
                         <div class="gallery-caption">Интерьер избы</div>
                     </div>
@@ -1220,26 +1220,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
+                function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';

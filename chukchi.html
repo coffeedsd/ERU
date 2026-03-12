@@ -953,28 +953,28 @@
                 <li>
                     <span class="fact-icon">🦌</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/chukchi-kevet.jpg')">Кэвэт (Праздник оленей)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chukchi-kevet.jpg', false)">Кэвэт (Праздник оленей)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный праздник чукчей. Состязания на оленьих упряжках, борьба, поднятие камней, народные игры. Благословение стада.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐋</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/chukchi-nulint.jpg')">Нулинт (Праздник кита)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chukchi-nulint.jpg', false)">Нулинт (Праздник кита)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">У прибрежных чукчей. Обряд благодарности духу кита за удачную охоту. Танцы, песни, угощения.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🔥</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/chukchi-day.jpg')">День народов Чукотки</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chukchi-day.jpg', false)">День народов Чукотки</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник в Анадыре. Фольклорные выступления, конкурсы национальных костюмов, ярмарки ремёсел.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/chukchi-shaman.jpg')">Шаманские обряды</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chukchi-shaman.jpg', false)">Шаманские обряды</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Традиционные ритуалы исцеления, предсказания погоды, благословения перед охотой. Использование бубна.</p>
                     </div>
                 </li>
@@ -987,35 +987,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images4/chukchi-sled.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/chukchi-sled.jpg', true)">
                         <img src="images4/chukchi-sled.jpg" alt="Оленья упряжка чукчей">
                         <div class="gallery-caption">Оленья упряжка — главный транспорт</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/chukchi-whale.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/chukchi-whale.jpg', true)">
                         <img src="images4/chukchi-whale.jpg" alt="Охота на кита">
                         <div class="gallery-caption">Традиционная охота на серых китов</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/chukchi-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/chukchi-dance.jpg', true)">
                         <img src="images4/chukchi-dance.jpg" alt="Чукотский народный танец">
                         <div class="gallery-caption">Традиционные танцы</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/chukchi-anadyr.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/chukchi-anadyr.jpg', true)">
                         <img src="images4/chukchi-anadyr.jpg" alt="Город Анадырь">
                         <div class="gallery-caption">Анадырь — столица Чукотки</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/chukchi-costume-kids.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/chukchi-costume-kids.jpg', true)">
                         <img src="images6/chukchi-costume-kids.jpg" alt="Чукотский национальный костюм">
                         <div class="gallery-caption">Национальный костюм</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/chukchi-reindeer.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/chukchi-reindeer.jpg', true)">
                         <img src="images6/chukchi-reindeer.jpg" alt="Оленеводы">
                         <div class="gallery-caption">Оленеводы</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/chukchi-yaranga-night.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/chukchi-yaranga-night.jpg', true)">
                         <img src="images6/chukchi-yaranga-night.jpg" alt="Яранга ночью">
                         <div class="gallery-caption">Яранга ночью</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/chukchi-bone-seal.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/chukchi-bone-seal.jpg', true)">
                         <img src="images6/chukchi-bone-seal.jpg" alt="Резьба по кости">
                         <div class="gallery-caption">Резьба по кости</div>
                     </div>
@@ -1232,26 +1232,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
+                function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';

@@ -953,28 +953,28 @@
                 <li>
                     <span class="fact-icon">🐴</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/kabardian-horse-day.jpg')">День кабардинской лошади</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/kabardian-horse-day.jpg', false)">День кабардинской лошади</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный праздник коневодов. Выставка лошадей, скачки, конкурс красоты, демонстрация традиционной снаряжки.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌙</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/kabardian-bayram.jpg')">Ураза-байрам и Курбан-байрам</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/kabardian-bayram.jpg', false)">Ураза-байрам и Курбан-байрам</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Исламские праздники с кабардинскими традициями. Праздничные намазы, угощения шыльпсом, посещение родных.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">⚔️</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/kabardian-wrestling-tournament.jpg')">Турнир по кабардинской борьбе</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/kabardian-wrestling-tournament.jpg', false)">Турнир по кабардинской борьбе</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Национальная борьба «дзю» — древнее боевое искусство. Турниры с элементами исторической реконструкции.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/kabardian-culture-festival.jpg')">Фестиваль адыгской культуры</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/kabardian-culture-festival.jpg', false)">Фестиваль адыгской культуры</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Общий праздник кабардинцев, черкесов и адыгейцев. Танцы, песни, конкурсы костюмов, кулинарные фестивали.</p>
                     </div>
                 </li>
@@ -987,35 +987,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images3/kabardian-wrestling.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/kabardian-wrestling.jpg', true)">
                         <img src="images3/kabardian-wrestling.jpg" alt="Кабардинская борьба дзю">
                         <div class="gallery-caption">Национальная борьба «дзю»</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/kabardian-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/kabardian-dance.jpg', true)">
                         <img src="images3/kabardian-dance.jpg" alt="Кабардинский танец">
                         <div class="gallery-caption">Танец «къафэ»</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/kabardian-dolmen.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/kabardian-dolmen.jpg', true)">
                         <img src="images3/kabardian-dolmen.jpg" alt="Древние дольмены">
                         <div class="gallery-caption">Дольмены — древние святилища</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images3/kabardian-elbrus.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images3/kabardian-elbrus.jpg', true)">
                         <img src="images3/kabardian-elbrus.jpg" alt="Эльбрус, Кабардино-Балкария">
                         <div class="gallery-caption">Эльбрус — священная гора</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/kabardian-horse-breed.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/kabardian-horse-breed.jpg', true)">
                         <img src="images6/kabardian-horse-breed.jpg" alt="Кабардинская порода лошадей">
                         <div class="gallery-caption">Кабардинская лошадь</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/kabardian-cuisine.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/kabardian-cuisine.jpg', true)">
                         <img src="images6/kabardian-cuisine.jpg" alt="Кабардинская кухня шашлык">
                         <div class="gallery-caption">Традиционная кухня</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/kabardian-dolmen-megalith.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/kabardian-dolmen-megalith.jpg', true)">
                         <img src="images6/kabardian-dolmen-megalith.jpg" alt="Кабардинские дольмены мегалиты">
                         <div class="gallery-caption">Мегалитические дольмены</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/kabardian-horse-herd.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/kabardian-horse-herd.jpg', true)">
                         <img src="images6/kabardian-horse-herd.jpg" alt="Стадо кабардинских лошадей">
                         <div class="gallery-caption">Стадо кабардинских лошадей</div>
                     </div>
@@ -1220,26 +1220,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
+                function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';

@@ -921,28 +921,28 @@
                 <li>
                     <span class="fact-icon">🐋</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/yupik-whale.jpg')">Праздник кита (Нулинт)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yupik-whale.jpg', false)">Праздник кита (Нулинт)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный праздник после удачной охоты. Обряд благодарности духу моря. Танцы, песни, угощения из китового мяса.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/yupik-mask.jpg')">Танцы маскарада</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yupik-mask.jpg', false)">Танцы маскарада</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Зимние обрядовые танцы в масках духов животных. Исполняются для успешной охоты и благополучия.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐕</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/yupik-sled.jpg')">Старт собачьих упряжек</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yupik-sled.jpg', false)">Старт собачьих упряжек</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Соревнования на традиционных упряжках. Проверка выносливости собак и мастерства погонщика.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎪</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/yupik-culture-day.jpg')">День эскимосской культуры</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yupik-culture-day.jpg', false)">День эскимосской культуры</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник в Новом Чаплино. Соревнования по метании гарпуна, стрельбе из лука, национальные игры.</p>
                     </div>
                 </li>
@@ -955,35 +955,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images4/yupik-kayak.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/yupik-kayak.jpg', true)">
                         <img src="images4/yupik-kayak.jpg" alt="Юпикская байдарка">
                         <div class="gallery-caption">Каркасная байдарка «каяк»</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/yupik-harpoon.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/yupik-harpoon.jpg', true)">
                         <img src="images4/yupik-harpoon.jpg" alt="Гарпун для охоты">
                         <div class="gallery-caption">Традиционный гарпун</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/yupik-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/yupik-dance.jpg', true)">
                         <img src="images4/yupik-dance.jpg" alt="Юпикский танец">
                         <div class="gallery-caption">Обрядовые танцы</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/yupik-chaplino.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/yupik-chaplino.jpg', true)">
                         <img src="images4/yupik-chaplino.jpg" alt="Посёлок Новое Чаплино">
                         <div class="gallery-caption">Новое Чаплино — центр юпиков</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/yupik-parka.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/yupik-parka.jpg', true)">
                         <img src="images6/yupik-parka.jpg" alt="Традиционная парка">
                         <div class="gallery-caption">Традиционная парка</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/yupik-whale-hunt.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/yupik-whale-hunt.jpg', true)">
                         <img src="images6/yupik-whale-hunt.jpg" alt="Охота на кита">
                         <div class="gallery-caption">Традиционная охота на кита</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/yupik-mask-art.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/yupik-mask-art.jpg', true)">
                         <img src="images6/yupik-mask-art.jpg" alt="Церемониальная маска">
                         <div class="gallery-caption">Церемониальная маска</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/yupik-ivory-carving.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/yupik-ivory-carving.jpg', true)">
                         <img src="images6/yupik-ivory-carving.jpg" alt="Резьба по кости">
                         <div class="gallery-caption">Резьба по кости</div>
                     </div>
@@ -1200,21 +1200,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
+                function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';

@@ -953,28 +953,28 @@
                 <li>
                     <span class="fact-icon">🌾</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/udmurt-gerber.jpg')">Гербер (Гербер юбилей)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/udmurt-gerber.jpg', false)">Гербер (Гербер юбилей)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный национальный праздник — День удмуртского языка и культуры. Проводится ежегодно в Ижевске. Концерты, выставки, народные гуляния.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌸</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/udmurt-spring.jpg')">Выль пукон (Весенний праздник)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/udmurt-spring.jpg', false)">Выль пукон (Весенний праздник)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Встреча весны. Обряды на плодородие, гадания, народные игры, хороводы.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌾</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/udmurt-harvest.jpg')">Корка пукон (Жатвенный праздник)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/udmurt-harvest.jpg', false)">Корка пукон (Жатвенный праздник)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник окончания уборки урожая. Благодарность духам за хлеб, семейные застолья.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎄</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/udmurt-christmas.jpg')">Шунды пукон (Рождество)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/udmurt-christmas.jpg', false)">Шунды пукон (Рождество)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Традиционное празднование с колядками, обрядовыми блюдами, посещением родных.</p>
                     </div>
                 </li>
@@ -987,35 +987,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images2/udmurt-chorus.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images2/udmurt-chorus.jpg', true)">
                         <img src="images2/udmurt-chorus.jpg" alt="Удмуртский народный хор">
                         <div class="gallery-caption">Народный хор «Италмас»</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images2/udmurt-gerber.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images2/udmurt-gerber.jpg', true)">
                         <img src="images2/udmurt-gerber.jpg" alt="Праздник Гербер в Ижевске">
                         <div class="gallery-caption">Праздник Гербер</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images2/udmurt-crafts.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images2/udmurt-crafts.jpg', true)">
                         <img src="images2/udmurt-crafts.jpg" alt="Удмуртское гончарство">
                         <div class="gallery-caption">Гончарство и резьба по дереву</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images2/udmurt-embroidery.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images2/udmurt-embroidery.jpg', true)">
                         <img src="images2/udmurt-embroidery.jpg" alt="Удмуртская вышивка чырты">
                         <div class="gallery-caption">Вышивка «чырты»</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/udmurt-costume.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/udmurt-costume.jpg', true)">
                         <img src="images6/udmurt-costume.jpg" alt="Удмуртский национальный костюм">
                         <div class="gallery-caption">Традиционный костюм</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/udmurt-gerber-festival.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/udmurt-gerber-festival.jpg', true)">
                         <img src="images6/udmurt-gerber-festival.jpg" alt="Празднование Гербер">
                         <div class="gallery-caption">Празднование Гербер</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/udmurt-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/udmurt-dance.jpg', true)">
                         <img src="images6/udmurt-dance.jpg" alt="Удмуртский народный танец">
                         <div class="gallery-caption">Народный танец</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/udmurt-izba.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/udmurt-izba.jpg', true)">
                         <img src="images6/udmurt-izba.jpg" alt="Интерьер удмуртской избы">
                         <div class="gallery-caption">Интерьер избы</div>
                     </div>
@@ -1220,26 +1220,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
+                function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';

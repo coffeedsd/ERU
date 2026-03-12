@@ -953,28 +953,28 @@
                 <li>
                     <span class="fact-icon">🦌</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/koryak-olyut.jpg')">Олют (Праздник оленей)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/koryak-olyut.jpg', false)">Олют (Праздник оленей)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный праздник коряков. Состязания на оленьих упряжках, борьба, поднятие камней, метание копья. Благословение стада.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐟</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/koryak-first-catch.jpg')">Праздник первого улова</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/koryak-first-catch.jpg', false)">Праздник первого улова</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Весенний обряд благодарности духам воды. Первую рыбу возвращают в воду с мольбами о богатом улове.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🔥</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/koryak-culture-day.jpg')">День корякской культуры</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/koryak-culture-day.jpg', false)">День корякской культуры</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник в Палане. Фольклорные выступления, конкурсы национальных костюмов, ярмарки ремёсел.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/koryak-initiation.jpg')">Обряд инициации</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/koryak-initiation.jpg', false)">Обряд инициации</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Древний обряд посвящения юношей во взрослые. Испытания выносливостью, знание традиций, шаманские ритуалы.</p>
                     </div>
                 </li>
@@ -987,35 +987,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images4/koryak-reindeer.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/koryak-reindeer.jpg', true)">
                         <img src="images4/koryak-reindeer.jpg" alt="Корякские оленеводы">
                         <div class="gallery-caption">Оленеводство — основа жизни</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/koryak-fishing.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/koryak-fishing.jpg', true)">
                         <img src="images4/koryak-fishing.jpg" alt="Рыбалка на Камчатке">
                         <div class="gallery-caption">Рыболовство на реках</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/koryak-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/koryak-dance.jpg', true)">
                         <img src="images4/koryak-dance.jpg" alt="Корякский народный танец">
                         <div class="gallery-caption">Традиционные танцы</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/koryak-palana.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/koryak-palana.jpg', true)">
                         <img src="images4/koryak-palana.jpg" alt="Посёлок Палана">
                         <div class="gallery-caption">Палана — культурный центр</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/koryak-costume-traditional.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/koryak-costume-traditional.jpg', true)">
                         <img src="images6/koryak-costume-traditional.jpg" alt="Традиционный костюм">
                         <div class="gallery-caption">Традиционный костюм</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/koryak-reindeer-herd.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/koryak-reindeer-herd.jpg', true)">
                         <img src="images6/koryak-reindeer-herd.jpg" alt="Стадо оленей">
                         <div class="gallery-caption">Стадо оленей</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/koryak-dwelling.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/koryak-dwelling.jpg', true)">
                         <img src="images6/koryak-dwelling.jpg" alt="Традиционное жилище">
                         <div class="gallery-caption">Традиционное жилище</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/koryak-bone-face.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/koryak-bone-face.jpg', true)">
                         <img src="images6/koryak-bone-face.jpg" alt="Резьба по кости">
                         <div class="gallery-caption">Резьба по кости</div>
                     </div>
@@ -1234,26 +1234,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
+                function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';

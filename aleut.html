@@ -921,28 +921,28 @@
                 <li>
                     <span class="fact-icon">🦭</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/aleut-otter.jpg')">Праздник морской выдры</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/aleut-otter.jpg', false)">Праздник морской выдры</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Обряд благодарности после удачной охоты. Танцы, песни, угощения. Морская выдра — основной промысловый зверь.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎭</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/aleut-dance.jpg')">Танцы и песни</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/aleut-dance.jpg', false)">Танцы и песни</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Традиционные алеутские песни-рассказы (аягax̂) исполняются с барабаном. Танцы имитируют движения морских животных.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">⛪</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/aleut-transfiguration.jpg')">Преображение Господне</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/aleut-transfiguration.jpg', false)">Преображение Господне</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный православный праздник. Крестный ход вокруг церкви, освящение воды, народные гуляния.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎪</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/aleut-culture-day.jpg')">День алеутской культуры</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/aleut-culture-day.jpg', false)">День алеутской культуры</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник на Командорских островах. Мастер-классы по ткачеству из травы, выставки, фольклорные выступления.</p>
                     </div>
                 </li>
@@ -955,35 +955,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images4/aleut-baidarka.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/aleut-baidarka.jpg', true)">
                         <img src="images4/aleut-baidarka.jpg" alt="Алеутская байдарка">
                         <div class="gallery-caption">Байдарка «бидарка» для охоты</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/aleut-weaving.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/aleut-weaving.jpg', true)">
                         <img src="images4/aleut-weaving.jpg" alt="Алеутское ткачество">
                         <div class="gallery-caption">Ткачество из травы «экамы»</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/aleut-hunting.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/aleut-hunting.jpg', true)">
                         <img src="images4/aleut-hunting.jpg" alt="Алеутская охота">
                         <div class="gallery-caption">Традиционная охота на выдр</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images4/aleut-islands.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images4/aleut-islands.jpg', true)">
                         <img src="images4/aleut-islands.jpg" alt="Командорские острова">
                         <div class="gallery-caption">Командорские острова</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/aleut-costume.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/aleut-costume.jpg', true)">
                         <img src="images6/aleut-costume.jpg" alt="Алеутский национальный костюм">
                         <div class="gallery-caption">Традиционный костюм</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/aleut-basket.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/aleut-basket.jpg', true)">
                         <img src="images6/aleut-basket.jpg" alt="Алеутская корзина из травы">
                         <div class="gallery-caption">Корзина из травы «экама»</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/aleut-dance.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/aleut-dance.jpg', true)">
                         <img src="images6/aleut-dance.jpg" alt="Алеутский народный танец">
                         <div class="gallery-caption">Традиционный танец</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/aleut-island.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/aleut-island.jpg', true)">
                         <img src="images6/aleut-island.jpg" alt="Остров Медный">
                         <div class="gallery-caption">Остров Медный</div>
                     </div>
@@ -1197,21 +1197,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
+                function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
