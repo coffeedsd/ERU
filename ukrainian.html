@@ -224,6 +224,78 @@
             color: var(--accent-gold);
         }
         
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: "\2197";
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
+
         /* ГАЛЕРЕЯ С КАРУСЕЛЬЮ */
         .gallery-wrapper {
             position: relative;
@@ -406,70 +478,6 @@
             z-index: 10001;
         }
 
-        .lightbox-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 55px;
-            height: 55px;
-            background: rgba(245, 158, 11, 0.3);
-            border: 2px solid rgba(245, 158, 11, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            color: #f5a623;
-            transition: all 0.3s ease;
-            z-index: 10001;
-            line-height: 1;
-        }
-        .lightbox-arrow:hover {
-            background: rgba(245, 158, 11, 0.6);
-            border-color: #f5a623;
-            color: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
-        @media (max-width: 768px) {
-            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
-            .lightbox-prev { left: 8px; }
-            .lightbox-next { right: 8px; }
-        }
-        .lightbox-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 55px;
-            height: 55px;
-            background: rgba(245, 158, 11, 0.3);
-            border: 2px solid rgba(245, 158, 11, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            color: #f5a623;
-            transition: all 0.3s ease;
-            z-index: 10001;
-            line-height: 1;
-        }
-        .lightbox-arrow:hover {
-            background: rgba(245, 158, 11, 0.6);
-            border-color: #f5a623;
-            color: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
-        @media (max-width: 768px) {
-            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
-            .lightbox-prev { left: 8px; }
-            .lightbox-next { right: 8px; }
-        }
         /* ==========================================
            КНОПКА "НАВЕРХ"
            ========================================== */
@@ -786,9 +794,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images/ukrainian-people.jpg" alt="Украинцы в национальных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images/ukrainian-people.jpg" alt="Украинцы в национальных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +804,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images/ukrainian-language.jpg" alt="Украинский язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images/ukrainian-language.jpg" alt="Украинский язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +814,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images/ukrainian-church.jpg" alt="Украинская церковь" onclick="openLightbox(this.src)">
+                        <img src="images/ukrainian-church.jpg" alt="Украинская церковь">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +824,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images/ukrainian-field.jpg" alt="Украинское поле с подсолнухами" onclick="openLightbox(this.src)">
+                        <img src="images/ukrainian-field.jpg" alt="Украинское поле с подсолнухами">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +839,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images/ukrainian-vyshyvanka.jpg" alt="Украинская вышиванка с орнаментом" onclick="openLightbox(this.src)">
+                        <img src="images/ukrainian-vyshyvanka.jpg" alt="Украинская вышиванка с орнаментом">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +860,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('architecture')">
                     <div class="info-card-image">
-                        <img src="images/ukrainian-hut.jpg" alt="Украинская хата с мальвами" onclick="openLightbox(this.src)">
+                        <img src="images/ukrainian-hut.jpg" alt="Украинская хата с мальвами">
                     </div>
                     <div class="info-card-content">
                         <h3>Архитектура</h3>
@@ -862,9 +870,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('music')">
                     <div class="info-card-image">
-                        <img src="images/ukrainian-music.jpg" alt="Украинская народная музыка и танцы" onclick="openLightbox(this.src)">
+                        <img src="images/ukrainian-music.jpg" alt="Украинская народная музыка и танцы">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1009,11 +1017,19 @@
     <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close" onclick="event.stopPropagation(); closeLightbox()">&times;</span>
-        <button class="lightbox-arrow lightbox-prev" onclick="event.stopPropagation(); lightboxNav(-1)">&#8592;</button>
         <img src="" alt="Увеличенное изображение" id="lightbox-img" onclick="event.stopPropagation()">
-        <button class="lightbox-arrow lightbox-next" onclick="event.stopPropagation(); lightboxNav(1)">&#8594;</button>
     </div>
 
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
     <!-- МОДАЛЬНОЕ ОКНО РЕЦЕПТА БОРЩА -->
     <div class="recipe-modal" id="recipeModal">
         <span class="recipe-close" onclick="closeRecipeModal()">&times;</span>
@@ -1152,52 +1168,16 @@
         // Инициализация галереи
         initGallery();
 
-        let lightboxSrcs = [];
-        let lightboxIndex = 0;
-
         function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
-        }
-
-        function lightboxNav(dir) {
-            if (lightboxSrcs.length === 0) return;
-            lightboxIndex = (lightboxIndex + dir + lightboxSrcs.length) % lightboxSrcs.length;
-            document.getElementById('lightbox-img').src = lightboxSrcs[lightboxIndex];
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
             document.body.style.overflow = '';
         }
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (!document.getElementById('lightbox').classList.contains('active')) return;
-            if (e.key === 'ArrowLeft') lightboxNav(-1);
-            if (e.key === 'ArrowRight') lightboxNav(1);
-            if (e.key === 'Escape') closeLightbox();
-        });
 
         // Модальное окно рецепта
         function openRecipeModal() {
@@ -1207,6 +1187,30 @@
 
         function closeRecipeModal() {
             document.getElementById('recipeModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        const infoCards = {
+            population: {img:'images/ukrainian-people.jpg',title:`Численность украинцев`,text:`<p>В России проживает около 5 миллионов украинцев. Общая численность украинцев в мире превышает 45 миллионов человек. Украинцы — третий по величине славянский народ и один из крупнейших народов Европы.</p><p>Значительные диаспоры украинцев сложились в Канаде, США, Бразилии, Аргентине и Польше. Канадские украинцы — одна из старейших и наиболее организованных диаспор мира: первые переселенцы прибыли ещё в 1890-х годах и основали фермерские общины в прериях Альберты и Саскачевана.</p><p>В самой России украинцы расселились преимущественно в Сибири, на Дальнем Востоке и в крупных городах. Исторические украинские колонии — Зелёный клин на Дальнем Востоке и Серый клин в Западной Сибири — сложились в конце XIX — начале XX века в ходе столыпинских переселений.</p>`},
+            language: {img:'images/ukrainian-language.jpg',title:`Украинский язык`,text:`<p>Украинский язык относится к восточнославянской группе индоевропейской семьи и является государственным языком Украины. Отличается мелодичностью, богатством диалектов и сохранил черты древнерусского языка, утраченные в русском.</p><p>Характерные особенности: звук «і» там, где в русском стоит «о» или «е» в закрытых слогах, звук «г» вместо русского «г», певучий мелодический рисунок фразы. Алфавит кириллический, с несколькими особыми буквами — «і», «ї», «є», «ґ».</p><p>Великие поэты Тарас Шевченко, Иван Франко и Леся Украинка заложили основы современного литературного языка. Щедрик Леонтовича — рождественская мелодия на украинском тексте — стала одной из самых исполняемых в мире под названием Carol of the Bells.</p>`},
+            religion: {img:'images/ukrainian-church.jpg',title:`Религия украинцев`,text:`<p>Основная религия украинцев — православное христианство. В 2019 году Православная церковь Украины получила автокефалию от Константинопольского патриархата, что стало важным событием в истории народа. На западе Украины сильны позиции Греко-католической (унiatской) церкви.</p><p>Греко-католическая церковь возникла в результате Брестской унии 1596 года: она сохраняет восточный обряд и богослужение на украинском языке, но признаёт главенство Папы Римского. Это уникальный феномен, отражающий положение западных украинцев на стыке двух христианских миров.</p><p>Народные верования живут в праздничных обрядах. Купала, Колядки и Зелені свята соединяют древнеславянскую традицию с христианским содержанием. Украшенные яйца-писанки — шедевры народного искусства и древний языческий символ, ставший частью пасхальной традиции.</p>`},
+            settlement: {img:'images/ukrainian-field.jpg',title:`Расселение украинцев`,text:`<p>Украинцы расселены по всей России, особенно многочисленны в южных и западных регионах, а также в Сибири и на Дальнем Востоке. Крупнейшие диаспоры за рубежом: в Канаде, США, Польше, Бразилии и Казахстане.</p><p>Историческая Украина делится на несколько регионов с выраженными культурными различиями: Поднепровье — центральная Украина с казацкими традициями, Галиция и Волынь — западные земли с сильным католическим и европейским влиянием, Слобожанщина — восток с тесными связями с Россией, Гуцульщина в Карпатах — горный край с самобытной культурой.</p><p>Украина занимает второе место в Европе по площади после России. Плодородные чернозёмы — главное природное богатство страны. Украина исторически называлась житницей Европы: её зерно кормило многие страны континента.</p>`},
+            costume: {img:'images/ukrainian-vyshyvanka.jpg',title:`Национальный костюм украинцев`,text:`<p>Вышиванка — расшитая рубаха с геометрическими или растительными узорами — стала всемирным символом украинской идентичности. Каждый регион имеет свои характерные узоры, цвета и техники вышивки: на Полтавщине преобладают белые узоры, на Черниговщине — красно-чёрные, в Карпатах — яркие многоцветные.</p><p>Женский костюм включал вышиванку, юбку-спідницю, фартух и корсетку. Обязательным украшением служили венок с цветами и лентами и намисто — ожерелье из коралловых или янтарных бус. Цвет и форма ленточок в венке имели символическое значение.</p><p>Вышивка на украинском костюме — не просто декор, а целый язык символов. Красный цвет символизировал жизнь и любовь, чёрный — землю-кормилицу, синий — небо. Узоры передавались от матери к дочери и считались оберегами от злых сил и болезней.</p>`},
+            architecture: {img:'images/ukrainian-hut.jpg',title:`Украинская архитектура`,text:`<p>Украинская хата — белёное глинобитное жилище с соломенной или камышовой крышей — стала образом родной земли в поэзии и живописи. Стены белили снаружи несколько раз в год и расписывали цветочными узорами. У входа непременно росли мальвы, подсолнухи или калина.</p><p>Внутри хату украшали рушниками — вышитыми льняными полотенцами-оберегами. Рушниками обрамляли иконы, зеркала и двери. Пол застилали домоткаными дорожками-килимами с ярким геометрическим орнаментом. Красный угол с иконами был центром духовной жизни семьи.</p><p>Деревянные церкви Карпат и Подолья с многоярусными верхами — признанные шедевры народного зодчества, занесённые в список Всемирного наследия ЮНЕСКО. Киевские соборы — Святая София XI века, Михайловский Золотоверхий, Лавра — свидетели тысячелетней истории. Львов сочетает готику, ренессанс и барокко в облике уникального европейского города.</p>`},
+            music: {img:'images/ukrainian-music.jpg',title:`Музыка и танцы украинцев`,text:`<p>Украинская народная музыка — одна из богатейших в Европе. Гопак — самый известный танец: мужчины исполняют высокие прыжки и акробатические трюки, женщины — плавные движения с изящными жестами рук. Гуцульские, лемковские и подольские танцы хранят региональное своеобразие.</p><p>Бандура — национальный инструмент Украины — имеет от 55 до 68 струн и звучит как смесь арфы и лютни. Кобзари и лирники — бродячие певцы — были хранителями народной памяти: исполняли думи — эпические баллады о казацкой вольнице и народных героях. Эта традиция устной поэзии уникальна в мировом фольклоре.</p><p>Украинское многоголосное пение покоряет красотой и сложностью. Обрядовые колядки, щедрівки, веснянки и купальские песни передавались из поколения в поколение. Щедрик в обработке Миколы Леонтовича стал всемирно известной рождественской мелодией Carol of the Bells.</p>`},
+        };
+        function openInfoModal(cardId) {
+            const card = infoCards[cardId];
+            if (!card) return;
+            document.getElementById('infoModalImg').src = card.img;
+            document.getElementById('infoModalImg').alt = card.title;
+            document.getElementById('infoModalTitle').textContent = card.title;
+            document.getElementById('infoModalText').innerHTML = card.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
             document.body.style.overflow = '';
         }
 
@@ -1247,8 +1251,6 @@
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
-        const PEOPLE_ID = 'ukrainian';
-
         const questions = [
             { q: "Сколько украинцев проживает в России?", a: ["Около 1 миллиона", "Около 5 миллионов", "Около 10 миллионов", "Около 20 миллионов"], correct: 1 },
             { q: "К какой языковой группе относится украинский язык?", a: ["Западнославянской", "Южнославянской", "Восточнославянской", "Севернославянской"], correct: 2 },
@@ -1263,13 +1265,11 @@
         let currentQ = 0;
         let score = 0;
         let answered = false;
-        let quizAnswers = [];
 
         function startQuiz() {
             currentQ = 0;
             score = 0;
             answered = false;
-            quizAnswers = [];
             document.getElementById('result-box').style.display = 'none';
             document.getElementById('question-box').style.display = 'block';
             document.getElementById('progress-box').style.display = 'block';
@@ -1308,7 +1308,6 @@
                 }
             }
             
-            quizAnswers.push(idx);
             if (idx === q.correct) {
                 score++;
                 feedback.textContent = '✓ Правильно!';
@@ -1341,37 +1340,6 @@
             else if (score >= 4) msg = '📚 Неплохо, но можно лучше.';
             else msg = '🎓 Стоит перечитать материал.';
             document.getElementById('result-text').textContent = msg;
-            
-            // Отправляем результат на бэкенд
-            sendQuizResult();
-        }
-
-
-        // ==========================================
-        // ОТПРАВКА РЕЗУЛЬТАТОВ ВИКТОРИНЫ НА БЭКЕНД
-        // ==========================================
-        const BACKEND_URL = 'https://eru-6h89.onrender.com';
-
-        async function sendQuizResult() {
-            const questionResults = questions.map((q, i) => ({
-                id: 'q' + i,
-                text: q.q,
-                correct: quizAnswers[i] === q.correct
-            }));
-            try {
-                await fetch(BACKEND_URL + '/api/quiz-result', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        peopleId: PEOPLE_ID,
-                        score: score,
-                        total: questions.length,
-                        questions: questionResults
-                    })
-                });
-            } catch(e) {
-                // Тихо игнорируем ошибку сети
-            }
         }
 
         // Старт при загрузке
