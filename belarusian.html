@@ -224,6 +224,78 @@
             color: var(--accent-gold);
         }
         
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: "\2197";
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
+
         /* ГАЛЕРЕЯ С КАРУСЕЛЬЮ */
         .gallery-wrapper {
             position: relative;
@@ -406,70 +478,6 @@
             z-index: 10001;
         }
 
-        .lightbox-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 55px;
-            height: 55px;
-            background: rgba(245, 158, 11, 0.3);
-            border: 2px solid rgba(245, 158, 11, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            color: #f5a623;
-            transition: all 0.3s ease;
-            z-index: 10001;
-            line-height: 1;
-        }
-        .lightbox-arrow:hover {
-            background: rgba(245, 158, 11, 0.6);
-            border-color: #f5a623;
-            color: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
-        @media (max-width: 768px) {
-            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
-            .lightbox-prev { left: 8px; }
-            .lightbox-next { right: 8px; }
-        }
-        .lightbox-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 55px;
-            height: 55px;
-            background: rgba(245, 158, 11, 0.3);
-            border: 2px solid rgba(245, 158, 11, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            color: #f5a623;
-            transition: all 0.3s ease;
-            z-index: 10001;
-            line-height: 1;
-        }
-        .lightbox-arrow:hover {
-            background: rgba(245, 158, 11, 0.6);
-            border-color: #f5a623;
-            color: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
-        @media (max-width: 768px) {
-            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
-            .lightbox-prev { left: 8px; }
-            .lightbox-next { right: 8px; }
-        }
         /* ==========================================
            КНОПКА "НАВЕРХ"
            ========================================== */
@@ -786,9 +794,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images/belarusian-people.jpg" alt="Белорусы в национальных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images/belarusian-people.jpg" alt="Белорусы в национальных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +804,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images/belarusian-language.jpg" alt="Белорусский язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images/belarusian-language.jpg" alt="Белорусский язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +814,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images/belarusian-church.jpg" alt="Белорусская церковь" onclick="openLightbox(this.src)">
+                        <img src="images/belarusian-church.jpg" alt="Белорусская церковь">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +824,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images/belarusian.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images/belarusian.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +839,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images/belarusian-costume.jpg" alt="Белорусский национальный костюм с вышивкой" onclick="openLightbox(this.src)">
+                        <img src="images/belarusian-costume.jpg" alt="Белорусский национальный костюм с вышивкой">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +860,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('architecture')">
                     <div class="info-card-image">
-                        <img src="images/belarusian-house.jpg" alt="Белорусская сельская усадьба" onclick="openLightbox(this.src)">
+                        <img src="images/belarusian-house.jpg" alt="Белорусская сельская усадьба">
                     </div>
                     <div class="info-card-content">
                         <h3>Архитектура</h3>
@@ -862,9 +870,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('music')">
                     <div class="info-card-image">
-                        <img src="images/belarusian-music.jpg" alt="Белорусская народная музыка" onclick="openLightbox(this.src)">
+                        <img src="images/belarusian-music.jpg" alt="Белорусская народная музыка">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1009,11 +1017,19 @@
     <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close" onclick="event.stopPropagation(); closeLightbox()">&times;</span>
-        <button class="lightbox-arrow lightbox-prev" onclick="event.stopPropagation(); lightboxNav(-1)">&#8592;</button>
         <img src="" alt="Увеличенное изображение" id="lightbox-img" onclick="event.stopPropagation()">
-        <button class="lightbox-arrow lightbox-next" onclick="event.stopPropagation(); lightboxNav(1)">&#8594;</button>
     </div>
 
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
     <!-- МОДАЛЬНОЕ ОКНО РЕЦЕПТА ДРАНИКОВ -->
     <div class="recipe-modal" id="recipeModal">
         <span class="recipe-close" onclick="closeRecipeModal()">&times;</span>
@@ -1134,52 +1150,16 @@
         // Инициализация галереи
         initGallery();
 
-        let lightboxSrcs = [];
-        let lightboxIndex = 0;
-
         function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
-        }
-
-        function lightboxNav(dir) {
-            if (lightboxSrcs.length === 0) return;
-            lightboxIndex = (lightboxIndex + dir + lightboxSrcs.length) % lightboxSrcs.length;
-            document.getElementById('lightbox-img').src = lightboxSrcs[lightboxIndex];
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
             document.body.style.overflow = '';
         }
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (!document.getElementById('lightbox').classList.contains('active')) return;
-            if (e.key === 'ArrowLeft') lightboxNav(-1);
-            if (e.key === 'ArrowRight') lightboxNav(1);
-            if (e.key === 'Escape') closeLightbox();
-        });
 
         // Модальное окно рецепта
         function openRecipeModal() {
@@ -1189,6 +1169,30 @@
 
         function closeRecipeModal() {
             document.getElementById('recipeModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        const infoCards = {
+            population: {img:'images/belarusian-people.jpg',title:`Численность белорусов`,text:`<p>В России проживает около 800 тысяч белорусов, преимущественно в крупных городах — Москве, Санкт-Петербурге и Сибири. Общая численность белорусов в мире составляет около 10 миллионов человек.</p><p>Белорусы составляют основное население Республики Беларусь, где их доля превышает 80%. Значительные диаспоры сложились в Польше, Украине, Латвии, США и Казахстане — наследие многочисленных волн эмиграции XX века.</p><p>Несмотря на небольшую численность, белорусы отличаются высокой сплочённостью и сохранением национальной идентичности даже за рубежом. Белорусская диаспора активно поддерживает культурные связи с исторической родиной через общества, фестивали и культурные центры по всему миру.</p>`},
+            language: {img:'images/belarusian-language.jpg',title:`Белорусский язык`,text:`<p>Белорусский язык относится к восточнославянской группе и является государственным языком Республики Беларусь наряду с русским. Отличается мягкостью звучания, богатством диалектов и архаичными чертами, сохранившимися со времён Древней Руси.</p><p>Характерная черта белорусского — аканье: безударные гласные «о» произносятся как «а». Письменность основана на кириллице, хотя исторически использовалась и латиница — лацінка. Оба варианта письма сохраняются до сих пор в разных культурных контекстах.</p><p>В советское время язык активно вытеснялся русским, однако с 1990-х годов началось возрождение: белорусский активно используется в литературе, музыке и интернет-пространстве. Белорусскоязычная субкультура — одна из наиболее живых и творческих в современной Беларуси.</p>`},
+            religion: {img:'images/belarusian-church.jpg',title:`Религия белорусов`,text:`<p>Основные религии белорусов — православное христианство и католицизм. Беларусь — одна из немногих стран, где православные и католики мирно сосуществуют на протяжении веков. Это отражает положение страны на стыке западной и восточной христианских традиций.</p><p>Православие пришло на белорусские земли в X–XI веках вместе с Крещением Руси. Католицизм распространился в XIV–XV веках, когда белорусские земли вошли в состав Великого княжества Литовского. Уния 1596 года породила греко-католическую церковь, влияние которой до сих пор ощущается в западных районах страны.</p><p>Народные верования и христианство тесно переплелись в белорусской традиции. Купалье, Коляды, Дожинки — праздники, сочетающие языческие обряды с христианским содержанием — живут в народном быту по сей день и собирают тысячи участников.</p>`},
+            settlement: {img:'images/belarusian.jpg',title:`Расселение белорусов`,text:`<p>Белорусы расселены по всей России, наибольшие диаспоры сложились в Москве, Санкт-Петербурге, Сибири и на Дальнем Востоке. Многие белорусы переселились в Россию в советское время в поисках работы и образования в крупных промышленных центрах.</p><p>За рубежом крупнейшие общины находятся в Польше, Украине, Латвии, США и Казахстане. В Польше проживает значительная белорусская община — потомки людей, оказавшихся по разные стороны границы после Второй мировой войны.</p><p>Территория исторической Беларуси — Полесье, Поднепровье, Понёманье — отличается богатством природы: густые леса, реки и болота формировали характер народа, его хозяйственный уклад и самобытную культуру на протяжении тысячелетий. Беловежская пуща — один из последних первобытных лесов Европы — находится именно здесь.</p>`},
+            costume: {img:'images/belarusian-costume.jpg',title:`Национальный костюм белорусов`,text:`<p>Белорусский костюм отличается белым цветом — отсюда, по одной из версий, происходит само название народа. Женщины носили белые льняные сорочки с красной и чёрной геометрической вышивкой, фартуки и широкие пояса с яркими узорами.</p><p>Мужской костюм включал белую рубаху-косоворотку, заправленную в льняные или шерстяные штаны. Обязательный элемент — широкий тканый пояс с геометрическим орнаментом. В холодное время носили свиту — длиннополый суконный кафтан.</p><p>Вышивка на белорусском костюме несла охранный смысл: узоры располагались на вороте, манжетах и подоле — местах, через которые, по поверью, могли проникнуть злые духи. Каждый регион имел свои характерные узоры и цветовые сочетания, по которым опытный человек мог определить, откуда родом владелец.</p>`},
+            architecture: {img:'images/belarusian-house.jpg',title:`Белорусская архитектура`,text:`<p>Традиционное белорусское жилище — сруб из брёвен с соломенной или дранковой крышей. Характерная деталь усадьбы — плетень из ивовых прутьев, обвитый хмелем или плетистыми растениями. Дом, как правило, строился торцом к улице, а двор был закрытым и уютным.</p><p>Белорусские деревянные церкви и костёлы — подлинные жемчужины архитектуры. Синкретизм барокко, готики и народного зодчества породил неповторимый стиль. Несвижский замок и Мирский замок включены в список Всемирного наследия ЮНЕСКО и привлекают туристов со всего мира.</p><p>В советское время Минск, разрушенный в годы войны почти полностью, был отстроен заново и стал образцом советского градостроительства с широкими проспектами, монументальными площадями и зданиями в стиле сталинского ампира. Сегодня этот облик сам по себе стал историческим наследием.</p>`},
+            music: {img:'images/belarusian-music.jpg',title:`Музыка и танцы белорусов`,text:`<p>Народная музыка белорусов богата и разнообразна. Главные танцы — лявониха, карапет и юрочка — отличаются задором и сложными дробными движениями ног. Хоровод и полька также широко распространены на народных гуляньях и сельских праздниках.</p><p>Традиционные инструменты: цимбалы, дуда (волынка), скрипка, лира и жалейка. Цимбалы стали символом белорусской музыки — их звук пронзительный и лиричный одновременно. Дуда сопровождала пастухов и народные праздники с незапамятных времён.</p><p>Песенная культура белорусов исключительно богата. Обрядовые песни — каляды, купальские, жатвенные, свадебные — сохранились в живом бытовании до наших дней. Лирические протяжные песни отличаются особой задушевностью и тесной связью с природой родного края.</p>`},
+        };
+        function openInfoModal(cardId) {
+            const card = infoCards[cardId];
+            if (!card) return;
+            document.getElementById('infoModalImg').src = card.img;
+            document.getElementById('infoModalImg').alt = card.title;
+            document.getElementById('infoModalTitle').textContent = card.title;
+            document.getElementById('infoModalText').innerHTML = card.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
             document.body.style.overflow = '';
         }
 
@@ -1229,8 +1233,6 @@
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
-        const PEOPLE_ID = 'belarusian';
-
         const questions = [
             { q: "Сколько белорусов проживает в России?", a: ["Около 200 тысяч", "Около 800 тысяч", "Около 2 миллионов", "Около 5 миллионов"], correct: 1 },
             { q: "К какой языковой группе относится белорусский язык?", a: ["Западнославянской", "Южнославянской", "Восточнославянской", "Севернославянской"], correct: 2 },
@@ -1245,13 +1247,11 @@
         let currentQ = 0;
         let score = 0;
         let answered = false;
-        let quizAnswers = [];
 
         function startQuiz() {
             currentQ = 0;
             score = 0;
             answered = false;
-            quizAnswers = [];
             document.getElementById('result-box').style.display = 'none';
             document.getElementById('question-box').style.display = 'block';
             document.getElementById('progress-box').style.display = 'block';
@@ -1290,7 +1290,6 @@
                 }
             }
             
-            quizAnswers.push(idx);
             if (idx === q.correct) {
                 score++;
                 feedback.textContent = '✓ Правильно!';
@@ -1323,37 +1322,6 @@
             else if (score >= 4) msg = '📚 Неплохо, но можно лучше.';
             else msg = '🎓 Стоит перечитать материал.';
             document.getElementById('result-text').textContent = msg;
-            
-            // Отправляем результат на бэкенд
-            sendQuizResult();
-        }
-
-
-        // ==========================================
-        // ОТПРАВКА РЕЗУЛЬТАТОВ ВИКТОРИНЫ НА БЭКЕНД
-        // ==========================================
-        const BACKEND_URL = 'https://eru-6h89.onrender.com';
-
-        async function sendQuizResult() {
-            const questionResults = questions.map((q, i) => ({
-                id: 'q' + i,
-                text: q.q,
-                correct: quizAnswers[i] === q.correct
-            }));
-            try {
-                await fetch(BACKEND_URL + '/api/quiz-result', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        peopleId: PEOPLE_ID,
-                        score: score,
-                        total: questions.length,
-                        questions: questionResults
-                    })
-                });
-            } catch(e) {
-                // Тихо игнорируем ошибку сети
-            }
         }
 
         // Старт при загрузке
