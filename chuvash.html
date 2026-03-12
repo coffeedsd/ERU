@@ -224,6 +224,80 @@
             color: var(--accent-gold);
         }
         
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
+
         /* ГАЛЕРЕЯ С КАРУСЕЛЬЮ */
         .gallery-wrapper {
             position: relative;
@@ -434,40 +508,7 @@
         .lightbox-prev { left: 20px; }
         .lightbox-next { right: 20px; }
         @media (max-width: 768px) {
-            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
-            .lightbox-prev { left: 8px; }
-            .lightbox-next { right: 8px; }
-        }
-        .lightbox-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 55px;
-            height: 55px;
-            background: rgba(245, 158, 11, 0.3);
-            border: 2px solid rgba(245, 158, 11, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            color: #f5a623;
-            transition: all 0.3s ease;
-            z-index: 10001;
-            line-height: 1;
-        }
-        .lightbox-arrow:hover {
-            background: rgba(245, 158, 11, 0.6);
-            border-color: #f5a623;
-            color: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
-        @media (max-width: 768px) {
-            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
-            .lightbox-prev { left: 8px; }
+
             .lightbox-next { right: 8px; }
         }
         /* ==========================================
@@ -786,7 +827,7 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
                         <img src="images/chuvash-people.jpg" alt="Чуваши в национальных костюмах" onclick="openLightbox(this.src)">
                     </div>
@@ -796,7 +837,7 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
                         <img src="images/chuvash-language.jpg" alt="Чувашский язык" onclick="openLightbox(this.src)">
                     </div>
@@ -806,7 +847,7 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
                         <img src="images/chuvash-religion.jpg" alt="Чувашские языческие обряды" onclick="openLightbox(this.src)">
                     </div>
@@ -816,7 +857,7 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
                         <img src="images/chuvash-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
                     </div>
@@ -831,7 +872,7 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
                         <img src="images/chuvash-costume.jpg" alt="Чувашский национальный костюм с вышивкой" onclick="openLightbox(this.src)">
                     </div>
@@ -852,7 +893,7 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('architecture')">
                     <div class="info-card-image">
                         <img src="images/chuvash-house.jpg" alt="Чувашская деревянная изба" onclick="openLightbox(this.src)">
                     </div>
@@ -862,7 +903,7 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('music')">
                     <div class="info-card-image">
                         <img src="images/chuvash-music.jpg" alt="Чувашская народная музыка" onclick="openLightbox(this.src)">
                     </div>
@@ -880,28 +921,28 @@
                 <li>
                     <span class="fact-icon">🔥</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/chuvash-akatuy.jpg')">Акатуй (Нартукан)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chuvash-akatuy.jpg', false)">Акатуй (Нартукан)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный языческий праздник весны. Культ огня, очищение костром, жертвоприношения богам, гадания, народные игры. Символ обновления природы.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🌾</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/chuvash-semyk.jpg')">Семык (Семико)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chuvash-semyk.jpg', false)">Семык (Семико)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник полевых работ. Первый хлеб нового урожая, угощения, обряды на плодородие. Сохранился с языческих времён.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🎄</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/chuvash-karalach.jpg')">Кăрлач (Коляда)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chuvash-karalach.jpg', false)">Кăрлач (Коляда)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Рождественские колядки. Хождение по домам с песнями-пожеланиями, маскарад, угощения. Смесь христианских и языческих традиций.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">💐</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/chuvash-uav.jpg')">Уяв (Троица)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/chuvash-uav.jpg', false)">Уяв (Троица)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник с языческими корнями. Украшение домов зеленью, гадания на суженого, прыжки через костёр, плетение венков.</p>
                     </div>
                 </li>
@@ -914,35 +955,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images/chuvash-embroidery.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/chuvash-embroidery.jpg', true)">
                         <img src="images/chuvash-embroidery.jpg" alt="Чувашская вышивка">
                         <div class="gallery-caption">Уникальная чувашская вышивка</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/chuvash-woodcarving.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/chuvash-woodcarving.jpg', true)">
                         <img src="images/chuvash-woodcarving.jpg" alt="Чувашская резьба по дереву">
                         <div class="gallery-caption">Резьба по дереву</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/chuvash-akatui.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/chuvash-akatui.jpg', true)">
                         <img src="images/chuvash-akatui.jpg" alt="Праздник Акатуй">
                         <div class="gallery-caption">Языческий праздник Акатуй</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/chuvash-song.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/chuvash-song.jpg', true)">
                         <img src="images/chuvash-song.jpg" alt="Чувашские народные песни">
                         <div class="gallery-caption">Народное пение</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/chuvash-costume.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/chuvash-costume.jpg', true)">
                         <img src="images6/chuvash-costume.jpg" alt="Чувашский национальный костюм">
                         <div class="gallery-caption">Традиционный костюм</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/chuvash-house.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/chuvash-house.jpg', true)">
                         <img src="images6/chuvash-house.jpg" alt="Чувашская деревянная изба">
                         <div class="gallery-caption">Деревянная архитектура</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/chuvash-akatuy.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/chuvash-akatuy.jpg', true)">
                         <img src="images6/chuvash-akatuy.jpg" alt="Праздник Акатуй">
                         <div class="gallery-caption">Праздник Акатуй</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/chuvash-ceramics.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/chuvash-ceramics.jpg', true)">
                         <img src="images6/chuvash-ceramics.jpg" alt="Чувашская керамика">
                         <div class="gallery-caption">Традиционная керамика</div>
                     </div>
@@ -1005,6 +1046,17 @@
             © 2026 Арсений Вартанян
         </p>
     </footer>
+
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -1137,26 +1189,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
+        function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"](\S+?)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1180,6 +1235,32 @@
             if (e.key === 'ArrowRight') lightboxNav(1);
             if (e.key === 'Escape') closeLightbox();
         });
+
+
+        function openInfoModal(cardId) {
+            const card = infoCards[cardId];
+            if (!card) return;
+            document.getElementById('infoModalImg').src = card.img;
+            document.getElementById('infoModalImg').alt = card.title;
+            document.getElementById('infoModalTitle').textContent = card.title;
+            document.getElementById('infoModalText').innerHTML = card.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        const infoCards = {
+            population: {img:'images/chuvash-people.jpg',title:`Численность чувашей`,text:`<p>Чуваши — один из наиболее многочисленных народов Поволжья: в России проживает около 1,4 миллиона человек. Республика Чувашия расположена на правом берегу Волги, между Казанью и Нижним Новгородом. Столица — Чебоксары — крупный промышленный и культурный центр.</p><p>Чуваши расселены значительно шире своей исторической республики. Крупные общины живут в Татарстане, Башкортостане, Самарской, Ульяновской и Оренбургской областях, Сибири и на Дальнем Востоке. В целом за пределами Чувашии проживает более половины всех чувашей России.</p><p>Особенность чувашского народа — высокая доля православных христиан среди тюркских народов России. Православие было принято в XVI–XVIII веках, однако синкретизм с языческими традициями сохраняется до сих пор. Это делает чувашей уникальным явлением в тюркском мире — христианским тюркским народом.</p>`},
+            language: {img:'images/chuvash-language.jpg',title:`Чувашский язык`,text:`<p>Чувашский язык — единственный живой представитель огурской ветви тюркских языков, то есть прямой потомок языка волжских булгар. Он настолько отличается от остальных тюркских языков, что татары, башкиры или казахи его практически не понимают. Это лингвистический реликт, сохранивший черты праболгарского языка I тысячелетия нашей эры.</p><p>Чувашский язык имеет два основных диалекта: «вирьял» («верховой») и «анатри» («низовой»), различающихся фонетически и лексически. Современный литературный язык сложился в XIX веке на основе трудов просветителя Ивана Яковлева, создавшего чувашский алфавит на кириллической основе.</p><p>Сегодня чувашский является государственным языком Чувашии. На нём ведётся телевещание, издаются газеты и книги, работают театры. Однако доля чувашского в городском общении снижается, и сохранение языка является важнейшей задачей национальной культурной политики республики.</p>`},
+            religion: {img:'images/chuvash-religion.jpg',title:`Религия чувашей`,text:`<p>Большинство чувашей исповедуют православное христианство, принятое в основном в XVI–XVIII веках после присоединения Поволжья к России. Однако за православной оболочкой скрываются пласты древних языческих верований, сохранившихся более полно, чем у многих других народов. Этот синкретизм делает чувашскую религиозность уникальной.</p><p>Традиционная чувашская религия «чăваш чĕлхи» — чёткая система политеизма с иерархией добрых богов «тура» и злых духов «шуйтан». Верховный бог Тура аналогичен христианскому Богу, что облегчило принятие православия. Культ предков, обряды вокруг сева и жатвы, жертвоприношения у священных деревьев сохраняются в сельской среде по сей день.</p><p>Жрецы «йомзя» исполняли роль посредников между людьми и духами: лечили болезни, предсказывали погоду, проводили обряды. Несмотря на христианизацию, институт йомзя сохранялся вплоть до XX века. Сегодня в Чувашии существует движение за возрождение традиционной религии «Чăваш чĕлхи», объединяющее сотни последователей.</p>`},
+            settlement: {img:'images/chuvash-map.jpg',title:`Расселение чувашей`,text:`<p>Республика Чувашия — один из самых плотно населённых регионов России. На площади около 18 тысяч квадратных километров проживает более миллиона человек. Земли республики — это преимущественно лесостепь с богатыми чернозёмами, что обусловило земледельческий уклад чувашей в отличие от кочевых соседей-тюрков.</p><p>Историческое расселение чувашей формировалось в условиях лесной зоны, что определило их традиционный уклад — подсечно-огневое земледелие, пчеловодство и лесные промыслы. В отличие от башкир и татар, чуваши практически не имели кочевого прошлого: их деревни стояли на одних местах столетиями.</p><p>Чувашская диаспора в России велика: чуваши — шестой по численности народ страны. Трудовые миграции XIX–XX веков разнесли чувашей по всей России. В Самарской области исторически сложились крупные чувашские сёла с самобытной архитектурой и сохранившимися традициями вышивки и резьбы по дереву.</p>`},
+            costume: {img:'images/chuvash-costume.jpg',title:`Национальный костюм чувашей`,text:`<p>Чувашский национальный костюм — один из наиболее насыщенных вышивкой среди всех народов России. Женская рубаха «кепе» из белого холста сплошь покрыта сложнейшим вышитым орнаментом из красных, чёрных, зелёных и жёлтых нитей. Каждый элемент орнамента — не просто украшение, но символ с конкретным значением: ромбы означали землю, волны — воду, птицы — счастье.</p><p>Чувашская вышивка — подлинная письменность до обретения алфавита. Орнаменты передавали родовую принадлежность, семейное положение и пожелания обладательнице. Нагрудное украшение «шÿлкеме» из монет, бус и вышитого полотна было неотъемлемой частью женского наряда. Головной убор «хушпу» замужней женщины представлял собой сложный вышитый чепец с монетами и подвесками.</p><p>Чувашская вышивка получила признание ЮНЕСКО как нематериальное культурное наследие. Сегодня в Чебоксарах работает Чувашский национальный музей с богатейшей коллекцией костюмов, а вышитые изделия пользуются спросом у коллекционеров по всему миру. Молодые дизайнеры создают современную одежду с традиционными чувашскими мотивами.</p>`},
+            architecture: {img:'images/chuvash-house.jpg',title:`Чувашская архитектура`,text:`<p>Традиционное чувашское жилище — сруб «пÿрт» с высоким подклетом и двускатной крышей — отражает лесной уклад народа. Дома строились из добротных брёвен и расставлялись по берегам рек или оврагов, образуя компактные деревни. Перед домом непременно высаживали деревья — осину, черёмуху или берёзу, считавшуюся священной.</p><p>Интерьер чувашской избы отличается строгим порядком: красный угол с иконами, расписной сундук с приданым, полки с расписной посудой. Стены украшались вышитыми полотенцами и ткаными ковровыми дорожками с геометрическим орнаментом. Печь стояла у входа и служила не только для обогрева, но и как место проведения обрядов.</p><p>Чувашская деревянная резьба по дереву занимала особое место в народном искусстве. Ворота, наличники и конёк крыши украшались резными солярными знаками, конскими головами и растительными мотивами. В чувашских сёлах Поволжья до сих пор можно встретить дома XIX века с сохранившейся резьбой — живые памятники народного зодчества.</p>`},
+            music: {img:'images/chuvash-music.jpg',title:`Музыка и танцы чувашей`,text:`<p>Чувашская народная музыка отличается богатством жанров и самобытной пентатонической ладовой системой. Протяжные лирические песни «юрă» поются на свадьбах, похоронах и земледельческих праздниках. Главные инструменты — волынка «шăпăр», деревянная флейта «кăмпа кĕске» и гусли «кĕсле» — создают неповторимый звуковой мир чувашской культуры.</p><p>Главный народный праздник Акатуй («свадьба плуга») сопровождается хоровым пением, хороводами и состязаниями. Чувашский хоровод «такмак» отличается сложными геометрическими фигурами, которые группа танцоров выстраивает в процессе движения. Женские танцы с характерной плавной работой рук напоминают вышивку — словно оживший орнамент.</p><p>Чувашская профессиональная культура восходит к творчеству Ф. П. Павлова и других композиторов начала XX века, записавших и обработавших сотни народных мелодий. Чувашский государственный ансамбль песни и танца им. Христофора Уярова, основанный в 1924 году, несёт народное музыкальное наследие по всему миру.</p>`},
+        };
 
         // Модальное окно рецепта
         function openRecipeModal() {

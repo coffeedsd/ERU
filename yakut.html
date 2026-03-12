@@ -224,6 +224,80 @@
             color: var(--accent-gold);
         }
         
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
+
         /* ГАЛЕРЕЯ С КАРУСЕЛЬЮ */
         .gallery-wrapper {
             position: relative;
@@ -434,40 +508,7 @@
         .lightbox-prev { left: 20px; }
         .lightbox-next { right: 20px; }
         @media (max-width: 768px) {
-            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
-            .lightbox-prev { left: 8px; }
-            .lightbox-next { right: 8px; }
-        }
-        .lightbox-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 55px;
-            height: 55px;
-            background: rgba(245, 158, 11, 0.3);
-            border: 2px solid rgba(245, 158, 11, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            color: #f5a623;
-            transition: all 0.3s ease;
-            z-index: 10001;
-            line-height: 1;
-        }
-        .lightbox-arrow:hover {
-            background: rgba(245, 158, 11, 0.6);
-            border-color: #f5a623;
-            color: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-        .lightbox-prev { left: 20px; }
-        .lightbox-next { right: 20px; }
-        @media (max-width: 768px) {
-            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
-            .lightbox-prev { left: 8px; }
+
             .lightbox-next { right: 8px; }
         }
         /* ==========================================
@@ -786,7 +827,7 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
                         <img src="images/yakut-people.jpg" alt="Якуты в национальных костюмах" onclick="openLightbox(this.src)">
                     </div>
@@ -796,7 +837,7 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
                         <img src="images/yakut-language.jpg" alt="Якутский язык и письменность" onclick="openLightbox(this.src)">
                     </div>
@@ -806,7 +847,7 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
                         <img src="images/yakut-religion.jpg" alt="Якутские языческие обряды Айыы" onclick="openLightbox(this.src)">
                     </div>
@@ -816,7 +857,7 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
                         <img src="images/yakut-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
                     </div>
@@ -831,7 +872,7 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
                         <img src="images/yakut-costume.jpg" alt="Якутский национальный костюм из меха" onclick="openLightbox(this.src)">
                     </div>
@@ -852,7 +893,7 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('architecture')">
                     <div class="info-card-image">
                         <img src="images/yakut-yurt.jpg" alt="Якутская зимняя юрта балаган" onclick="openLightbox(this.src)">
                     </div>
@@ -862,7 +903,7 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('music')">
                     <div class="info-card-image">
                         <img src="images/yakut-music.jpg" alt="Якутская народная музыка" onclick="openLightbox(this.src)">
                     </div>
@@ -880,28 +921,28 @@
                 <li>
                     <span class="fact-icon">☀️</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-ysyakh.jpg')">Ысыах (Ыһыах)</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-ysyakh.jpg', false)">Ысыах (Ыһыах)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный национальный праздник — встреча летнего солнцестояния. Обряд освящения кумися («алгысь»), кумысные забеги, народные игры, хоровод «осуохай», скачки.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐴</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-horse.jpg')">День якутской лошади</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-horse.jpg', false)">День якутской лошади</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник коневодов. Скачки, борьба на конях, конкурс красоты среди лошадей, угощения кумысом.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">❄️</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-reindeer.jpg')">День оленевода</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-reindeer.jpg', false)">День оленевода</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник северных якутов. Скачки на оленьих упряжках, конкурсы среди пастухов, обряды благословения стада.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🔥</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-ritual.jpg')">Обряд Ысыах</strong>
+                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-ritual.jpg', false)">Обряд Ысыах</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Поклонение трём стихиям: Огню (Аан Тойон), Земле (Айыы Ийэ) и Воде (Дьахтар Айыы). Зажигание «алыс» (священного костра).</p>
                     </div>
                 </li>
@@ -914,35 +955,35 @@
                 <button class="gallery-arrow prev" onclick="moveGallery(-1)">❮</button>
                 <button class="gallery-arrow next" onclick="moveGallery(1)">❯</button>
                 <div class="gallery-container" id="galleryContainer">
-                    <div class="gallery-item" onclick="openLightbox('images/yakut-oymyakon.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/yakut-oymyakon.jpg', true)">
                         <img src="images/yakut-oymyakon.jpg" alt="Оймякон — полюс холода">
                         <div class="gallery-caption">Оймякон — полюс холода</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/yakut-reindeer.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/yakut-reindeer.jpg', true)">
                         <img src="images/yakut-reindeer.jpg" alt="Якутские олени">
                         <div class="gallery-caption">Оленеводство — основа жизни</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/yakut-horse.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/yakut-horse.jpg', true)">
                         <img src="images/yakut-horse.jpg" alt="Якутская лошадь">
                         <div class="gallery-caption">Якутская порода лошадей</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images/yakut-khomus.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images/yakut-khomus.jpg', true)">
                         <img src="images/yakut-khomus.jpg" alt="Якутский варган хомус">
                         <div class="gallery-caption">Хомус — якутский варган</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/yakut-balagan.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/yakut-balagan.jpg', true)">
                         <img src="images6/yakut-balagan.jpg" alt="Якутский балаган">
                         <div class="gallery-caption">Зимнее жилище балаган</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/yakut-khomus.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/yakut-khomus.jpg', true)">
                         <img src="images6/yakut-khomus.jpg" alt="Якутский хомус">
                         <div class="gallery-caption">Хомус — национальный инструмент</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/yakut-stroganina.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/yakut-stroganina.jpg', true)">
                         <img src="images6/yakut-stroganina.jpg" alt="Якутская строганина">
                         <div class="gallery-caption">Строганина</div>
                     </div>
-                    <div class="gallery-item" onclick="openLightbox('images6/yakut-horse2.jpg')">
+                    <div class="gallery-item" onclick="openLightbox('images6/yakut-horse2.jpg', true)">
                         <img src="images6/yakut-horse2.jpg" alt="Якутская лошадь зимой">
                         <div class="gallery-caption">Якутская лошадь зимой</div>
                     </div>
@@ -1005,6 +1046,17 @@
             © 2026 Арсений Вартанян
         </p>
     </footer>
+
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -1155,26 +1207,29 @@
         let lightboxSrcs = [];
         let lightboxIndex = 0;
 
-        function openLightbox(src) {
-            // Collect all gallery image sources
-            lightboxSrcs = [];
-            document.querySelectorAll('.gallery-item').forEach(item => {
-                // Get src from onclick attribute or from img inside
-                const onclick = item.getAttribute('onclick') || '';
-                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
-                if (match) {
-                    lightboxSrcs.push(match[1]);
-                } else {
-                    const img = item.querySelector('img');
-                    if (img) lightboxSrcs.push(img.src);
-                }
-            });
-            // Deduplicate (clones)
-            lightboxSrcs = [...new Set(lightboxSrcs)];
-            
-            lightboxIndex = lightboxSrcs.indexOf(src);
-            if (lightboxIndex === -1) lightboxIndex = 0;
-            
+        function openLightbox(src, fromGallery) {
+            const arrows = document.querySelectorAll('.lightbox-arrow');
+            if (fromGallery) {
+                lightboxSrcs = [];
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    const onclick = item.getAttribute('onclick') || '';
+                    const match = onclick.match(/openLightbox\(['"](\S+?)['"]/);
+                    if (match) {
+                        lightboxSrcs.push(match[1]);
+                    } else {
+                        const img = item.querySelector('img');
+                        if (img) lightboxSrcs.push(img.src);
+                    }
+                });
+                lightboxSrcs = [...new Set(lightboxSrcs)];
+                lightboxIndex = lightboxSrcs.indexOf(src);
+                if (lightboxIndex === -1) lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'flex');
+            } else {
+                lightboxSrcs = [src];
+                lightboxIndex = 0;
+                arrows.forEach(a => a.style.display = 'none');
+            }
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -1198,6 +1253,32 @@
             if (e.key === 'ArrowRight') lightboxNav(1);
             if (e.key === 'Escape') closeLightbox();
         });
+
+
+        function openInfoModal(cardId) {
+            const card = infoCards[cardId];
+            if (!card) return;
+            document.getElementById('infoModalImg').src = card.img;
+            document.getElementById('infoModalImg').alt = card.title;
+            document.getElementById('infoModalTitle').textContent = card.title;
+            document.getElementById('infoModalText').innerHTML = card.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        const infoCards = {
+            population: {img:'images/yakut-people.jpg',title:`Численность якутов (Саха)`,text:`<p>Якуты — крупнейший коренной народ Сибири, самоназвание — «саха». В России их насчитывается около 480 тысяч человек, из которых подавляющее большинство проживает в Республике Саха (Якутия) — крупнейшем субъекте Российской Федерации по площади, занимающем более трёх миллионов квадратных километров.</p><p>Якутия — это не просто огромная территория, но уникальная цивилизация выживания в экстремальных условиях. Полюс холода — Оймякон с температурами до -71°C — находится именно здесь. Несмотря на суровый климат, саха освоили край для скотоводства, охоты и рыболовства, создав культуру, не имеющую аналогов в мире.</p><p>Часть якутов ведёт оседлый образ жизни в городах — прежде всего в Якутске — и занята в горнодобывающей промышленности, образовании и управлении. Другая часть продолжает традиционное оленеводство и коневодство на отдалённых территориях. Якутск, основанный в 1632 году, является самым крупным городом мира, расположенным в зоне сплошной вечной мерзлоты.</p>`},
+            language: {img:'images/yakut-language.jpg',title:`Якутский язык`,text:`<p>Якутский язык относится к тюркской семье, однако занимает в ней особое место: он содержит огромный пласт заимствований из монгольских и тунгусо-маньчжурских языков, что отражает сложную историю формирования народа. Якутский — государственный язык Республики Саха наряду с русским и один из самых жизнеспособных языков коренных народов Сибири.</p><p>Важнейшей особенностью языка является гармония гласных — закон, по которому все гласные слова должны принадлежать к одному из двух классов. Якутская письменность была создана в XIX веке православными миссионерами на основе кириллицы; современный алфавит включает ряд специальных букв для передачи уникальных звуков языка.</p><p>Якутский язык является одним из немногих языков коренных народов России, где создаётся собственное кино, анимация и цифровой контент. Якутское кино («сахавуд») снискало международное признание, а молодые авторы пишут на якутском блоги и ведут соцсети — свидетельство живости и адаптивности языка в современном мире.</p>`},
+            religion: {img:'images/yakut-religion.jpg',title:`Религия якутов`,text:`<p>Традиционная религия якутов — Айыы — сложная система мировоззрения, включающая культ верховного бога Айыы Тойона, духов природы «иччи» и культ предков. Вселенная делится на три мира: верхний (Юрюнг Айыы Тойон), средний (люди и духи природы) и нижний (Арсан Дуолай). Шаманы «ойуун» выступали посредниками между мирами.</p><p>Православие распространилось среди якутов в XVII–XVIII веках с приходом русских. Однако крещение нередко носило формальный характер: народ сохранял традиционные верования, просто «накладывая» христианских святых на прежних духов. Этот синкретизм породил уникальную духовную культуру — якутское православие с ярко выраженным шаманским субстратом.</p><p>В последние десятилетия наблюдается возрождение традиционной религии Айыы. Шаманские обряды снова проводятся открыто, молодёжь изучает традиционную космологию, а праздник Ысыах с его молитвами солнцу и кумысопитием вновь стал главным духовным событием года. В Якутске действует центр «Арчы Дьиэтэ», занимающийся изучением и практикой традиционных верований.</p>`},
+            settlement: {img:'images/yakut-map.jpg',title:`Расселение якутов`,text:`<p>Якутия занимает одну пятую территории России — около 3,1 миллиона квадратных километров. Это крупнейший регион страны, по площади сопоставимый с Индией. Большую часть территории занимают тайга, горные хребты и тундра. Реки Лена, Яна, Индигирка и Колыма — транспортные артерии, вокруг которых строилась жизнь саха.</p><p>Якуты заняли Центральную Якутию по реке Лене около VII–X веков нашей эры, переселившись с юга под давлением монгольских народов. В этих суровых условиях они сумели адаптировать скотоводческую культуру к полярному климату — уникальный случай в истории человечества. Якутская лошадь и якутский скот — особые породы, выведенные тысячелетиями отбора в условиях вечной мерзлоты.</p><p>Сегодня около 40% населения Якутии живёт в Якутске. Остальные рассредоточены по обширной территории — в сёлах, оленеводческих стойбищах и посёлках горняков. Разведанные запасы алмазов, золота, нефти и газа делают Якутию одним из стратегически важнейших регионов России, хотя освоение ресурсов в условиях вечной мерзлоты остаётся колоссальным инженерным вызовом.</p>`},
+            costume: {img:'images/yakut-costume.jpg',title:`Национальный костюм якутов`,text:`<p>Якутский национальный костюм — одно из самых функциональных и красивых одеяний в мире. Главная верхняя одежда — «сон» — длинная шуба из конской или оленьей кожи мехом наружу, украшенная узорами из цветного меха, бисера и металлических пластинок. Шуба защищала от морозов до -60°C и могла весить несколько килограммов.</p><p>Женский праздничный костюм — «дьабака» — поражает богатством отделки. Нагрудное украшение «илин кэбиhэр» из серебряных монет, нашитых на расшитый бисером кожаный нагрудник, — один из символов якутской культуры. Головной убор «дьабака баш» с меховой опушкой и серебряными украшениями надевался на особые торжества. Считалось, что чем богаче украшен костюм, тем выше духи будут благоволить своей хозяйке.</p><p>Якутские ювелиры — «кузнецы» «симэхситтэр» — были известны по всей Сибири своим мастерством серебряной ковки. Якутское серебро отличается характерным орнаментом из растительных побегов и геометрических фигур. Сегодня якутские ювелирные изделия пользуются широким спросом, а якутские мастера получают призы на международных выставках декоративно-прикладного искусства.</p>`},
+            architecture: {img:'images/yakut-yurt.jpg',title:`Якутское жилище`,text:`<p>Традиционное якутское зимнее жилище — «балаган» — уникальная конструкция, приспособленная к условиям вечной мерзлоты. Это прямоугольный деревянный сруб с наклонными стенами, низкой дверью и крошечными окнами, затянутыми льдом или слюдой. Крыша засыпалась землёй для теплоизоляции. Внутри у восточной стены располагался «чувал» — открытый очаг из глины, дающий тепло и свет.</p><p>Летнее жилище — «ураса» — конусообразный шалаш из берёзовой коры, похожий на чум. Его стены украшались резными узорами и полосами из берёсты разных оттенков. Урасу разбирали и перевозили на летние пастбища. Сегодня реконструированные урасы устанавливают на праздниках и в этнографических музеях.</p><p>Якутская архитектура XX века дала миру уникальные инженерные решения строительства на вечной мерзлоте. Якутск стоит на сваях, вбитых в мёрзлый грунт, чтобы тепло зданий не растапливало основание. Этот опыт востребован во всём мире в связи с изменением климата и освоением арктических территорий.</p>`},
+            music: {img:'images/yakut-music.jpg',title:`Музыка и танцы якутов`,text:`<p>Хомус — якутский варган — главный музыкальный инструмент народа. Небольшая металлическая пластина, зажатая зубами, при игре издаёт особый резонирующий звук, усиленный ротовой полостью. Якутские исполнители владеют невероятно разнообразными техниками игры на хомусе. В Якутске работает единственный в мире Музей варгана, а международные конкурсы исполнителей собирают участников из десятков стран.</p><p>Величайшее творение якутского народного гения — эпос «Олонхо», признанный ЮНЕСКО нематериальным культурным наследием человечества. Это грандиозные поэтические сказания о богатырях «айыы аймаhа», защищающих людей от тёмных сил. Исполнение олонхо — особое искусство: сказитель-«олонхосут» в течение нескольких ночей пел и декламировал тысячи стихотворных строк, перевоплощаясь в разных персонажей.</p><p>Якутский круговой танец «осуохай» — один из древнейших обрядовых танцев человечества. Участники берутся за руки и движутся по кругу против часовой стрелки, воспроизводя движение солнца. На Ысыахе тысячи людей танцуют осуохай одновременно — это зрелище поражает воображение. В 2012 году якутяне установили мировой рекорд, собрав на осуохай более 15 тысяч участников.</p>`},
+        };
 
         // Модальное окно рецепта
         function openRecipeModal() {
