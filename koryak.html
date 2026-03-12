@@ -161,7 +161,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            cursor: zoom-in;
+            
         }
         
         .info-card:hover .info-card-image img {
@@ -245,7 +245,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             position: relative;
-            cursor: zoom-in;
+            
         }
 
         @media (max-width: 1024px) {
@@ -756,6 +756,79 @@
                 font-size: 1rem;
             }
         }
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -786,9 +859,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images4/koryak-people.jpg" alt="Коряки в традиционных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images4/koryak-people.jpg" alt="Коряки в традиционных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +869,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images4/koryak-language.jpg" alt="Корякский язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images4/koryak-language.jpg" alt="Корякский язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +879,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images4/koryak-shaman.jpg" alt="Корякский шаманский обряд" onclick="openLightbox(this.src)">
+                        <img src="images4/koryak-shaman.jpg" alt="Корякский шаманский обряд">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +889,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images4/koryak-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images4/koryak-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +904,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images4/koryak-costume.jpg" alt="Корякский национальный костюм" onclick="openLightbox(this.src)">
+                        <img src="images4/koryak-costume.jpg" alt="Корякский национальный костюм">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +925,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('housing')">
                     <div class="info-card-image">
-                        <img src="images4/koryak-yaranga.jpg" alt="Корякская яранга" onclick="openLightbox(this.src)">
+                        <img src="images4/koryak-yaranga.jpg" alt="Корякская яранга">
                     </div>
                     <div class="info-card-content">
                         <h3>Жилище</h3>
@@ -862,9 +935,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('crafts')">
                     <div class="info-card-image">
-                        <img src="images4/koryak-crafts.jpg" alt="Корякские ремёсла: резьба по кости" onclick="openLightbox(this.src)">
+                        <img src="images4/koryak-crafts.jpg" alt="Корякские ремёсла: резьба по кости">
                     </div>
                     <div class="info-card-content">
                         <h3>Ремёсла и искусство</h3>
@@ -1250,6 +1323,34 @@
             }
         });
 
+        const infoData = {
+            population: {img:'images4/koryak-people.jpg',title:`Численность коряков`,text:`<p>В России проживает около 8 тысяч коряков. Основное население Камчатского края (сёла Тыгиль, Карага, Палана). Название «нымылан» означает «люди, живущие на земле».</p><p>Коряки — один из крупнейших коренных народов Камчатки и Чукотки. Они делятся на две основные группы с принципиально разным укладом жизни: оленные коряки («чавчыв») кочевали со стадами оленей по тундре, а прибрежные («нымылан») жили оседло, занимаясь морским промыслом. Эти две группы различались не только хозяйством, но и диалектом, одеждой и обрядами.</p><p>Советская коллективизация нанесла серьёзный удар по традиционному укладу коряков: оленьи стада были обобществлены, семьи принудительно переселены в стационарные посёлки. После распада СССР многие оленеводческие хозяйства пришли в упадок. Сегодня возрождение оленеводства — одна из ключевых задач Ассоциации коренных малочисленных народов Камчатки.</p>`},
+            language: {img:'images4/koryak-language.jpg',title:`Корякский язык`,text:`<p>Корякский язык относится к чукотско-камчатской семье. Близок к чукотскому, но имеет отличия в фонетике и лексике. Имеет два диалекта: чавыванский и каменский. Использует кириллицу.</p><p>Корякский и чукотский языки настолько близки, что их носители могут частично понимать друг друга. Оба языка отличаются инкорпорирующим строем: несколько слов «вкладываются» одно в другое, образуя единый глагольный комплекс. Корякский язык имеет богатую систему пространственных падежей, позволяющую точно описывать направление и место действия.</p><p>Корякский язык находится под угрозой исчезновения: по данным последней переписи, им владеют менее 2 тысяч человек, и большинство из них — люди старшего поколения. В Паланском педагогическом колледже ведётся подготовка учителей корякского языка. Несмотря на трудности, молодые коряки всё активнее интересуются родным языком как символом этнической идентичности.</p>`},
+            religion: {img:'images4/koryak-shaman.jpg',title:`Верования коряков`,text:`<p>Традиционные верования — анимизм и шаманизм. Главный дух — Кутк (Творец), хозяин оленей. С XVIII века распространилось православие. Сохранились обряды инициации.</p><p>Корякский шаман — «эньеней» — обладал особым статусом в обществе. Он мог путешествовать в иные миры, общаться с духами предков и хозяевами природных стихий. Бубен шамана был его главным инструментом: удары по нему вводили в транс и призывали духов-помощников. Каждый шаман имел своих личных духов-помощников — «кала», унаследованных от предшественников.</p><p>Оленным корякам особенно важен был культ оленя: перед забоем стада совершались обряды благодарения, а кости и кровь животных возвращались земле особым образом. Прибрежные коряки почитали морских животных — кита, тюленя, морского льва — и также проводили ритуалы «возвращения» душ добытых зверей. Православие наложилось на эти верования, не вытеснив их полностью.</p>`},
+            settlement: {img:'images4/koryak-map.jpg',title:`Расселение коряков`,text:`<p>Коряки населяют северную и центральную часть Камчатского полуострова. Делятся на две группы: оленные (чавчыв) и прибрежные (нимылан). Крупнейший посёлок — Палана.</p><p>Оленные коряки кочевали по обширным тундровым пространствам Корякского нагорья, следуя за стадами оленей. Их маршруты протяжённостью сотни километров повторялись из года в год, формируя особое знание территории. Каждый клан имел свои угодья и пути кочевий, которые передавались по наследству вместе с оленьими стадами.</p><p>Корякский округ (ныне — Корякский округ в составе Камчатского края) — один из наименее доступных регионов России. Отсутствие дорог означает, что большинство посёлков связаны с миром только авиацией и морским транспортом. Эта изолированность, с одной стороны, помогла сохранить культурное своеобразие коряков, с другой — существенно затрудняет экономическое развитие региона.</p>`},
+            costume: {img:'images4/koryak-costume.jpg',title:`Национальный костюм коряков`,text:`<p>Костюм из шкур оленей и собак. Женщины носили «камлейка» (платье с капюшоном), украшенное бисером и мехом. Мужчины — «камлейка» или «парка». Обувь — «пычки» из шкур.</p><p>Корякский костюм различался у оленных и прибрежных групп. Оленные коряки использовали преимущественно оленьи шкуры, прибрежные — шкуры тюленей и морских выдр, более водостойкие. Женская одежда шилась из особо выделанных шкур — мягких и тонких. Орнаменты из белого и тёмного меха создавали сложные геометрические узоры, у каждой группы свои.</p><p>Характерная деталь корякского костюма — широкий меховой капюшон, защищавший лицо от пронизывающего камчатского ветра. Детский костюм шился как комбинезон — «мешок» с капюшоном, позволявший матери носить ребёнка за спиной под верхней одеждой, согревая его своим теплом. Это традиционное «кенгуру» было исключительно практичным решением для арктических условий.</p>`},
+            housing: {img:'images4/koryak-yaranga.jpg',title:`Жилище коряков`,text:`<p>«Яранга» — коническое жилище из жердей, покрытое оленьими шкурами. Внутри — «чадра» (внутренняя палатка) из шкур. Зимой использовали полуземлянки «палатка».</p><p>Яранга оленных коряков была идеально приспособлена к кочевой жизни: её можно было разобрать и перевезти на нартах за несколько часов. Конический силуэт эффективно противостоял сильным ветрам тундры. Покрышки яранги из сшитых оленьих шкур весили несколько сотен килограммов — их перевозили на специальных нартах.</p><p>Прибрежные коряки строили более капитальные полуземлянки — «лыгравэтлен». Каркас из китовых рёбер и брёвен засыпался землёй и дёрном, создавая превосходную теплоизоляцию. Вход располагался в крыше — через него же выходил дым. Такое жилище могло простоять десятки лет и вмещало несколько семей одного рода.</p>`},
+            crafts: {img:'images4/koryak-crafts.jpg',title:`Ремёсла и искусство коряков`,text:`<p>Уникальная резьба по кости оленя и моржа, плетение корзин из ивовой лозы, вышивка бисером. Традиционные игрушки из кожи и меха. Народные сказки про Кутка-творца.</p><p>Корякская резьба по кости и дереву — один из выдающихся видов северного декоративного искусства. Мастера изображали сцены охоты на оленя и морского зверя, духов-покровителей и мифологических персонажей. Изделия из кости моржа отличаются точностью деталей и пластичностью форм. Корякские косторезы участвуют в международных выставках народного искусства.</p><p>Фольклор коряков богат сказками о Кутхе-вороне и мифами о происхождении мира. Особое место занимают предания об «эквэн» — морских чудовищах — и «кэле» — злых духах. Традиция нимыланских певцов — исполнение песен-импровизаций о пережитом — отражает глубокую связь коряков с природой и морем. Эти песни записывались этнографами и сегодня хранятся в архивах Петербурга и Хабаровска.</p>`},
+        };
+
+        // ==========================================
+        // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
+        // ==========================================
+        function openInfoModal(key) {
+            const d = infoData[key];
+            if (!d) return;
+            document.getElementById('infoModalImg').src = d.img;
+            document.getElementById('infoModalImg').alt = d.title;
+            document.getElementById('infoModalTitle').textContent = d.title;
+            document.getElementById('infoModalText').innerHTML = d.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
@@ -1380,6 +1481,18 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- Универсальное инфо-модальное окно -->
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

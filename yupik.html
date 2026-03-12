@@ -161,7 +161,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            cursor: zoom-in;
+            
         }
         
         .info-card:hover .info-card-image img {
@@ -245,7 +245,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             position: relative;
-            cursor: zoom-in;
+            
         }
 
         @media (max-width: 1024px) {
@@ -724,6 +724,79 @@
                 font-size: 1rem;
             }
         }
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -754,9 +827,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images4/yupik-people.jpg" alt="Юпики в традиционных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images4/yupik-people.jpg" alt="Юпики в традиционных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -764,9 +837,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images4/yupik-language.jpg" alt="Юпикский язык" onclick="openLightbox(this.src)">
+                        <img src="images4/yupik-language.jpg" alt="Юпикский язык">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -774,9 +847,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images4/yupik-shaman.jpg" alt="Шаманский обряд" onclick="openLightbox(this.src)">
+                        <img src="images4/yupik-shaman.jpg" alt="Шаманский обряд">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -784,9 +857,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images4/yupik-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images4/yupik-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -799,9 +872,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images4/yupik-costume.jpg" alt="Юпикский национальный костюм" onclick="openLightbox(this.src)">
+                        <img src="images4/yupik-costume.jpg" alt="Юпикский национальный костюм">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -820,9 +893,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('housing')">
                     <div class="info-card-image">
-                        <img src="images4/yupik-iglu.jpg" alt="Юпикское иглу" onclick="openLightbox(this.src)">
+                        <img src="images4/yupik-iglu.jpg" alt="Юпикское иглу">
                     </div>
                     <div class="info-card-content">
                         <h3>Жилище</h3>
@@ -830,9 +903,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('crafts')">
                     <div class="info-card-image">
-                        <img src="images4/yupik-crafts.jpg" alt="Юпикские ремёсла" onclick="openLightbox(this.src)">
+                        <img src="images4/yupik-crafts.jpg" alt="Юпикские ремёсла">
                     </div>
                     <div class="info-card-content">
                         <h3>Ремёсла и искусство</h3>
@@ -1210,6 +1283,34 @@
             }
         });
 
+        const infoData = {
+            population: {img:'images4/yupik-people.jpg',title:`Численность юпиков`,text:`<p>В России проживает около 1,5 тысячи юпиков. Основное население — Чукотский автономный округ (посёлки Новое Чаплино, Сиреники, Уэлькаль). Родственны эскимосам Аляски.</p><p>Азиатские юпики — самый малочисленный из коренных народов Чукотки. До 1948 года они свободно пересекали Берингов пролив, поддерживая тесные родственные и торговые связи с юпиками Аляски. После установления «железного занавеса» семьи оказались разлучены на десятилетия. Лишь с 1988 года был восстановлен «Берингов мост» — программа культурного обмена между юпиками России и США.</p><p>Сегодня численность юпиков в России крайне невелика и продолжает сокращаться. Молодёжь уезжает в города, традиционный промысел теряет экономическую привлекательность. Тем не менее общины Нового Чаплино и Сиреников сохраняют морской промысел и активно участвуют в международных программах сохранения эскимосской культуры совместно с коллегами из Аляски и Гренландии.</p>`},
+            language: {img:'images4/yupik-language.jpg',title:`Юпикский язык`,text:`<p>Юпикский язык относится к эскимосско-алеутской семье. Имеет два диалекта: чаплинский и сиреникский. Близок к языкам эскимосов Аляски.</p><p>Сиреникский диалект юпикского языка настолько отличается от чаплинского, что некоторые лингвисты считают его отдельным языком. Он сохранил архаичные черты, утраченные в других эскимосских языках, и представляет исключительный интерес для лингвистической науки. К сожалению, сиреникский диалект практически мёртв: последние его носители ушли в конце XX века.</p><p>Эскимосско-алеутские языки знамениты своим полисинтетизмом: одно слово может соответствовать целому предложению в русском языке. Например, слово «аналлагьнгугтукук» означает примерно «мы двое идём за рыбой». Это делает язык чрезвычайно информационно ёмким. Международное сотрудничество юпиков России и Аляски позволяет обмениваться языковыми материалами и методиками преподавания.</p>`},
+            religion: {img:'images4/yupik-shaman.jpg',title:`Верования юпиков`,text:`<p>Традиционные верования — анимизм и шаманизм. Культ духов моря, покровителей животных. С XIX века распространилось православие. Сохранились обряды благодарности киту.</p><p>Центральное место в мировоззрении юпиков занимал культ морских животных. Кит считался добровольной жертвой, приносящей себя людям из уважения. Поэтому после удачной охоты кит встречался с почестями: его поили пресной водой, кормили, благодарили и «отправляли обратно в море» — кости возвращали воде, чтобы дух кита возродился. Нарушение этих правил грозило тем, что киты уйдут от берегов навсегда.</p><p>Юпикский шаман — «алгалук» — мог общаться с духами в трансе, лечить болезни и управлять погодой. Шаманские маски «унгипалу» — деревянные или костяные — использовались в ритуальных танцах и изображали духов-помощников. Православие было принято юпиками в XIX веке, однако традиционные обряды, особенно связанные с морским промыслом, сохранялись ещё долго.</p>`},
+            settlement: {img:'images4/yupik-map.jpg',title:`Расселение юпиков`,text:`<p>Юпики населяют побережье Берингова пролива и Чукотского моря. Традиционные посёлки — Новое Чаплино, Сиреники, Уэлькаль. До 1948 года свободно пересекали границу с Аляской.</p><p>Берингов пролив шириной всего 86 километров никогда не был барьером для юпиков — это было их пространство. На байдарках и бумагах они пересекали его в обоих направлениях, торгуя, навещая родственников и участвуя в совместных охотах. Разделение 1948 года разорвало эти связи на сорок лет. Когда в конце 1980-х граница наконец открылась, встреча разлучённых семей стала событием огромной эмоциональной силы.</p><p>Традиционные юпикские поселения располагались на мысах и косах, открытых к морю — там, где можно было наблюдать за движением льда и морских животных. Близость к воде была принципиальной: вся жизнь юпиков зависела от моря. Современный посёлок Новое Чаплино был создан в 1958 году при насильственном переселении жителей трёх прибрежных сёл — трагедия, нанёсшая тяжёлую травму общине.</p>`},
+            costume: {img:'images4/yupik-costume.jpg',title:`Национальный костюм юпиков`,text:`<p>Костюм из шкур тюленей и моржей — «камлейка» с капюшоном, штаны, рукавицы, сапоги-камлейки. Водонепроницаемый, сохраняет тепло в море. Украшен мехом и бисером.</p><p>Юпикская камлейка из кишок моржа или тюленя — один из самых совершенных водонепроницаемых материалов, когда-либо созданных человеком. Тонко обработанные кишечные плёнки сшивались особым швом, не пропускавшим воду. Охотник в такой камлейке, сидя в каяке, мог работать вёслами среди волн, не промокая. Технология изготовления требовала многолетнего обучения и была строго женским искусством.</p><p>Зимний костюм из шкур тюленя и белого медведя состоял из двух слоёв: нижнего (мехом внутрь) и верхнего (мехом наружу). Между слоями циркулировал воздух, создавая дополнительную теплоизоляцию. Меховые украшения, бисерная вышивка и полоски из шкур разного цвета несли не только декоративную, но и знаковую функцию — обозначали принадлежность к определённой общине и семье.</p>`},
+            housing: {img:'images4/yupik-iglu.jpg',title:`Жилище юпиков`,text:`<p>Зимой — «иглу» (дом из снега и льда) или «кармак» (землянка). Летом — «яранга» из шкур на деревянном каркасе. Внутри — жировая лампа для света и тепла.</p><p>«Кармак» — традиционное зимнее полуподземное жилище юпиков — строилось из камня, кости и дерева, обкладывалось снаружи дёрном. Его можно было использовать десятилетиями. Вход располагался через длинный низкий тоннель — ловушку для холода: воздух в тоннеле успевал прогреться до того, как попасть в жилое пространство. Единственный источник тепла и света — жировая лампа «чирак» из мыльного камня.</p><p>Иглу из снега — более временное жилище, которое строилось за один-два часа во время охоты или путешествия. Свежевырезанные снежные блоки укладывались по спирали, образуя купол. Изнутри иглу выстилалось шкурами. Температура внутри, даже при морозе -40°C снаружи, держалась около 0°C — тепло тел жильцов и жировой лампы было достаточным. Сегодня иглу строят лишь как туристический аттракцион.</p>`},
+            crafts: {img:'images4/yupik-crafts.jpg',title:`Ремёсла и искусство юпиков`,text:`<p>Изготовление байдарок «каяк» с каркасом из костей и шкурой моржа, резьба по кости и рогу, плетение корзин. Традиционные охотничьи снаряды — гарпуны и копья.</p><p>Юпикский каяк — «кайак» — одно из величайших инженерных достижений арктического человека. Каркас из костей кита и дерева, обтянутый шкурами тюленя, был лёгким, прочным и манёвренным. Охотник мог перевернуться и встать обратно — умение, спасавшее жизнь в открытом море. Современные спортивные каяки воспроизводят форму юпикских прототипов, признанных идеальной с точки зрения гидродинамики.</p><p>Резьба по кости моржа — «ивори» — выдающееся искусство юпиков. Мастера изображали сцены охоты, морских животных и духов с невероятной точностью и экспрессией. Работы юпикских косторезов, в частности знаменитых мастеров из Нового Чаплино, хранятся в музеях России, США и Канады. Сегодня это искусство переживает возрождение: молодые мастера обучаются у старейшин и участвуют в международных ярмарках.</p>`},
+        };
+
+        // ==========================================
+        // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
+        // ==========================================
+        function openInfoModal(key) {
+            const d = infoData[key];
+            if (!d) return;
+            document.getElementById('infoModalImg').src = d.img;
+            document.getElementById('infoModalImg').alt = d.title;
+            document.getElementById('infoModalTitle').textContent = d.title;
+            document.getElementById('infoModalText').innerHTML = d.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
@@ -1340,6 +1441,18 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- Универсальное инфо-модальное окно -->
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

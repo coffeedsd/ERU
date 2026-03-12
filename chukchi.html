@@ -161,7 +161,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            cursor: zoom-in;
+            
         }
         
         .info-card:hover .info-card-image img {
@@ -245,7 +245,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             position: relative;
-            cursor: zoom-in;
+            
         }
 
         @media (max-width: 1024px) {
@@ -756,6 +756,79 @@
                 font-size: 1rem;
             }
         }
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -786,9 +859,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images4/chukchi-people.jpg" alt="Чукчи в традиционных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images4/chukchi-people.jpg" alt="Чукчи в традиционных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +869,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images4/chukchi-language.jpg" alt="Чукотский язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images4/chukchi-language.jpg" alt="Чукотский язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +879,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images4/chukchi-shaman.jpg" alt="Чукотский шаман" onclick="openLightbox(this.src)">
+                        <img src="images4/chukchi-shaman.jpg" alt="Чукотский шаман">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +889,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images4/chukchi-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images4/chukchi-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +904,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images4/chukchi-costume.jpg" alt="Чукотский национальный костюм из шкур" onclick="openLightbox(this.src)">
+                        <img src="images4/chukchi-costume.jpg" alt="Чукотский национальный костюм из шкур">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +925,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('housing')">
                     <div class="info-card-image">
-                        <img src="images4/chukchi-yaranga.jpg" alt="Чукотская яранга" onclick="openLightbox(this.src)">
+                        <img src="images4/chukchi-yaranga.jpg" alt="Чукотская яранга">
                     </div>
                     <div class="info-card-content">
                         <h3>Жилище</h3>
@@ -862,9 +935,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('crafts')">
                     <div class="info-card-image">
-                        <img src="images4/chukchi-crafts.jpg" alt="Чукотские ремёсла: резьба по кости" onclick="openLightbox(this.src)">
+                        <img src="images4/chukchi-crafts.jpg" alt="Чукотские ремёсла: резьба по кости">
                     </div>
                     <div class="info-card-content">
                         <h3>Ремёсла и искусство</h3>
@@ -1248,6 +1321,34 @@
             }
         });
 
+        const infoData = {
+            population: {img:'images4/chukchi-people.jpg',title:`Численность чукчей`,text:`<p>В России проживает около 16 тысяч чукчей. Основное население Чукотского автономного округа. Название «луораветлан» означает «настоящие люди».</p><p>Чукчи — крупнейший коренной народ Чукотки и один из наиболее известных арктических народов мира. Они делятся на оленных чукчей («чавчыв» — богатый оленями) и прибрежных («ангкальыт» — морские жители). Эти группы различались не только хозяйством, но и мировоззрением, обрядами и даже языковыми особенностями.</p><p>Чукчи — единственный из малых народов Севера, который успешно сопротивлялся российской колонизации на протяжении почти ста лет (конец XVII — конец XVIII века). Несколько военных экспедиций потерпели поражение от чукотских воинов. В итоге Россия была вынуждена заключить с чукчами особый договор, по которому те признавали формальную власть царя, сохраняя полное самоуправление. Эта история воинственной независимости стала частью чукотской идентичности.</p>`},
+            language: {img:'images4/chukchi-language.jpg',title:`Чукотский язык`,text:`<p>Чукотский язык относится к чукотско-камчатской семье. Имеет два диалекта: чавыванский (оленных) и маринский (прибрежных). Использует кириллицу с 1931 года.</p><p>Чукотский язык знаменит грамматическим явлением, крайне редким в языках мира: «мужским» и «женским» вариантами произношения. Мужчины и женщины произносят одни и те же слова по-разному — это различие закреплено в традиции и воспринимается как норма. Например, звук «р» в мужской речи соответствует «ц» в женской. Подобный «гендерный» фонетизм обнаруживается лишь в нескольких языках мира.</p><p>Чукотская литература насчитывает несколько десятилетий: первые произведения на родном языке появились в 1930-х годах. Выдающийся чукотский писатель Юрий Рытхэу (1930–2008) прославил чукотскую культуру на весь мир — его романы переведены на десятки языков. Его книги остаются важнейшим источником знаний о чукотском мире для читателей по всему миру.</p>`},
+            religion: {img:'images4/chukchi-shaman.jpg',title:`Верования чукчей`,text:`<p>Традиционные верования — анимизм и шаманизм. Вселенная делится на верхний, средний и нижний миры. С XVIII века распространилось православие.</p><p>Чукотский шаманизм — один из наиболее изученных в мире: экспедиции Владимира Богораза в начале XX века оставили подробнейшие записи обрядов, камланий и мифологии. Чукотский шаман — «эйнэчейн» — мог быть как мужчиной, так и женщиной. Особую категорию составляли мужчины-шаманы, менявшие социальный пол — «мягкие мужчины»: они одевались и вели себя как женщины, что наделяло их особой духовной силой.</p><p>Культ огня занимал центральное место в чукотской религии. Священный огонь в каждой семье поддерживался с помощью специальной дощечки и сверла, передававшихся по наследству. Новый огонь нельзя было добывать из чужого огня — только трением. Тушение семейного огня означало духовную смерть семьи. Православие приживалось на Чукотке с трудом: к нему относились прагматично, добавляя православных святых в пантеон духов-помощников.</p>`},
+            settlement: {img:'images4/chukchi-map.jpg',title:`Расселение чукчей`,text:`<p>Чукчи населяют Чукотский полуостров, побережье Берингова и Чукотского морей. Делятся на две группы: оленные (чавчыв) и прибрежные (ангкальыт).</p><p>Чукотский автономный округ — самый восточный регион России, граничащий с Аляской. Территория Чукотки сопоставима по площади с Францией, однако население составляет лишь около 50 тысяч человек. Оленные чукчи кочевали по огромным тундровым пространствам, прибрежные жили оседло на берегах Берингова и Чукотского морей, занимаясь охотой на морских животных.</p><p>В 2000-е годы губернатором Чукотки стал Роман Абрамович, вложивший значительные средства в инфраструктуру региона. Были отремонтированы школы и больницы, улучшено снабжение отдалённых посёлков. Тем не менее Чукотка остаётся одним из самых труднодоступных и дорогих в жизни регионов России, а коренное население продолжает сталкиваться с серьёзными социальными проблемами.</p>`},
+            costume: {img:'images4/chukchi-costume.jpg',title:`Национальный костюм чукчей`,text:`<p>Костюм из шкур оленей, тюленей и белых медведей. Женщины носили «кэрэт» (длинное платье с капюшоном), мужчины — «кэрэт» или «топыкан» (комбинезон). Обувь из шкур — «кымгыт».</p><p>Чукотский костюм — вершина арктической инженерной мысли. Двойная шуба из оленьих шкур («луткэн»), надеваемая нижним слоем мехом к телу, верхним — мехом наружу, обеспечивает защиту при морозах до -50°C. Пространство между слоями — мёртвый воздух — служит дополнительным изолятором. При такой системе одежды человек практически не зябнет даже в долгий зимний мороз.</p><p>Женский комбинезон — «кэрэт» — был особенно продуманным изобретением: широкий вырез позволял кормить ребёнка грудью, не снимая одежды, а в просторных рукавах можно было согреть совсем маленького ребёнка. Детей до года носили в специальном кармане на спине материнского костюма — в прямом смысле «кенгурошнике» из оленьих шкур. Традиционный костюм чукчей сегодня активно воссоздаётся мастерицами и надевается на праздники.</p>`},
+            housing: {img:'images4/chukchi-yaranga.jpg',title:`Жилище чукчей`,text:`<p>«Яранга» — переносное жилище из деревянного каркаса, покрытое оленьими шкурами. Внутри — «палатка» из шкур, очаг. Зимой — «аранг» (землянка).</p><p>Чукотская яранга — совершенное жилище кочевника. Каркас из жердей устанавливался за 1–2 часа, покрышки из оленьих шкур укреплялись с помощью верёвок. Внутри яранги натягивался «чоттагин» — меховой полог, в котором спала семья: воздух в нём быстро прогревался до +20–25°C от тел людей и жировой лампы, даже если снаружи стоял мороз -40°C. В большой яранге могли жить две-три семьи.</p><p>Разобрать ярангу и перевезти её на нартах — дело нескольких часов. Кочевой образ жизни оленных чукчей требовал именно такой мобильности: стада двигались постоянно в поисках пастбищ, и жилище следовало за ними. Прибрежные чукчи строили более постоянные землянки — «аранги» — но и они использовали ярангу как летнее жилище. Несколько семей в Чукотском районе до сих пор живут в ярангах в период кочевий.</p>`},
+            crafts: {img:'images4/chukchi-crafts.jpg',title:`Ремёсла и искусство чукчей`,text:`<p>Уникальная резьба по кости кита и моржа, плетение из травы, вышивка бисером. Традиционные игрушки из кожи и меха для детей. Народные сказки и легенды.</p><p>Чукотская резьба по кости — всемирно признанный вид искусства. Мастера из Уэлена создали целую художественную школу гравюры по моржовой кости, изображая сцены арктической охоты, животных и мифологических персонажей с тонкостью и экспрессией. Уэленская косторезная мастерская, основанная в 1931 году, объединила лучших мастеров Чукотки. Её изделия хранятся в Эрмитаже, Метрополитен-музее и многих других крупнейших музеях мира.</p><p>Чукотский фольклор богат сказками о хитрых воронах, морских духах и нартских богатырях. Особое место занимают мифы о «кэле» — злых духах болезней и смерти — и о героях, победивших их. Литературная обработка чукотского фольклора в романах Юрия Рытхэу познакомила весь мир с этим культурным богатством. Сегодня чукотские сказки издаются на русском и чукотском языках и входят в школьные программы округа.</p>`},
+        };
+
+        // ==========================================
+        // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
+        // ==========================================
+        function openInfoModal(key) {
+            const d = infoData[key];
+            if (!d) return;
+            document.getElementById('infoModalImg').src = d.img;
+            document.getElementById('infoModalImg').alt = d.title;
+            document.getElementById('infoModalTitle').textContent = d.title;
+            document.getElementById('infoModalText').innerHTML = d.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
@@ -1378,6 +1479,18 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- Универсальное инфо-модальное окно -->
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

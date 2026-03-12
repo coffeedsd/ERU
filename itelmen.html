@@ -161,7 +161,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            cursor: zoom-in;
+            
         }
         
         .info-card:hover .info-card-image img {
@@ -245,7 +245,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             position: relative;
-            cursor: zoom-in;
+            
         }
 
         @media (max-width: 1024px) {
@@ -756,6 +756,79 @@
                 font-size: 1rem;
             }
         }
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -786,9 +859,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images4/itelmen-people.jpg" alt="Ительмены в традиционных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images4/itelmen-people.jpg" alt="Ительмены в традиционных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +869,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images4/itelmen-language.jpg" alt="Ительменский язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images4/itelmen-language.jpg" alt="Ительменский язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +879,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images4/itelmen-shaman.jpg" alt="Ительменский шаманский обряд" onclick="openLightbox(this.src)">
+                        <img src="images4/itelmen-shaman.jpg" alt="Ительменский шаманский обряд">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +889,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images4/itelmen-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images4/itelmen-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +904,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images4/itelmen-costume.jpg" alt="Ительменский национальный костюм" onclick="openLightbox(this.src)">
+                        <img src="images4/itelmen-costume.jpg" alt="Ительменский национальный костюм">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +925,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('housing')">
                     <div class="info-card-image">
-                        <img src="images4/itelmen-yaranga.jpg" alt="Ительменское жилище яранга" onclick="openLightbox(this.src)">
+                        <img src="images4/itelmen-yaranga.jpg" alt="Ительменское жилище яранга">
                     </div>
                     <div class="info-card-content">
                         <h3>Жилище</h3>
@@ -862,9 +935,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('crafts')">
                     <div class="info-card-image">
-                        <img src="images4/itelmen-crafts.jpg" alt="Ительменские ремёсла: резьба по кости" onclick="openLightbox(this.src)">
+                        <img src="images4/itelmen-crafts.jpg" alt="Ительменские ремёсла: резьба по кости">
                     </div>
                     <div class="info-card-content">
                         <h3>Ремёсла и искусство</h3>
@@ -1251,6 +1324,34 @@
             }
         });
 
+        const infoData = {
+            population: {img:'images4/itelmen-people.jpg',title:`Численность ительменов`,text:`<p>В России проживает около 3 тысяч ительменов. Основное население — Камчатский край (сёла Ковран, Паланка, Тигиль). Название «итъэнмэн» означает «живущие здесь, на земле».</p><p>Ительмены — один из коренных народов Камчатки, чья история насчитывает тысячелетия. До прихода русских в XVII веке ительмены населяли почти весь полуостров, их численность достигала 12–15 тысяч человек. Активная колонизация, эпидемии болезней и вынужденная ассимиляция привели к катастрофическому сокращению народа. К XIX веку ительменов оставалось не более 3 тысяч.</p><p>Сегодня ительмены внесены в список коренных малочисленных народов России и пользуются особыми правами в области землепользования и рыболовства. Культурный центр «Ительмень» в Ковране ведёт активную работу по возрождению языка, обрядов и традиционных ремёсел. Ежегодный праздник «Алхалалалай» — главное событие в жизни ительменской общины.</p>`},
+            language: {img:'images4/itelmen-language.jpg',title:`Ительменский язык`,text:`<p>Ительменский язык относится к чукотско-камчатской семье. Считается самым архаичным в семье, сохранившим древние черты. Имеет сложную систему глаголов. Использует кириллицу с 1986 года.</p><p>Ительменский язык находится под угрозой исчезновения: сегодня им свободно владеют лишь несколько десятков человек старшего поколения. Молодёжь в большинстве своём перешла на русский язык. Тем не менее с 1990-х годов предпринимаются активные усилия по сохранению: создаются учебники, проводятся языковые лагеря, разрабатываются онлайн-курсы.</p><p>Особенность ительменского языка — исключительно богатая глагольная система: глагол может включать информацию о субъекте, объекте, направлении, способе действия и многом другом, выражая в одном слове то, что по-русски требует целого предложения. Первые записи ительменского языка сделал немецкий учёный Георг Вильгельм Стеллер в ходе Второй Камчатской экспедиции в 1740–1742 годах.</p>`},
+            religion: {img:'images4/itelmen-shaman.jpg',title:`Верования ительменов`,text:`<p>Традиционные верования — анимизм и шаманизм. Культ духов природы, хозяев гор и рек. С XVIII века распространилось православие. Сохранились древние обряды инициации и поминовения.</p><p>Ительменский шаман — «ёлтолаль» — выступал посредником между миром людей и духов. Духи хозяев («кана») населяли каждую гору, реку, мыс и дерево. Хозяин реки определял, даст ли она рыбу в этом сезоне, поэтому перед началом промысла совершались специальные обряды с жертвоприношениями и песнопениями. Шаман также лечил болезни, предсказывал погоду и помогал охотникам.</p><p>Православие пришло на Камчатку в XVIII веке и внешне приняли его почти все ительмены. Однако традиционные верования продолжали жить под православной оболочкой. Сегодня возрождение традиционной духовности — важная часть культурного ренессанса ительменского народа. Обряд «Алхалалалай» — праздник благодарения природе — ежегодно проводится в Ковране и собирает ительменов со всей Камчатки.</p>`},
+            settlement: {img:'images4/itelmen-map.jpg',title:`Расселение ительменов`,text:`<p>Ительмены традиционно населяли западное побережье Камчатки от Тигиля до Коврана. Жили вдоль рек, богатых лососём. Основные посёлки — Тигиль, Ковран, Паланка.</p><p>Традиционное расселение ительменов было тесно связано с рыбными реками: каждая семья имела свой участок реки для рыболовства, передававшийся по наследству. Летние стойбища у воды и зимние в защищённых лесных долинах — такой уклад позволял максимально использовать ресурсы полуострова. Ительмены никогда не занимались оленеводством — в отличие от коряков и чукчей.</p><p>После советской коллективизации 1930-х годов традиционный уклад был разрушен: ительменов принудительно переселяли в укрупнённые посёлки, запрещали кочевать. Многие исконные угодья были утрачены. Сегодня ительмены борются за восстановление прав на традиционное природопользование — в первую очередь на лов лосося в родных реках.</p>`},
+            costume: {img:'images4/itelmen-costume.jpg',title:`Национальный костюм ительменов`,text:`<p>Костюм из шкур лосей, оленей и собак. Женщины носили «камлейка» (платье с капюшоном), украшенное бисером. Мужчины — «камлейка» или «парка». Обувь — «пычки» из шкур с мехом наружу.</p><p>Ительменский костюм был идеально приспособлен к условиям Камчатки: двойной слой меха (внутренний — мехом к телу, внешний — наружу) создавал эффективную изоляцию при морозах и влажности. Швы прошивались особым образом, чтобы не пропускать воду. Женщины украшали одежду вышивкой сухожильными нитями, бисером и кусочками меха разных оттенков, создавая сложные орнаменты.</p><p>Особую роль играли ритуальные элементы костюма: амулеты из когтей медведя, клювов птиц и зубов рыб защищали владельца от злых духов. Мастерство шитья передавалось от матери к дочери и считалось важнейшим женским умением. По качеству одежды судили о трудолюбии и умелости хозяйки дома.</p>`},
+            housing: {img:'images4/itelmen-yaranga.jpg',title:`Жилище ительменов`,text:`<p>«Яранга» — коническое жилище из жердей, покрытое оленьими шкурами. Внутри — «чадра» (внутренняя палатка) из шкур. Зимой использовали полуземлянки «палатка» с печью-каменкой.</p><p>Традиционное зимнее жилище ительменов — «нимъ» — представляло собой полуземлянку с бревенчатыми стенами, углублённую в землю на 1–1,5 метра. Вход осуществлялся через деревянный люк в крыше по специальным ступеням. Такая конструкция превосходно удерживала тепло даже при сильных морозах и метелях. Внутри стояли деревянные нары, очаг располагался в центре.</p><p>Летнее жилище — «яранга» — было более лёгким и мобильным. Его устанавливали у рыбных рек на время хода лосося. Внутри яранги обязательно была «чадра» — меховой полог, создававший тёплое спальное пространство даже при открытом костре снаружи. Современные ительмены живут в обычных домах, однако на праздниках и фестивалях традиционные жилища воссоздаются для сохранения культурной памяти.</p>`},
+            crafts: {img:'images4/itelmen-crafts.jpg',title:`Ремёсла и искусство ительменов`,text:`<p>Уникальная резьба по кости лосося и оленя, плетение корзин из ивовой лозы, вышивка бисером. Традиционные ловушки для рыбы и зверя. Народные сказки про хозяев тайги и рек.</p><p>Ительменская резьба по кости и дереву отличается особой пластичностью форм: мастера изображали духов-хозяев природы, сцены охоты и рыболовства, мифологических существ. Изделия из кости лосося — лёгкие и прочные — использовались как ритуальные предметы и украшения. Плетёные корзины из ивовой лозы были настолько плотными, что могли удерживать воду.</p><p>Ительменский фольклор богат сказками о Кутхе — ворон-творец, культурный герой и трикстер одновременно. Кутх создал Камчатку, людей и животных, но постоянно попадает в курьёзные ситуации из-за своей хитрости и жадности. Сказки о Кутхе сохранились благодаря записям Стеллера и советских этнографов. Сегодня они издаются на ительменском и русском языках и входят в школьные программы Камчатки.</p>`},
+        };
+
+        // ==========================================
+        // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
+        // ==========================================
+        function openInfoModal(key) {
+            const d = infoData[key];
+            if (!d) return;
+            document.getElementById('infoModalImg').src = d.img;
+            document.getElementById('infoModalImg').alt = d.title;
+            document.getElementById('infoModalTitle').textContent = d.title;
+            document.getElementById('infoModalText').innerHTML = d.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
@@ -1381,6 +1482,18 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- Универсальное инфо-модальное окно -->
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
