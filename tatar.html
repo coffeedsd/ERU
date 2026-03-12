@@ -224,150 +224,6 @@
             color: var(--accent-gold);
         }
         
-
-        /* Универсальная кликабельная карточка */
-        .clickable-card {
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .clickable-card:hover {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
-            transform: translateY(-3px);
-        }
-        .clickable-card .info-card-content h3 {
-            position: relative;
-            display: inline-block;
-            padding-right: 25px;
-            transition: color 0.3s;
-        }
-        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
-        .clickable-card .info-card-content h3::after {
-            content: "\2197";
-            position: absolute;
-            right: 0; top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.8em; opacity: 0.7;
-            transition: all 0.3s;
-        }
-        .clickable-card:hover .info-card-content h3::after {
-            transform: translateY(-50%) translateX(3px);
-            opacity: 1; color: var(--accent-gold);
-        }
-        .info-modal {
-            display: none; position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.92);
-            z-index: 10000;
-            justify-content: center; align-items: center;
-            padding: 40px;
-        }
-        .info-modal.active { display: flex; }
-        .info-modal-container {
-            background: var(--bg-card);
-            border-radius: 24px;
-            max-width: 750px; width: 95%;
-            max-height: 88vh; overflow: hidden;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-            display: flex; flex-direction: column;
-        }
-        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
-        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
-        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
-        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
-        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
-        .info-modal-text p { margin-bottom: 14px; }
-        .info-modal-text p:last-child { margin-bottom: 0; }
-        .info-modal-close {
-            position: absolute; top: 20px; right: 30px;
-            font-size: 2.5rem; color: white; cursor: pointer;
-            z-index: 10001; background: rgba(0,0,0,0.5);
-            width: 52px; height: 52px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
-        }
-        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
-        @media (max-width: 768px) {
-            .info-modal { padding: 15px; }
-            .info-modal-image { height: 180px; }
-            .info-modal-body { padding: 24px; }
-            .info-modal-title { font-size: 1.4rem; }
-        }
-
-
-        /* Универсальная кликабельная карточка */
-        .clickable-card {
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .clickable-card:hover {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
-            transform: translateY(-3px);
-        }
-        .clickable-card .info-card-content h3 {
-            position: relative;
-            display: inline-block;
-            padding-right: 25px;
-            transition: color 0.3s;
-        }
-        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
-        .clickable-card .info-card-content h3::after {
-            content: "\2197";
-            position: absolute;
-            right: 0; top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.8em; opacity: 0.7;
-            transition: all 0.3s;
-        }
-        .clickable-card:hover .info-card-content h3::after {
-            transform: translateY(-50%) translateX(3px);
-            opacity: 1; color: var(--accent-gold);
-        }
-        .info-modal {
-            display: none; position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.92);
-            z-index: 10000;
-            justify-content: center; align-items: center;
-            padding: 40px;
-        }
-        .info-modal.active { display: flex; }
-        .info-modal-container {
-            background: var(--bg-card);
-            border-radius: 24px;
-            max-width: 750px; width: 95%;
-            max-height: 88vh; overflow: hidden;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-            display: flex; flex-direction: column;
-        }
-        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
-        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
-        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
-        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
-        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
-        .info-modal-text p { margin-bottom: 14px; }
-        .info-modal-text p:last-child { margin-bottom: 0; }
-        .info-modal-close {
-            position: absolute; top: 20px; right: 30px;
-            font-size: 2.5rem; color: white; cursor: pointer;
-            z-index: 10001; background: rgba(0,0,0,0.5);
-            width: 52px; height: 52px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
-        }
-        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
-        @media (max-width: 768px) {
-            .info-modal { padding: 15px; }
-            .info-modal-image { height: 180px; }
-            .info-modal-body { padding: 24px; }
-            .info-modal-title { font-size: 1.4rem; }
-        }
-
         /* ГАЛЕРЕЯ С КАРУСЕЛЬЮ */
         .gallery-wrapper {
             position: relative;
@@ -550,6 +406,70 @@
             z-index: 10001;
         }
 
+        .lightbox-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55px;
+            height: 55px;
+            background: rgba(245, 158, 11, 0.3);
+            border: 2px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #f5a623;
+            transition: all 0.3s ease;
+            z-index: 10001;
+            line-height: 1;
+        }
+        .lightbox-arrow:hover {
+            background: rgba(245, 158, 11, 0.6);
+            border-color: #f5a623;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        @media (max-width: 768px) {
+            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
+            .lightbox-prev { left: 8px; }
+            .lightbox-next { right: 8px; }
+        }
+        .lightbox-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55px;
+            height: 55px;
+            background: rgba(245, 158, 11, 0.3);
+            border: 2px solid rgba(245, 158, 11, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #f5a623;
+            transition: all 0.3s ease;
+            z-index: 10001;
+            line-height: 1;
+        }
+        .lightbox-arrow:hover {
+            background: rgba(245, 158, 11, 0.6);
+            border-color: #f5a623;
+            color: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        @media (max-width: 768px) {
+            .lightbox-arrow { width: 42px; height: 42px; font-size: 1.2rem; }
+            .lightbox-prev { left: 8px; }
+            .lightbox-next { right: 8px; }
+        }
         /* ==========================================
            КНОПКА "НАВЕРХ"
            ========================================== */
@@ -866,9 +786,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card clickable-card" onclick="openInfoModal('population')">
+                <div class="info-card">
                     <div class="info-card-image">
-                        <img src="images/tatar-people.jpg" alt="Татары в национальных костюмах">
+                        <img src="images/tatar-people.jpg" alt="Татары в национальных костюмах" onclick="openLightbox(this.src)">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -876,9 +796,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card clickable-card" onclick="openInfoModal('language')">
+                <div class="info-card">
                     <div class="info-card-image">
-                        <img src="images/tatar-language.jpg" alt="Татарский язык на арабице и кириллице">
+                        <img src="images/tatar-language.jpg" alt="Татарский язык на арабице и кириллице" onclick="openLightbox(this.src)">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -886,9 +806,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
+                <div class="info-card">
                     <div class="info-card-image">
-                        <img src="images/tatar-islam.jpg" alt="Татарская мечеть">
+                        <img src="images/tatar-islam.jpg" alt="Татарская мечеть" onclick="openLightbox(this.src)">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -896,9 +816,9 @@
                     </div>
                 </div>
 
-                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
+                <div class="info-card">
                     <div class="info-card-image">
-                        <img src="images/tatar-map.jpg" alt="Народное жилище">
+                        <img src="images/tatar-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -911,9 +831,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
+                <div class="info-card">
                     <div class="info-card-image">
-                        <img src="images/tatar-costume.jpg" alt="Татарский национальный костюм">
+                        <img src="images/tatar-costume.jpg" alt="Татарский национальный костюм" onclick="openLightbox(this.src)">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -932,9 +852,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card clickable-card" onclick="openInfoModal('architecture')">
+                <div class="info-card">
                     <div class="info-card-image">
-                        <img src="images/tatar-architecture.jpg" alt="Казанский Кремль">
+                        <img src="images/tatar-architecture.jpg" alt="Казанский Кремль" onclick="openLightbox(this.src)">
                     </div>
                     <div class="info-card-content">
                         <h3>Архитектура</h3>
@@ -942,9 +862,9 @@
                     </div>
                 </div>
 
-                <div class="info-card clickable-card" onclick="openInfoModal('music')">
+                <div class="info-card">
                     <div class="info-card-image">
-                        <img src="images/tatar-music.jpg" alt="Татарская народная музыка">
+                        <img src="images/tatar-music.jpg" alt="Татарская народная музыка" onclick="openLightbox(this.src)">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1089,29 +1009,11 @@
     <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close" onclick="event.stopPropagation(); closeLightbox()">&times;</span>
+        <button class="lightbox-arrow lightbox-prev" onclick="event.stopPropagation(); lightboxNav(-1)">&#8592;</button>
         <img src="" alt="Увеличенное изображение" id="lightbox-img" onclick="event.stopPropagation()">
+        <button class="lightbox-arrow lightbox-next" onclick="event.stopPropagation(); lightboxNav(1)">&#8594;</button>
     </div>
 
-    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
-        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
-        <div class="info-modal-container" onclick="event.stopPropagation()">
-            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
-            <div class="info-modal-body">
-                <div class="info-modal-title" id="infoModalTitle"></div>
-                <div class="info-modal-text" id="infoModalText"></div>
-            </div>
-        </div>
-    </div>
-    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
-        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
-        <div class="info-modal-container" onclick="event.stopPropagation()">
-            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
-            <div class="info-modal-body">
-                <div class="info-modal-title" id="infoModalTitle"></div>
-                <div class="info-modal-text" id="infoModalText"></div>
-            </div>
-        </div>
-    </div>
     <!-- МОДАЛЬНОЕ ОКНО РЕЦЕПТА ЭЧПОЧМАКА -->
     <div class="recipe-modal" id="recipeModal">
         <span class="recipe-close" onclick="closeRecipeModal()">&times;</span>
@@ -1243,16 +1145,52 @@
         // Инициализация галереи
         initGallery();
 
+        let lightboxSrcs = [];
+        let lightboxIndex = 0;
+
         function openLightbox(src) {
+            // Collect all gallery image sources
+            lightboxSrcs = [];
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                // Get src from onclick attribute or from img inside
+                const onclick = item.getAttribute('onclick') || '';
+                const match = onclick.match(/openLightbox\(['"]([^'"]+)['"]/);
+                if (match) {
+                    lightboxSrcs.push(match[1]);
+                } else {
+                    const img = item.querySelector('img');
+                    if (img) lightboxSrcs.push(img.src);
+                }
+            });
+            // Deduplicate (clones)
+            lightboxSrcs = [...new Set(lightboxSrcs)];
+            
+            lightboxIndex = lightboxSrcs.indexOf(src);
+            if (lightboxIndex === -1) lightboxIndex = 0;
+            
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').classList.add('active');
             document.body.style.overflow = 'hidden';
+        }
+
+        function lightboxNav(dir) {
+            if (lightboxSrcs.length === 0) return;
+            lightboxIndex = (lightboxIndex + dir + lightboxSrcs.length) % lightboxSrcs.length;
+            document.getElementById('lightbox-img').src = lightboxSrcs[lightboxIndex];
         }
 
         function closeLightbox() {
             document.getElementById('lightbox').classList.remove('active');
             document.body.style.overflow = '';
         }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            if (e.key === 'ArrowLeft') lightboxNav(-1);
+            if (e.key === 'ArrowRight') lightboxNav(1);
+            if (e.key === 'Escape') closeLightbox();
+        });
 
         // Модальное окно рецепта
         function openRecipeModal() {
@@ -1262,55 +1200,6 @@
 
         function closeRecipeModal() {
             document.getElementById('recipeModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        const infoCards = {
-            population: {img:'images/tatar-people.jpg',title:`Численность татар`,text:`<p>В России проживает около 4,7 миллиона татар — это второй по численности народ страны после русских. Татары расселены повсеместно: их общины есть практически в каждом крупном российском городе.</p><p>Наибольшая концентрация — в Республике Татарстан, где татары составляют около 53% населения, а также в Башкортостане, Оренбургской и Тюменской областях. Казань — столица Татарстана — один из крупнейших городов России и признанный центр татарской культуры и ислама.</p><p>За рубежом значительные татарские диаспоры сложились в Турции, Китае, Финляндии и США. Финские татары — одна из старейших мусульманских общин Скандинавии, переселившаяся туда ещё в XIX веке и сохраняющая язык и традиции по сей день.</p>`},
-            language: {img:'images/tatar-language.jpg',title:`Татарский язык`,text:`<p>Татарский язык относится к кыпчакской группе тюркских языков и является государственным языком Республики Татарстан наряду с русским. Это один из наиболее развитых тюркских языков с богатой литературной традицией, восходящей к поэзии Золотой Орды XIV–XV веков.</p><p>Язык прошёл сложную историю письменности: арабская графика использовалась вплоть до 1927 года, затем был введён латинский алфавит, а с 1939 года — кириллица. Татарский близок к башкирскому и казахскому, что облегчает общение между носителями этих языков.</p><p>Татарский язык оказал заметное влияние на русский: слова «деньги», «сарай», «базар», «алтын», «товар», «кафтан» и десятки других — тюркского происхождения, что отражает многовековое взаимодействие двух народов.</p>`},
-            religion: {img:'images/tatar-islam.jpg',title:`Религия татар`,text:`<p>Татары исповедуют ислам суннитского толка. Волжская Булгария официально приняла ислам в 922 году — за 66 лет до Крещения Руси, что делает татар одним из древнейших мусульманских народов России. Татарский ислам традиционно отличается умеренностью и открытостью.</p><p>Ислам глубоко вошёл в татарскую культуру и быт: строительство мечетей, арабская грамотность, обряды рождения, свадьбы и погребения — всё подчинено исламским канонам. Мечеть Кул-Шариф в Казанском кремле — символ возрождения ислама в постсоветской России.</p><p>Наряду с исламом у части татар сохраняются элементы доисламских верований. Праздник Сабантуй — народные состязания в честь окончания сева — имеет древние доисламские корни, но мирно уживается с мусульманской традицией уже несколько столетий.</p>`},
-            settlement: {img:'images/tatar-map.jpg',title:`Расселение татар`,text:`<p>Татары расселены по всей России — от Балтики до Тихого океана. Основные регионы: Татарстан, Башкортостан, Оренбургская, Тюменская, Свердловская и Самарская области. Татарские слободы исторически существовали во всех крупных городах страны.</p><p>Казань — столица Татарстана — называют «третьей столицей России». Город сочетает православные храмы и мечети, русскую и татарскую архитектуру, два государственных языка. Казанский кремль, где соседствуют церковь и мечеть, входит в список Всемирного наследия ЮНЕСКО.</p><p>Крупные диаспоры сложились в Москве, Поволжье, Сибири и за рубежом — в Турции, Китае, Финляндии и США. Сибирские татары — отдельная этнографическая группа, освоившая просторы Западной Сибири задолго до прихода русских первопроходцев.</p>`},
-            costume: {img:'images/tatar-costume.jpg',title:`Национальный костюм татар`,text:`<p>Татарский национальный костюм сочетает тюркские, исламские и поволжские традиции. Женщины носили длинное платье-күлмәк с оборками, камзол-безрукавку и калфак — конусообразный головной убор с вышивкой и жемчугом, ставший символом татарской женщины.</p><p>Мужской костюм включал казакин (приталенный кафтан), широкие шаровары и тюбетейку — бархатную шапочку с вышивкой. Тюбетейка стала главным символом татарской мужской идентичности, её носят и сегодня на праздниках и в мечети.</p><p>Знаменитые казанские ичиги — сапоги из мягкой цветной кожи с изящным растительным орнаментом — считались одним из лучших образцов татарского прикладного искусства. Их покупали купцы по всей России и вывозили за рубеж как дорогой сувенир.</p>`},
-            architecture: {img:'images/tatar-architecture.jpg',title:`Татарская архитектура`,text:`<p>Казанский Кремль — жемчужина татарской архитектуры, включённый в список Всемирного наследия ЮНЕСКО. На территории кремля соседствуют православный Благовещенский собор XVI века и белоснежная мечеть Кул-Шариф — символ возрождённого татарского ислама. Это живое воплощение многовекового диалога культур.</p><p>Башня Сююмбике — загадочный шедевр средневекового зодчества — наклонена, как Пизанская башня. По легенде, она была построена за одну неделю по приказу Ивана Грозного для красавицы-ханши Сююмбике. Реальная история башни не менее интересна, чем легенда.</p><p>Традиционный татарский дом — деревянный пятистенок с резными наличниками и воротами, украшенными растительным орнаментом. Фасад нередко облицовывался разноцветными изразцами. Богатые купеческие дома Казани XIX века сочетали восточную пышность с европейским классицизмом.</p>`},
-            music: {img:'images/tatar-music.jpg',title:`Музыка и танцы татар`,text:`<p>Татарская народная музыка строится на пентатонике — пятиступенчатом звукоряде, характерном для тюркских народов. Главные жанры: баиты — эпические баллады о героях и исторических событиях, мунаджаты — лирико-религиозные песни, такмаки — озорные частушки на злободневные темы.</p><p>Традиционные инструменты: курай — продольная флейта из тростника с протяжным степным звуком, кубыз — двухструнная скрипка, думбыра — щипковый инструмент. Гармонь появилась в XIX веке, но быстро стала любимым инструментом татарских деревень.</p><p>Татарские танцы отличаются изяществом и сдержанностью — резкие движения не приветствуются. Сабантуй — главный народный праздник — превращается в грандиозное действо с состязаниями по борьбе-кэрэш, скачками, перетягиванием каната и народными плясками, объединяя людей всех возрастов.</p>`},
-        };
-        function openInfoModal(cardId) {
-            const card = infoCards[cardId];
-            if (!card) return;
-            document.getElementById('infoModalImg').src = card.img;
-            document.getElementById('infoModalImg').alt = card.title;
-            document.getElementById('infoModalTitle').textContent = card.title;
-            document.getElementById('infoModalText').innerHTML = card.text;
-            document.getElementById('infoModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeInfoModal() {
-            document.getElementById('infoModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        const infoCards = {
-            population: {img:'images/tatar-people.jpg',title:`Численность татар`,text:`<p>В России проживает около 4,7 миллиона татар — это второй по численности народ страны после русских. Татары составляют около 3,7% всего населения России и являются одним из немногих народов с высоким уровнем национального самосознания и развитой культурной инфраструктурой.</p><p>Основное ядро татар сосредоточено в Республике Татарстан, где они составляют около 53% населения, а также в Башкортостане, Оренбургской, Тюменской и Самарской областях. Татарские слободы исторически существовали во всех крупных городах России — от Москвы до Омска.</p><p>Крупные диаспоры татар есть в Казахстане, Узбекистане, Украине, Турции, Китае, Финляндии и США. Финские татары — одна из старейших мусульманских общин Скандинавии, их история в Финляндии насчитывает более 150 лет.</p>`},
-            language: {img:'images/tatar-language.jpg',title:`Татарский язык`,text:`<p>Татарский язык относится к кыпчакской группе тюркских языков и является одним из наиболее развитых среди них — с богатой литературной традицией, восходящей к поэзии Золотой Орды XIV–XV веков. Сегодня он является государственным языком Татарстана наряду с русским.</p><p>Язык прошёл сложную историю письменности: арабская графика использовалась вплоть до 1927 года, затем введён латинский алфавит, а с 1939 года — кириллица. В республике периодически обсуждается возвращение к латинице. На татарском выходят газеты, телепередачи и книги, активно развивается татароязычный интернет.</p><p>Татарский язык обогатил русский: слова «деньги», «сарай», «базар», «товар», «алтын», «туман» и многие другие пришли из тюркских языков. Это свидетельство многовекового соседства и взаимодействия двух народов.</p>`},
-            religion: {img:'images/tatar-islam.jpg',title:`Религия татар`,text:`<p>Татары исповедуют ислам суннитского толка — принятый в 922 году при правителе Волжской Булгарии Алмуше. Это событие сделало государство булгар одним из первых официально принявших ислам на территории нынешней России — за 66 лет до Крещения Руси.</p><p>Ислам глубоко вошёл в татарскую культуру, язык и быт. Казань с её мечетью Кул-Шариф — духовный центр татарского мусульманства. Примечательно, что татарский ислам традиционно отличается умеренностью и уживчивостью с другими традициями — это наследие просветительского движения джадидизма XIX века.</p><p>Наряду с исламом у татар сохраняются элементы доисламских верований. Праздник Сабантуй — народные состязания в честь окончания сева с борьбой, скачками и играми — уходит корнями в дославянскую древность. Сегодня Сабантуй отмечают татары по всему миру.</p>`},
-            settlement: {img:'images/tatar-map.jpg',title:`Расселение татар`,text:`<p>Татары расселены по всей России — от Балтики до Тихого океана. Основные регионы: Татарстан и Башкортостан, Оренбургская, Тюменская, Свердловская, Самарская и Ульяновская области. Татарские слободы исторически были в каждом крупном городе страны.</p><p>Казань — столица Татарстана — по праву называют третьей столицей России. Это двуязычный город с мечетями и церквями, татарскими и русскими вывесками. Казанский кремль с башней Сююмбике и мечетью Кул-Шариф включён в список Всемирного наследия ЮНЕСКО.</p><p>Сибирские татары — особая этнографическая группа, населявшая Западную Сибирь задолго до прихода русских. Тюмень, Тобольск и Омск стояли на татарских землях. Их культура сохранила архаичные черты тюркской традиции, отличающие её от поволжских татар.</p>`},
-            costume: {img:'images/tatar-costume.jpg',title:`Национальный костюм татар`,text:`<p>Татарский национальный костюм сочетает тюркские, исламские и местные традиции. Мужчины носили казакин — приталенный кафтан из сукна или бархата, широкие шаровары и тюбетейку — бархатную шапочку с вышивкой, ставшую главным символом татарской идентичности.</p><p>Женский костюм включал длинное платье-күлмәк с оборками и ярким орнаментом, поверх — камзол без рукавов. Головной убор замужней женщины — калфак, конический чепец с вышивкой и жемчугом. Ювелирные украшения — фибулы, браслеты и подвески — изготавливались из серебра с самоцветами.</p><p>Казанские сапоги-ичиги из цветной кожи с изящным растительным орнаментом — отдельный шедевр татарского ремесла, известный далеко за пределами Поволжья. Татарская вышивка с тюльпанами, гвоздиками и листьями — один из узнаваемых художественных стилей России.</p>`},
-            architecture: {img:'images/tatar-architecture.jpg',title:`Архитектура татар`,text:`<p>Казанский кремль — главный архитектурный символ татарской цивилизации. Белокаменные стены и башни XVI века соседствуют с белоснежной мечетью Кул-Шариф — воссозданным символом утраченного татарского государства. Башня Сююмбике с её наклоном напоминает Пизанскую башню и окружена легендами.</p><p>Традиционный татарский дом — деревянный пятистенок с резными наличниками и воротами. В отличие от русской избы, татарский дом разделялся на мужскую и женскую половины. Внутреннее убранство отличалось яркими коврами, паласами и вышитыми панно на стенах.</p><p>Болгар — древняя столица Волжской Булгарии, предшественницы Казани — включён в список Всемирного наследия ЮНЕСКО. Руины белокаменных соборов, минаретов и ханских усыпальниц XIV века — свидетели расцвета средневековой татарской цивилизации.</p>`},
-            music: {img:'images/tatar-music.jpg',title:`Музыка и танцы татар`,text:`<p>Татарская народная музыка строится на пентатонике — пятиступенчатом звукоряде, характерном для тюркских и монгольских народов. Главные жанры: баиты — эпические баллады о исторических событиях и героях, мунаджаты — лирико-религиозные песни, такмаки — задорные частушки.</p><p>Традиционные инструменты: курай — продольная флейта из тростника с нежным, чуть печальным звуком; кубыз — варган, зажимаемый у губ; думбыра — щипковый инструмент. Позднее в народный обиход вошла гармонь, без которой сегодня не обходится ни одно татарское торжество.</p><p>Татарские танцы отличаются изяществом и сдержанностью — резкие движения не приняты. Мужской танец демонстрирует силу и ловкость, женский — грацию и плавность. Сабантуй с его состязаниями, плясками и пением — главное народное торжество, объединяющее татар по всему миру.</p>`},
-            housing: {img:'images/tatar-house.jpg',title:`Жилище татар`,text:`<p>Традиционный татарский дом — деревянный пятистенок с высоким цоколем, резными наличниками и нарядными воротами. В отличие от русской избы, дом делился на мужскую и женскую половины занавесью или перегородкой. Фасад нередко украшался цветной деревянной резьбой с растительными мотивами.</p><p>Внутреннее убранство создавало яркий восточный колорит: пол устилали домотканые половики и паласы с геометрическим орнаментом, стены украшали вышитые полотенца-тастымалы. Мебель была низкой — татары предпочитали сидеть на подушках и коврах, что отражало центральноазиатские традиции предков.</p><p>В степных районах татары сохранили память о юрте — разборном войлочном жилище кочевников. Войлочные ковры с яркими орнаментами украшали и защищали от холода. Сегодня юрта стала символом праздников и фестивалей, напоминая о кочевых корнях тюркского мира.</p>`},
-        };
-        function openInfoModal(cardId) {
-            const card = infoCards[cardId];
-            if (!card) return;
-            document.getElementById('infoModalImg').src = card.img;
-            document.getElementById('infoModalImg').alt = card.title;
-            document.getElementById('infoModalTitle').textContent = card.title;
-            document.getElementById('infoModalText').innerHTML = card.text;
-            document.getElementById('infoModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeInfoModal() {
-            document.getElementById('infoModal').classList.remove('active');
             document.body.style.overflow = '';
         }
 
@@ -1351,6 +1240,8 @@
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
+        const PEOPLE_ID = 'tatar';
+
         const questions = [
             { q: "Какое место по численности занимают татары в России?", a: ["Четвёртое", "Первое", "Третье", "Второе"], correct: 3 },
             { q: "К какой группе языков относится татарский язык?", a: ["Иранской", "Кыпчакской", "Славянской", "Монгольской"], correct: 1 },
@@ -1365,11 +1256,13 @@
         let currentQ = 0;
         let score = 0;
         let answered = false;
+        let quizAnswers = [];
 
         function startQuiz() {
             currentQ = 0;
             score = 0;
             answered = false;
+            quizAnswers = [];
             document.getElementById('result-box').style.display = 'none';
             document.getElementById('question-box').style.display = 'block';
             document.getElementById('progress-box').style.display = 'block';
@@ -1408,6 +1301,7 @@
                 }
             }
             
+            quizAnswers.push(idx);
             if (idx === q.correct) {
                 score++;
                 feedback.textContent = '✓ Правильно!';
@@ -1440,6 +1334,37 @@
             else if (score >= 4) msg = '📚 Неплохо, но можно лучше.';
             else msg = '🎓 Стоит перечитать материал.';
             document.getElementById('result-text').textContent = msg;
+            
+            // Отправляем результат на бэкенд
+            sendQuizResult();
+        }
+
+
+        // ==========================================
+        // ОТПРАВКА РЕЗУЛЬТАТОВ ВИКТОРИНЫ НА БЭКЕНД
+        // ==========================================
+        const BACKEND_URL = 'https://eru-6h89.onrender.com';
+
+        async function sendQuizResult() {
+            const questionResults = questions.map((q, i) => ({
+                id: 'q' + i,
+                text: q.q,
+                correct: quizAnswers[i] === q.correct
+            }));
+            try {
+                await fetch(BACKEND_URL + '/api/quiz-result', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        peopleId: PEOPLE_ID,
+                        score: score,
+                        total: questions.length,
+                        questions: questionResults
+                    })
+                });
+            } catch(e) {
+                // Тихо игнорируем ошибку сети
+            }
         }
 
         // Старт при загрузке
