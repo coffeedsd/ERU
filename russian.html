@@ -224,6 +224,126 @@
             color: var(--accent-gold);
         }
 
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+
+        .clickable-card:hover .info-card-content h3 {
+            color: var(--accent-gold);
+        }
+
+        .clickable-card .info-card-content h3::after {
+            content: '↗';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1;
+            color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px;
+            width: 95%;
+            max-height: 88vh;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+        }
+        .info-modal-image {
+            width: 100%;
+            height: 260px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .info-modal-image img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        .info-modal-body {
+            padding: 36px 40px 40px;
+            overflow-y: auto;
+        }
+        .info-modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 16px;
+        }
+        .info-modal-text {
+            color: var(--text-secondary);
+            font-size: 0.97rem;
+            line-height: 1.8;
+        }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+            z-index: 10001;
+            background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover {
+            background: var(--accent-gold);
+            transform: rotate(90deg);
+            border-color: var(--accent-gold);
+        }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
+
         /* ГАЛЕРЕЯ С КАРУСЕЛЬЮ */
         .gallery-wrapper {
             position: relative;
@@ -786,9 +906,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images/russian-people.jpg" alt="Русские люди в национальных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images/russian-people.jpg" alt="Русские люди в национальных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +916,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images/russian-language.jpg" alt="Русский язык и литература" onclick="openLightbox(this.src)">
+                        <img src="images/russian-language.jpg" alt="Русский язык и литература">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +926,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images/russian-church.jpg" alt="Русская православная церковь" onclick="openLightbox(this.src)">
+                        <img src="images/russian-church.jpg" alt="Русская православная церковь">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +936,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images/russian-terem.jpg" alt="Русский терем" onclick="openLightbox(this.src)">
+                        <img src="images/russian-terem.jpg" alt="Русский терем">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +951,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images/russian-costume.jpg" alt="Русский национальный костюм сарафан" onclick="openLightbox(this.src)">
+                        <img src="images/russian-costume.jpg" alt="Русский национальный костюм сарафан">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +972,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('architecture')">
                     <div class="info-card-image">
-                        <img src="images/russian-izba.jpg" alt="Русская деревянная изба" onclick="openLightbox(this.src)">
+                        <img src="images/russian-izba.jpg" alt="Русская деревянная изба">
                     </div>
                     <div class="info-card-content">
                         <h3>Архитектура</h3>
@@ -862,9 +982,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('music')">
                     <div class="info-card-image">
-                        <img src="images/russian-music.jpg" alt="Русская народная музыка" onclick="openLightbox(this.src)">
+                        <img src="images/russian-music.jpg" alt="Русская народная музыка">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1012,6 +1132,20 @@
         <button class="lightbox-arrow lightbox-prev" onclick="event.stopPropagation(); lightboxNav(-1)">&#8592;</button>
         <img src="" alt="Увеличенное изображение" id="lightbox-img" onclick="event.stopPropagation()">
         <button class="lightbox-arrow lightbox-next" onclick="event.stopPropagation(); lightboxNav(1)">&#8594;</button>
+    </div>
+
+    <!-- УНИВЕРСАЛЬНОЕ МОДАЛЬНОЕ ОКНО КАРТОЧЕК -->
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image">
+                <img src="" alt="" id="infoModalImg">
+            </div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
     </div>
 
     <!-- МОДАЛЬНОЕ ОКНО РЕЦЕПТА -->
@@ -1189,6 +1323,85 @@
             document.getElementById('recipeModal').classList.remove('active');
             document.body.style.overflow = '';
         }
+
+        // ==========================================
+        // УНИВЕРСАЛЬНЫЕ МОДАЛЬНЫЕ ОКНА КАРТОЧЕК
+        // ==========================================
+        const infoCards = {
+            population: {
+                img: 'images/russian-people.jpg',
+                title: 'Численность русских',
+                text: `<p>В России проживает около 130 миллионов русских, что составляет около 80% населения страны. За рубежом проживает ещё около 30 миллионов представителей народа — это одна из крупнейших диаспор в мире.</p>
+                <p>По данным переписи населения, русские являются государствообразующим народом Российской Федерации. Значительные общины сложились в странах бывшего СССР — особенно в Казахстане, Украине, Беларуси и странах Балтии.</p>
+                <p>В самой России русские составляют большинство во всех федеральных округах, кроме Северо-Кавказского. Крупнейшие города с русским населением — Москва, Санкт-Петербург, Новосибирск, Екатеринбург и Нижний Новгород.</p>`
+            },
+            language: {
+                img: 'images/russian-language.jpg',
+                title: 'Русский язык',
+                text: `<p>Русский язык относится к восточнославянской группе славянских языков индоевропейской семьи. Является одним из шести официальных языков ООН и самым распространённым славянским языком в мире — на нём говорит свыше 250 миллионов человек.</p>
+                <p>Современный литературный русский язык сложился в XVIII–XIX веках на основе московского говора. Огромную роль в его формировании сыграли Михаил Ломоносов, разработавший первую грамматику, и Александр Пушкин, установивший нормы литературного языка.</p>
+                <p>Русский алфавит — кириллица — содержит 33 буквы. Язык отличается богатой словообразовательной системой, развитой системой падежей и свободным порядком слов в предложении, что делает его одним из наиболее гибких и выразительных языков мира.</p>`
+            },
+            religion: {
+                img: 'images/russian-church.jpg',
+                title: 'Религия русских',
+                text: `<p>Основная религия русских — православное христианство. Русская православная церковь была основана в 988 году при князе Владимире Святославиче, когда произошло Крещение Руси. С тех пор православие стало неотъемлемой частью русской культуры, искусства и государственности.</p>
+                <p>Помимо православия, среди русских распространены старообрядчество — течение, отколовшееся в XVII веке в результате церковного раскола, — а также различные протестантские и евангельские деноминации, появившиеся в XIX–XX веках.</p>
+                <p>Православные праздники — Пасха, Рождество, Троица, Крещение — глубоко укоренились в народном быту и традициях. Многие обряды, связанные с рождением, венчанием и погребением, до сих пор сохраняют православную форму даже у нерелигиозных людей.</p>`
+            },
+            settlement: {
+                img: 'images/russian-terem.jpg',
+                title: 'Расселение русских',
+                text: `<p>Русские расселены по всей огромной территории России — от Балтийского побережья на западе до Тихого океана на востоке, от Арктики на севере до предгорий Кавказа на юге. Это самый широко расселённый народ на планете по занимаемой площади.</p>
+                <p>Исторически расселение шло волнами: освоение Поволжья в XVI веке, Сибири — в XVII–XVIII веках, Дальнего Востока — в XIX–XX веках. Казаки сыграли ключевую роль в продвижении на восток, основывая остроги и укреплённые поселения.</p>
+                <p>Крупнейшие русские диаспоры за рубежом сложились в США (около 3 млн), Германии, Израиле, Казахстане и Украине. После распада СССР миллионы русских оказались за пределами России, что сформировало понятие «русского мира» — культурно-языкового пространства за рубежом.</p>`
+            },
+            costume: {
+                img: 'images/russian-costume.jpg',
+                title: 'Национальный костюм',
+                text: `<p>Традиционный русский костюм формировался на протяжении нескольких веков. Женский костюм включал сарафан — длинное платье без рукавов, надевавшееся поверх рубахи с длинными рукавами. Сарафаны шились из льна, шерсти, парчи или шёлка и богато украшались вышивкой, лентами и кружевом.</p>
+                <p>Мужской костюм состоял из рубахи-косоворотки с вышитым воротом и манжетами, которая заправлялась в штаны или подпоясывалась кушаком. Поверх надевали кафтан или зипун. Обязательным элементом были лапти или сапоги из мягкой кожи.</p>
+                <p>Кокошник — жёсткий головной убор замужних женщин — стал одним из главных символов русской культуры. Он мог принимать самые разные формы в зависимости от региона: однорогий, двурогий, в виде короны или полумесяца. Украшался жемчугом, бисером и золотым шитьём.</p>`
+            },
+            architecture: {
+                img: 'images/russian-izba.jpg',
+                title: 'Русская архитектура',
+                text: `<p>Изба — традиционный деревянный дом русских крестьян — на протяжении тысячелетий была основным типом жилища. В центре избы стояла печь, которая отапливала помещение, служила для приготовления еды и нередко использовалась как место для сна в холодное время. Печь считалась сердцем дома.</p>
+                <p>Деревянное зодчество достигло своего расцвета в XV–XVII веках. Шатровые церкви, многоглавые соборы, резные наличники на окнах — всё это отличительные черты русской архитектуры. Покровский собор (храм Василия Блаженного) на Красной площади в Москве стал её мировым символом.</p>
+                <p>Каменное строительство развивалось параллельно с деревянным. Белокаменные кремли с башнями и бойницами, монастырские комплексы, парадные дворцы петровской и екатерининской эпох — всё это формировало неповторимый облик русских городов, который можно видеть и сегодня.</p>`
+            },
+            music: {
+                img: 'images/russian-music.jpg',
+                title: 'Музыка и танцы',
+                text: `<p>Русская народная музыка отличается богатством жанров: протяжные лирические песни, плясовые, частушки, колядки, свадебные и похоронные причитания. Хоровое пение было особенно развито — в деревнях пели все, от мала до велика, и многоголосие формировалось стихийно, по слуху.</p>
+                <p>Главные народные инструменты — балалайка, гусли, гармонь и домра. Балалайка с её треугольным корпусом стала международным символом России. Гусли — один из древнейших инструментов, упоминаемый ещё в летописях XI века. Гармонь появилась в XIX веке и быстро завоевала деревенские гулянья.</p>
+                <p>Народные танцы разнообразны: хоровод — медленный круговой танец, символизирующий солнце и общность; пляска — импровизационный сольный или парный танец с характерными дробями и присядками; барыня — задорный перепляс. Народная музыкальная традиция оказала огромное влияние на творчество Глинки, Мусоргского, Римского-Корсакова и Стравинского.</p>`
+            }
+        };
+
+        function openInfoModal(cardId) {
+            const card = infoCards[cardId];
+            if (!card) return;
+            document.getElementById('infoModalImg').src = card.img;
+            document.getElementById('infoModalImg').alt = card.title;
+            document.getElementById('infoModalTitle').textContent = card.title;
+            document.getElementById('infoModalText').innerHTML = card.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeInfoModal();
+                closeRecipeModal();
+                closeLightbox();
+            }
+        });
 
         // Закрытие по клику на фон
         document.getElementById('recipeModal').addEventListener('click', function(e) {
