@@ -161,7 +161,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            cursor: zoom-in;
+            
         }
         
         .info-card:hover .info-card-image img {
@@ -245,7 +245,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             position: relative;
-            cursor: zoom-in;
+            
         }
 
         @media (max-width: 1024px) {
@@ -756,6 +756,79 @@
                 font-size: 1rem;
             }
         }
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -786,9 +859,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'population\')">
                     <div class="info-card-image">
-                        <img src="images2/udmurt-people.jpg" alt="Удмурты в национальных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images2/udmurt-people.jpg" alt="Удмурты в национальных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +869,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'language\')">
                     <div class="info-card-image">
-                        <img src="images2/udmurt-language.jpg" alt="Удмуртский язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images2/udmurt-language.jpg" alt="Удмуртский язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +879,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'religion\')">
                     <div class="info-card-image">
-                        <img src="images2/udmurt-religion.jpg" alt="Удмуртская церковь" onclick="openLightbox(this.src)">
+                        <img src="images2/udmurt-religion.jpg" alt="Удмуртская церковь">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +889,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'settlement\')">
                     <div class="info-card-image">
-                        <img src="images2/udmurt-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images2/udmurt-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +904,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'costume\')">
                     <div class="info-card-image">
-                        <img src="images2/udmurt-costume-detail.jpg" alt="Удмуртский национальный костюм с вышивкой чырты" onclick="openLightbox(this.src)">
+                        <img src="images2/udmurt-costume-detail.jpg" alt="Удмуртский национальный костюм с вышивкой чырты">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +925,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'housing\')">
                     <div class="info-card-image">
-                        <img src="images2/udmurt-house.jpg" alt="Удмуртское традиционное жилище" onclick="openLightbox(this.src)">
+                        <img src="images2/udmurt-house.jpg" alt="Удмуртское традиционное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Жилище</h3>
@@ -862,9 +935,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'music\')">
                     <div class="info-card-image">
-                        <img src="images2/udmurt-music.jpg" alt="Удмуртская народная музыка" onclick="openLightbox(this.src)">
+                        <img src="images2/udmurt-music.jpg" alt="Удмуртская народная музыка">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1236,6 +1309,37 @@
             }
         });
 
+        const infoData = {
+            population: {img:'images2/udmurt-people.jpg',title:`Численность удмуртов`,text:`<p>В России проживает около 550 тысяч удмуртов. Основное население Удмуртской Республики (столица — Ижевск). Также проживают в Пермском крае, Татарстане, Башкортостане.</p><p>Удмурты — один из коренных народов Предуралья. По переписи 2021 года их численность составила около 510 тысяч человек. Значительная часть удмуртов живёт в сельской местности, сохраняя традиционный уклад жизни, хотя Ижевск как крупный промышленный центр притягивает молодёжь.</p><p>Удмуртская диаспора в Башкортостане насчитывает несколько десятков тысяч человек — потомков тех, кто переселился в Прикамье в XVII–XVIII веках в поисках новых угодий. В Удмуртии действует около 30 национально-культурных объединений, поддерживающих язык и традиции.</p>`},
+            language: {img:'images2/udmurt-language.jpg',title:`Удмуртский язык`,text:`<p>Удмуртский язык относится к пермской подгруппе финно-угорских языков. Близок к коми-пермяцкому. Использует кириллицу с дополнительными буквами Ӝ, Ӟ, Ӥ.</p><p>Удмуртский язык имеет два основных диалекта — северный и южный, которые различаются преимущественно фонетически. Литературный язык сложился в XIX веке на основе южного диалекта. Первые грамматика и словарь удмуртского языка были составлены в XVIII веке русскими учёными.</p><p>Сегодня удмуртский язык имеет статус государственного в Удмуртии наряду с русским. В республике работают удмуртоязычные СМИ, театры, издаётся литература. Тем не менее число активных носителей постепенно сокращается — лингвисты фиксируют переход молодёжи на русский язык в повседневном общении.</p>`},
+            religion: {img:'images2/udmurt-religion.jpg',title:`Религия удмуртов`,text:`<p>Православное христианство с элементами традиционных верований. Сохранились древние культы: поклонение Воздуху (Воршуд), водным духам, священным деревьям.</p><p>Воршуд — центральное понятие удмуртской традиционной религии. Это родовой покровитель семьи, воплощённый в священном ковше или коробе, который хранился в «куале» — небольшом молельном доме во дворе. Каждый удмуртский род имел своего Воршуда с собственным именем и набором запретов — отражение сложной системы родовой идентичности.</p><p>Христианизация удмуртов проходила постепенно с XVII века, однако языческие обряды сохранялись подпольно вплоть до XX века. Сегодня традиционные верования переживают возрождение: проводятся публичные моления «Гербер», изучается удмуртская мифология, издаются сборники преданий и заговоров.</p>`},
+            settlement: {img:'images2/udmurt-map.jpg',title:`Расселение удмуртов`,text:`<p>Удмурты населяют Предуралье и Западное Приволжье. Крупные диаспоры в Кировской области, Башкортостане, Татарстане и за рубежом — в Казахстане, Украине.</p><p>Историческая территория удмуртов — бассейн рек Вятки, Камы и их притоков. До включения в состав России эти земли называли Арской землёй. Ижевск, ставший столицей республики, возник как оружейный завод в 1760 году и сегодня является крупнейшим промышленным и культурным центром Удмуртии.</p><p>Любопытный факт: Удмуртия претендует на звание родины Деда Мороза — в деревне Шаркан с 1998 года официально открыта его резиденция. Ежегодно её посещают тысячи туристов, что способствует популяризации удмуртской культуры и экономическому развитию региона.</p>`},
+            costume: {img:'images2/udmurt-costume-detail.jpg',title:`Национальный костюм удмуртов`,text:`<p>Яркий костюм с уникальной вышивкой «чырты» (геометрические орнаменты). Женщины носили рубаху «сюлькам», сарафан «камич», головной убор «чумыртка». Мужчины — рубаху «сюлькам», штаны «порсь».</p><p>Удмуртская вышивка «чырты» выполнялась строго геометрическими узорами — ромбами, свастиками (солярными символами), крючками. Технике вышивки девочек учили с раннего детства: до замужества каждая должна была подготовить богатое приданое из вышитых изделий. Узоры передавались в семьях из поколения в поколение и служили своеобразным паспортом рода.</p><p>Особую роль играли серебряные украшения: нагрудник «сэрго», монисто «зарни», браслеты «кырыни». Количество и качество украшений демонстрировали социальный статус женщины. На свадьбу невеста надевала весь набор украшений, который весил несколько килограммов.</p>`},
+            housing: {img:'images2/udmurt-house.jpg',title:`Жилище удмуртов`,text:`<p>Деревянная изба «гурт» с печью. Обязательный элемент — «уд» (полати). Дом украшали резьбой, ткаными полотенцами «карем».</p><p>Удмуртская усадьба включала жилой дом, хлев, амбар и обязательно «куалу» — небольшой молельный дом, где хранился Воршуд. Куала ставилась в северо-восточном углу двора и считалась сакральным центром усадьбы. Посторонних туда не пускали, а женщины могли входить лишь в особых случаях.</p><p>Дома строились из сосны и ели на высоком фундаменте из камня или брёвен. Фасады украшала глухая резьба с солярными символами и растительными мотивами. Ворота двора также богато декорировались: резные столбы и перекладина служили не только украшением, но и оберегом для всей семьи.</p>`},
+            music: {img:'images2/udmurt-music.jpg',title:`Музыка и танцы удмуртов`,text:`<p>«Италмас» — знаменитый народный хор. Инструменты: кремаль (скрипка), шудрик (барабан), кузьнеч (дудка). Танец «карусель» — круговой хоровод под пение.</p><p>Удмурты — один из самых музыкальных народов Поволжья. Многоголосое хоровое пение «тюрлы» — уникальное явление, при котором каждый голос ведёт самостоятельную мелодию. Этот стиль не имеет аналогов у соседних народов и привлекает интерес этномузыкологов по всему миру. Ансамбль «Италмас» успешно гастролирует по России и Европе.</p><p>Крезь — удмуртский гусляподобный инструмент — считается национальным символом. По преданию, первый крезь сделал богатырь из костей священного оленя. Сегодня мастера возрождают традицию изготовления крезя, а молодые музыканты экспериментируют с сочетанием традиционного звучания и электронной музыки.</p>`},
+        };
+
+        // ==========================================
+        // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
+        // ==========================================
+        function openInfoModal(key) {
+            const d = infoData[key];
+            if (!d) return;
+            document.getElementById('infoModalImg').src = d.img;
+            document.getElementById('infoModalImg').alt = d.title;
+            document.getElementById('infoModalTitle').textContent = d.title;
+            document.getElementById('infoModalText').innerHTML = d.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.getElementById('infoModal').addEventListener('click', function(e) {
+            if (e.target === this) closeInfoModal();
+        });
+
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
@@ -1366,6 +1470,20 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- Универсальное инфо-модальное окно -->
+    <div class="info-modal" id="infoModal">
+        <span class="info-modal-close" onclick="closeInfoModal()">&#x2715;</span>
+        <div class="info-modal-container">
+            <div class="info-modal-image">
+                <img id="infoModalImg" src="" alt="">
+            </div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

@@ -161,7 +161,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            cursor: zoom-in;
+            
         }
         
         .info-card:hover .info-card-image img {
@@ -245,7 +245,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             position: relative;
-            cursor: zoom-in;
+            
         }
 
         @media (max-width: 1024px) {
@@ -756,6 +756,79 @@
                 font-size: 1rem;
             }
         }
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -786,9 +859,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'population\')">
                     <div class="info-card-image">
-                        <img src="images2/mari-people.jpg" alt="Марийцы в национальных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images2/mari-people.jpg" alt="Марийцы в национальных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +869,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'language\')">
                     <div class="info-card-image">
-                        <img src="images2/mari-language.jpg" alt="Марийский язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images2/mari-language.jpg" alt="Марийский язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +879,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'religion\')">
                     <div class="info-card-image">
-                        <img src="images2/mari-religion.jpg" alt="Марийские языческие обряды" onclick="openLightbox(this.src)">
+                        <img src="images2/mari-religion.jpg" alt="Марийские языческие обряды">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +889,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'settlement\')">
                     <div class="info-card-image">
-                        <img src="images2/mari-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images2/mari-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +904,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'costume\')">
                     <div class="info-card-image">
-                        <img src="images2/mari-costume-detail.jpg" alt="Марийский национальный костюм с вышивкой" onclick="openLightbox(this.src)">
+                        <img src="images2/mari-costume-detail.jpg" alt="Марийский национальный костюм с вышивкой">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +925,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'housing\')">
                     <div class="info-card-image">
-                        <img src="images2/mari-house.jpg" alt="Марийская деревня, дома" onclick="openLightbox(this.src)">
+                        <img src="images2/mari-house.jpg" alt="Марийская деревня, дома">
                     </div>
                     <div class="info-card-content">
                         <h3>Жилище</h3>
@@ -862,9 +935,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'music\')">
                     <div class="info-card-image">
-                        <img src="images2/mari-music.jpg" alt="Марийская народная музыка" onclick="openLightbox(this.src)">
+                        <img src="images2/mari-music.jpg" alt="Марийская народная музыка">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1236,6 +1309,37 @@
             }
         });
 
+        const infoData = {
+            population: {img:'images2/mari-people.jpg',title:`Численность марийцев`,text:`<p>В России проживает около 550 тысяч марийцев. Основное население Республики Марий Эл. Также проживают в Кировской области, Башкортостане, Татарстане.</p><p>Марийцы делятся на три основные группы: луговые (проживают в центральной части Марий Эл), горные (на правом берегу Волги) и восточные (в Башкортостане и Свердловской области). Каждая группа сохраняет свои диалектные особенности и элементы культуры.</p><p>Несмотря на процессы урбанизации, многие марийцы активно поддерживают родной язык и традиции. Республика Марий Эл проводит политику сохранения национальной идентичности: марийский язык преподаётся в школах, работают народные ансамбли и театры.</p>`},
+            language: {img:'images2/mari-language.jpg',title:`Марийский язык`,text:`<p>Марийский язык относится к финно-угорской семье. Имеет два литературных варианта: лугово-восточный (государственный) и горный. Использует кириллицу.</p><p>Лугово-восточный марийский и горный марийский настолько различаются, что некоторые лингвисты считают их отдельными языками. Горный марийский испытал более сильное влияние русского, тогда как лугово-восточный сохранил архаичные черты финно-угорского праязыка.</p><p>Первые письменные памятники на марийском языке относятся к XVIII веку. Сегодня на нём издаются газеты, книги и вещают радио- и телепередачи. Марийский язык официально признан государственным в Республике Марий Эл наряду с русским.</p>`},
+            religion: {img:'images2/mari-religion.jpg',title:`Религия марийцев`,text:`<p>Православное христианство с сильным влиянием традиционных верований. Сохранился культ природы, священные рощи (кюсюдо), поклонение духам.</p><p>Марийцы — один из немногих народов Европы, у которых традиционное язычество дожило до наших дней в организованной форме. Традиционная марийская религия «Чимарий вера» («Чистая вера») включает поклонение богу Ош Кугу Юмо и пантеону духов-покровителей. Молебны проводятся в священных рощах под руководством картов — языческих жрецов.</p><p>С 1990-х годов традиционная религия переживает возрождение. Организация «Ошмарий-Чимарий» объединяет последователей и проводит крупные моления — Юзо пайрем и Агавайрем. Уникальное сочетание православия и язычества формирует неповторимый духовный облик марийского народа.</p>`},
+            settlement: {img:'images2/mari-map.jpg',title:`Расселение марийцев`,text:`<p>Марийцы расселены по Поволжью и Уралу. Крупные диаспоры в Башкортостане, Татарстане, Свердловской области. За рубежом — в Казахстане, Украине, США.</p><p>Исторически марийцы освоили обширные лесные территории Поволжья задолго до прихода русских. После присоединения Казанского ханства в XVI веке часть марийцев мигрировала на восток — именно так возникла значительная восточно-марийская диаспора в Башкортостане.</p><p>Сегодня столица Марий Эл — Йошкар-Ола — является культурным центром народа. Город известен своей необычной архитектурой: центральная набережная застроена репликами европейских зданий, что создаёт неповторимый облик марийской столицы.</p>`},
+            costume: {img:'images2/mari-costume-detail.jpg',title:`Национальный костюм марийцев`,text:`<p>Яркий костюм с богатой вышивкой. Женщины носили рубаху с пышными рукавами, сарафан «шумпот», головной убор «скалка» или «кокшот». Мужчины — рубаху, порты, кафтан.</p><p>Марийская вышивка — одна из самых сложных в Поволжье. Геометрические узоры выполнялись шерстяными и шёлковыми нитями по счёту нитей ткани. Каждый элемент орнамента нёс смысловую нагрузку: ромбы символизировали плодородие, зигзаги — воду, кресты — солнце.</p><p>Особую роль играли украшения: монисты из серебряных монет, браслеты «кӱжгӧ», нагрудные подвески «яга». У горных и луговых марийцев костюм различается цветовой гаммой: горные предпочитали белый с красным, луговые — более яркие многоцветные сочетания.</p>`},
+            housing: {img:'images2/mari-house.jpg',title:`Жилище марийцев`,text:`<p>Деревянная изба с печью. Обязательный элемент — «кумыр» (домашний очаг). Деревни располагались вблизи священных рощ и водоёмов.</p><p>Традиционная марийская деревня — «ял» — имела чёткую структуру: дома располагались вдоль одной улицы или в форме круга. Рядом с жилым домом обязательно строили клеть для хранения зерна и банный дом «кöрт», который использовался также для обрядовых целей.</p><p>В интерьере особое место занимал «куа» — небольшой сруб во дворе, служивший домашним святилищем. Здесь хранились семейные реликвии и проводились моления предкам. Современные марийские сёла сохраняют традиционную планировку, хотя дома всё чаще строятся из кирпича.</p>`},
+            music: {img:'images2/mari-music.jpg',title:`Музыка и танцы марийцев`,text:`<p>«Шумбрат» и «круговая» — народные танцы. Инструменты: шювыр (скрипка), кудмаш (барабан), шонкыр (дудка). Эпические сказания «югорно» исполняются под музыку.</p><p>Марийская народная музыка отличается пентатоническим ладом, характерным для финно-угорских народов. Шювыр — смычковый инструмент с резонирующим корпусом из дерева — создаёт характерное меланхоличное звучание. Во время праздников молодёжь собиралась на «шумбрат» — коллективный хоровод с пением и игрой на инструментах.</p><p>В XX веке на основе фольклора возникла профессиональная марийская музыка. Государственный ансамбль песни и танца Марий Эл гастролирует по России и за рубежом. Марийские мотивы вдохновляют современных исполнителей, работающих на стыке этники и поп-музыки.</p>`},
+        };
+
+        // ==========================================
+        // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
+        // ==========================================
+        function openInfoModal(key) {
+            const d = infoData[key];
+            if (!d) return;
+            document.getElementById('infoModalImg').src = d.img;
+            document.getElementById('infoModalImg').alt = d.title;
+            document.getElementById('infoModalTitle').textContent = d.title;
+            document.getElementById('infoModalText').innerHTML = d.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.getElementById('infoModal').addEventListener('click', function(e) {
+            if (e.target === this) closeInfoModal();
+        });
+
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
@@ -1369,6 +1473,20 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- Универсальное инфо-модальное окно -->
+    <div class="info-modal" id="infoModal">
+        <span class="info-modal-close" onclick="closeInfoModal()">&#x2715;</span>
+        <div class="info-modal-container">
+            <div class="info-modal-image">
+                <img id="infoModalImg" src="" alt="">
+            </div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

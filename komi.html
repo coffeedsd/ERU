@@ -161,7 +161,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            cursor: zoom-in;
+            
         }
         
         .info-card:hover .info-card-image img {
@@ -245,7 +245,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             position: relative;
-            cursor: zoom-in;
+            
         }
 
         @media (max-width: 1024px) {
@@ -756,6 +756,79 @@
                 font-size: 1rem;
             }
         }
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -786,9 +859,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'population\')">
                     <div class="info-card-image">
-                        <img src="images2/komi-people.jpg" alt="Коми в национальных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images2/komi-people.jpg" alt="Коми в национальных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +869,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'language\')">
                     <div class="info-card-image">
-                        <img src="images2/komi-language.jpg" alt="Коми язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images2/komi-language.jpg" alt="Коми язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +879,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'religion\')">
                     <div class="info-card-image">
-                        <img src="images2/komi-religion.jpg" alt="Коми традиционные верования" onclick="openLightbox(this.src)">
+                        <img src="images2/komi-religion.jpg" alt="Коми традиционные верования">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +889,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'settlement\')">
                     <div class="info-card-image">
-                        <img src="images2/komi-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images2/komi-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +904,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'costume\')">
                     <div class="info-card-image">
-                        <img src="images2/komi-costume-detail.jpg" alt="Коми национальный костюм с вышивкой" onclick="openLightbox(this.src)">
+                        <img src="images2/komi-costume-detail.jpg" alt="Коми национальный костюм с вышивкой">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +925,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'housing\')">
                     <div class="info-card-image">
-                        <img src="images2/komi-house.jpg" alt="Коми зимнее жилище" onclick="openLightbox(this.src)">
+                        <img src="images2/komi-house.jpg" alt="Коми зимнее жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Жилище</h3>
@@ -862,9 +935,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal(\'music\')">
                     <div class="info-card-image">
-                        <img src="images2/komi-music.jpg" alt="Коми народная музыка" onclick="openLightbox(this.src)">
+                        <img src="images2/komi-music.jpg" alt="Коми народная музыка">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1236,6 +1309,37 @@
             }
         });
 
+        const infoData = {
+            population: {img:'images2/komi-people.jpg',title:`Численность коми`,text:`<p>В России проживает около 220 тысяч коми. Основное население Республики Коми (столица — Сыктывкар). Также проживают в Пермском крае, Ненецком АО, Ямало-Ненецком АО.</p><p>Коми подразделяются на несколько этнических групп: коми-зыряне (наиболее многочисленные), коми-пермяки (проживают в Пермском крае) и коми-ижемцы (специализируются на оленеводстве в Ненецком автономном округе). Каждая группа имеет свои диалектные и культурные особенности.</p><p>Численность коми постепенно сокращается вследствие урбанизации и языкового сдвига. Тем не менее в Сыктывкаре активно работают культурные центры, народные ансамбли и Коми республиканский драматический театр, который ставит спектакли на родном языке.</p>`},
+            language: {img:'images2/komi-language.jpg',title:`Коми язык`,text:`<p>Коми язык относится к пермской подгруппе финно-угорских языков. Близок к удмуртскому. Имеет два литературных варианта: коми-зырянский и коми-пермяцкий. Использует кириллицу.</p><p>Коми-зырянский язык имеет богатую письменную традицию: первый алфавит для него создал православный миссионер Стефан Пермский ещё в XIV веке. «Анбур» — так называлась эта азбука — была основана не на кириллице, а на оригинальных знаках, вдохновлённых местными символами. Рукописи на анбуре сохранились до наших дней.</p><p>Сегодня коми-зырянский является официальным языком Республики Коми. Преподавание ведётся в школах, работают радио и телеканал на коми языке. Академия наук Республики Коми ведёт активную работу по документированию диалектов и созданию современных учебных материалов.</p>`},
+            religion: {img:'images2/komi-religion.jpg',title:`Религия коми`,text:`<p>Православное христианство с сильным влиянием традиционных верований. Сохранился культ природы, поклонение духам леса (Войпель), воды (Водзан), домашнего очага.</p><p>Коми приняли православие относительно рано — в XIV веке, благодаря миссионерской деятельности Стефана Пермского. Однако языческий пласт сохранялся в народных обрядах, заговорах и почитании священных мест — «ёль». Особую роль играли шаманы — «тöдысь» («знающий»), которые служили посредниками между людьми и духами природы.</p><p>В коми мифологии центральное место занимают Ен (высший бог-творец) и Омöль (дух тёмных сил). Космогонические мифы о сотворении мира, записанные этнографами в XIX–XX веках, до сих пор изучаются исследователями как уникальный источник по финно-угорскому мировоззрению.</p>`},
+            settlement: {img:'images2/komi-map.jpg',title:`Расселение коми`,text:`<p>Коми населяют европейский Север России от Урала до Баренцева моря. Крупные диаспоры в Москве, Санкт-Петербурге, на Урале. За рубежом — в Украине, Казахстане, Финляндии.</p><p>Республика Коми — один из крупнейших регионов России по площади. Большую часть её территории занимают непроходимые леса и тундра. Именно суровый северный климат сформировал особый тип хозяйства: охоту, рыболовство, оленеводство и сбор лесных ресурсов. Река Вычегда с притоками служила главной транспортной артерией столетиями.</p><p>Открытие нефтяных и угольных месторождений в XX веке кардинально изменило облик республики. Воркута, Инта, Ухта стали крупными промышленными городами, куда приехали рабочие со всего СССР. Сегодня Сыктывкар — современный город с развитой инфраструктурой, сохраняющий при этом связь с коми культурным наследием.</p>`},
+            costume: {img:'images2/komi-costume-detail.jpg',title:`Национальный костюм коми`,text:`<p>Костюм адаптирован к северному климату. Женщины носили рубаху «заньк», сарафан «сердяк», кафтан «мас», головной убор «шор». Мужчины — рубаху, штаны «пиль», кафтан, шапку «шад».</p><p>Коми-ижемцы, живущие в тундре, разработали особый вид одежды из оленьих шкур: «малица» — меховая рубаха с капюшоном мехом внутрь, и «совик» — верхняя одежда мехом наружу. Такой костюм позволяет выживать при морозах до -50°C и защищает от арктических ветров. Женщины украшали одежду бисером и цветными нитями в традиционных орнаментах.</p><p>Коми вышивка отличается строгим геометрическим стилем в красно-чёрной гамме. Основные мотивы — «оленьи рога», «берёзовые ветви», ромбические сетки. Украшения у коми были скромнее, чем у южных финно-угров: предпочитались янтарные и стеклянные бусы, простые серебряные кольца и фибулы.</p>`},
+            housing: {img:'images2/komi-house.jpg',title:`Жилище коми`,text:`<p>«Мя» — деревянная изба с печью. У коми-оленеводов — «чум» (переносное жилище из шестов и шкур). Обязательный элемент — священный угол с иконами и оберегами.</p><p>Традиционная коми усадьба — «подворье» — представляла собой единый крытый комплекс: жилой дом, хлев и амбар соединялись под одной крышей, что было крайне важно в условиях долгой северной зимы. В хлеву держали коров, лошадей и овец; амбар служил для хранения зерна, охотничьего снаряжения и рыболовных снастей.</p><p>Интерьер мя был функциональным и строгим. Печь занимала центральное место и топилась по-чёрному (без дымохода) в старых домах. На стенах развешивали охотничьи трофеи и рыболовные сети. Красный угол с иконами украшали вышитыми полотенцами — «рушниками», переплетавшими православную и языческую символику.</p>`},
+            music: {img:'images2/komi-music.jpg',title:`Музыка и танцы коми`,text:`<p>«Войвыз» — древний танец оленеводов. Инструменты: вылын (скрипка), шудрик (барабан), кузьнеч (дудка). Эпические сказания «ывсь» исполняются под музыку.</p><p>Коми народная музыка тесно связана с природой и промыслами. Охотничьи сигналы на роге «пэляне», рыболовные песни-заклинания, пастушьи наигрыши на сигудке (смычковый инструмент типа скрипки) — каждый жанр отражал конкретную хозяйственную деятельность. Ывсь — эпические поэмы о богатырях и духах — исполнялись особым речитативом на торжествах.</p><p>В советское время был создан Государственный ансамбль песни и танца Республики Коми «Асъя кыа» («Утренняя заря»), который систематизировал и сохранил огромный пласт фольклорного наследия. Сегодня коми молодёжные группы активно синтезируют традиционное звучание с современными жанрами — фолк-роком и электронной музыкой.</p>`},
+        };
+
+        // ==========================================
+        // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
+        // ==========================================
+        function openInfoModal(key) {
+            const d = infoData[key];
+            if (!d) return;
+            document.getElementById('infoModalImg').src = d.img;
+            document.getElementById('infoModalImg').alt = d.title;
+            document.getElementById('infoModalTitle').textContent = d.title;
+            document.getElementById('infoModalText').innerHTML = d.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.getElementById('infoModal').addEventListener('click', function(e) {
+            if (e.target === this) closeInfoModal();
+        });
+
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
@@ -1366,6 +1470,20 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- Универсальное инфо-модальное окно -->
+    <div class="info-modal" id="infoModal">
+        <span class="info-modal-close" onclick="closeInfoModal()">&#x2715;</span>
+        <div class="info-modal-container">
+            <div class="info-modal-image">
+                <img id="infoModalImg" src="" alt="">
+            </div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
