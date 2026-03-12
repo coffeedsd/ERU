@@ -161,7 +161,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            cursor: zoom-in;
+            
         }
         
         .info-card:hover .info-card-image img {
@@ -245,7 +245,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             position: relative;
-            cursor: zoom-in;
+            
         }
 
         @media (max-width: 1024px) {
@@ -756,6 +756,79 @@
                 font-size: 1rem;
             }
         }
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -786,9 +859,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images3/kabardian-people.jpg" alt="Кабардинцы в национальных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images3/kabardian-people.jpg" alt="Кабардинцы в национальных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +869,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images3/kabardian-language.jpg" alt="Кабардинский язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images3/kabardian-language.jpg" alt="Кабардинский язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +879,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images3/kabardian-religion.jpg" alt="Кабардинская мечеть" onclick="openLightbox(this.src)">
+                        <img src="images3/kabardian-religion.jpg" alt="Кабардинская мечеть">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +889,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images3/kabardian-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images3/kabardian-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +904,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images3/kabardian-costume-detail.jpg" alt="Кабардинский национальный костюм" onclick="openLightbox(this.src)">
+                        <img src="images3/kabardian-costume-detail.jpg" alt="Кабардинский национальный костюм">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +925,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('horses')">
                     <div class="info-card-image">
-                        <img src="images3/kabardian-horse.jpg" alt="Кабардинская порода лошадей" onclick="openLightbox(this.src)">
+                        <img src="images3/kabardian-horse.jpg" alt="Кабардинская порода лошадей">
                     </div>
                     <div class="info-card-content">
                         <h3>Коневодство</h3>
@@ -862,9 +935,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('music')">
                     <div class="info-card-image">
-                        <img src="images3/kabardian-music.jpg" alt="Кабардинская народная музыка" onclick="openLightbox(this.src)">
+                        <img src="images3/kabardian-music.jpg" alt="Кабардинская народная музыка">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1236,6 +1309,34 @@
             }
         });
 
+        const infoData = {
+            population: {img:'images3/kabardian-people.jpg',title:`Численность кабардинцев`,text:`<p>В России проживает около 600 тысяч кабардинцев. Основное население Кабардино-Балкарской Республики (столица — Нальчик). Также проживают в Ставропольском крае, Москве.</p><p>Кабардинцы — крупнейший адыгский (черкесский) субэтнос, сохранившийся на исторической родине в наибольшем числе. Кабарда — историческое ядро адыгского мира — благодаря особым условиям русско-кабардинских отношений XVIII века избежала масштабной депортации 1864 года и сохранила компактное население на Северном Кавказе.</p><p>Нальчик — столица Кабардино-Балкарии — один из самых зелёных и благоустроенных городов Северного Кавказа. Город окружён горами, у подножия которых находится Приэльбрусье — всемирно известный горнолыжный курорт. Эльбрус, высочайшая вершина России и Европы (5642 м), является гордостью и символом республики.</p>`},
+            language: {img:'images3/kabardian-language.jpg',title:`Кабардинский язык`,text:`<p>Кабардинский язык относится к адыгской группе северокавказских языков. Близок к черкесскому и адыгейскому. Имеет сложную систему согласных. Использует кириллицу.</p><p>Кабардино-черкесский язык (единый литературный стандарт для кабардинцев и черкесов) знаменит своей уникальной фонологией: около 48 согласных при трёх-четырёх гласных. Это один из рекордных показателей консонантизма среди языков мира. Глагольная система кабардинского исключительно сложна — глагол может включать в себя информацию о подлежащем, дополнении, направлении действия и многом другом.</p><p>Кабардинский язык был одним из первых языков Северного Кавказа, получивших письменность в советское время. На нём работают театр, издательства и СМИ в Нальчике. Кабардинская литература дала России таких известных авторов, как Алим Кешоков и Кайсын Кулиев, чьи произведения переведены на десятки языков мира.</p>`},
+            religion: {img:'images3/kabardian-religion.jpg',title:`Религия кабардинцев`,text:`<p>Ислам (суннитского толка, ханафитский мазхаб). Принят в XVIII—XIX веках. Сохранились элементы доисламских традиций: культ предков, священные рощи, обряды у древних дольменов.</p><p>Несмотря на принятие ислама, кабардинцы прочно сохраняют «Адыгэ Хабзэ» — традиционный кодекс норм поведения и чести. Этот кодекс регулирует всё: как правильно приветствовать старшего, как вести себя за столом, как принимать гостей. Хабзэ сложилось задолго до ислама и органично сосуществует с ним, задавая особый стиль кабардинской жизни.</p><p>Священные рощи «тхьэщIапIэ» — места языческих молений — сохранились в ряде кабардинских сёл. Культ Тхьэшхо (Великого Бога) и почитание природных духов живут в народных обрядах, пословицах и нартском эпосе. Дольмены — мегалитические гробницы эпохи бронзы — разбросаны по Кабардино-Балкарии и считаются священными местами.</p>`},
+            settlement: {img:'images3/kabardian-map.jpg',title:`Расселение кабардинцев`,text:`<p>Кабардинцы населяют предгорья и равнины Северного Кавказа. Крупные диаспоры в Москве, Санкт-Петербурге, на Урале. За рубежом — в Турции, Иордании, Сирии, США.</p><p>Историческая Кабарда занимала обширные пространства Центрального Предкавказья — от Терека до Кубани. В XV–XVIII веках Кабарда была самым сильным политическим образованием на Северном Кавказе, оказывая влияние на соседние народы. Кабардинские князья породнились с московскими царями: мать Ивана IV (Грозного) была кабардинской княжной Еленой Глинской.</p><p>Приэльбрусье — горный район в Кабардино-Балкарии — является центром альпинизма и горнолыжного спорта в России. Первое восхождение на Эльбрус было совершено кабардинцем Килларом Хашировым в 1829 году в составе российской экспедиции. Сегодня развитие горного туризма — одна из ключевых отраслей экономики республики.</p>`},
+            costume: {img:'images3/kabardian-costume-detail.jpg',title:`Национальный костюм кабардинцев`,text:`<p>Мужской костюм: черкеска (цей), бешмет, бурка, папаха, кинжал в ножнах, серебряный пояс с оружием (хэкъу). Женский: платье с узким корсетом, богатые украшения, высокая причёска.</p><p>Кабардинская черкеска считается эталоном среди адыгских вариантов этого костюма. Строгий покрой, качественное сукно, изысканные серебряные газыри — всё говорит о высокой культуре портновского мастерства. Серебряный пояс «хэкъу» с кинжалом, пистолетом и саблей — главное украшение мужского наряда — мог стоить целое состояние.</p><p>Женский кабардинский наряд — «сай» — один из самых нарядных на Кавказе. Бархатный корсет «кIэкI» расшивался золотыми нитями и стеклярусом, платье шилось из шёлка или парчи. Ювелирные украшения кабардинских мастеров из Нальчика известны по всему Кавказу: техника зерни, скани и эмали достигла у них высокого совершенства.</p>`},
+            horses: {img:'images3/kabardian-horse.jpg',title:`Коневодство кабардинцев`,text:`<p>Кабардинская порода лошадей — одна из древнейших в мире. Выведена для горных условий, отличается выносливостью, уверенностью на склонах. Национальное достояние.</p><p>Кабардинская лошадь создавалась тысячелетиями: адыги отбирали животных с лучшими качествами для передвижения по горным тропам. Характерные черты породы — крепкие копыта, устойчивые на камнях, отличное чувство равновесия, способность ориентироваться в темноте, неприхотливость к корму. Военные кавалеристы всего мира высоко ценили кабардинских коней.</p><p>Сегодня в Кабардино-Балкарии действует Государственный конный завод, занимающийся сохранением и разведением чистокровных кабардинских лошадей. Ежегодно проводятся скачки и конные фестивали. Движение за восстановление традиционного коневодства активно поддерживается молодёжью — верховая езда снова становится частью кабардинской идентичности.</p>`},
+            music: {img:'images3/kabardian-music.jpg',title:`Музыка и танцы кабардинцев`,text:`<p>Танец «къафэ» — грациозный парный танец. Инструменты: шичэпшинэ (скрипка), адыгэ хэблэ (барабан). Эпические сказания «нартские саги» — древнейшие предания.</p><p>Кабардинский «кафэ» — танец, воплощающий идеал Адыгэ Хабзэ в движении. Мужчина скользит невесомо, на носках, демонстрируя лёгкость и силу. Женщина движется плавно и целомудренно. Расстояние между партнёрами строго соблюдается — лишь в кульминационный момент они приближаются. Каждое движение несёт конкретное значение: поклон, взгляд, жест рукой — всё подчинено этикету.</p><p>Нартский эпос кабардинцев (шире — адыгов) насчитывает сотни сказаний. Главный герой Сосруко — богатырь, рождённый из камня, — побеждает злых великанов и приносит людям огонь. Исследователи видят в нартских мифах древнейший пласт индоевропейской и кавказской мифологии. Сказительная традиция «джэгуако» возрождается в современной Кабардино-Балкарии.</p>`},
+        };
+
+        // ==========================================
+        // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
+        // ==========================================
+        function openInfoModal(key) {
+            const d = infoData[key];
+            if (!d) return;
+            document.getElementById('infoModalImg').src = d.img;
+            document.getElementById('infoModalImg').alt = d.title;
+            document.getElementById('infoModalTitle').textContent = d.title;
+            document.getElementById('infoModalText').innerHTML = d.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
@@ -1369,6 +1470,18 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- Универсальное инфо-модальное окно -->
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

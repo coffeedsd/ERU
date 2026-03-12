@@ -161,7 +161,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            cursor: zoom-in;
+            
         }
         
         .info-card:hover .info-card-image img {
@@ -245,7 +245,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             position: relative;
-            cursor: zoom-in;
+            
         }
 
         @media (max-width: 1024px) {
@@ -756,6 +756,79 @@
                 font-size: 1rem;
             }
         }
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -786,9 +859,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images3/avar-people.jpg" alt="Аварцы в национальных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images3/avar-people.jpg" alt="Аварцы в национальных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +869,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images3/avar-language.jpg" alt="Аварский язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images3/avar-language.jpg" alt="Аварский язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +879,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images3/avar-religion.jpg" alt="Аварская мечеть" onclick="openLightbox(this.src)">
+                        <img src="images3/avar-religion.jpg" alt="Аварская мечеть">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +889,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images3/avar-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images3/avar-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +904,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images3/avar-costume.jpg" alt="Аварский национальный костюм" onclick="openLightbox(this.src)">
+                        <img src="images3/avar-costume.jpg" alt="Аварский национальный костюм">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +925,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('village')">
                     <div class="info-card-image">
-                        <img src="images3/avar-village.jpg" alt="Аварское горное село" onclick="openLightbox(this.src)">
+                        <img src="images3/avar-village.jpg" alt="Аварское горное село">
                     </div>
                     <div class="info-card-content">
                         <h3>Горные сёла</h3>
@@ -862,9 +935,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('music')">
                     <div class="info-card-image">
-                        <img src="images3/avar-music.jpg" alt="Аварская народная музыка" onclick="openLightbox(this.src)">
+                        <img src="images3/avar-music.jpg" alt="Аварская народная музыка">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1236,6 +1309,34 @@
             }
         });
 
+        const infoData = {
+            population: {img:'images3/avar-people.jpg',title:`Численность аварцев`,text:`<p>В России проживает около 900 тысяч аварцев. Это крупнейший народ Дагестана (около 30% населения республики). Основное население — Аварский, Хунзахский, Ботлихский районы.</p><p>Аварцы — самый многочисленный коренной народ Дагестана. Исторически они населяли высокогорные районы, образуя замкнутые общины — «джамааты». Каждый джаамат имел своё самоуправление, законы и традиции, что сформировало у аварцев острое чувство родовой идентичности.</p><p>Значительная аварская диаспора сложилась в Турции, Иордании и Сирии — потомки тех, кто эмигрировал после Кавказской войны XIX века. Сегодня численность аварцев за рубежом составляет, по различным оценкам, от 50 до 100 тысяч человек. В самом Дагестане аварцы проживают как в горных сёлах, так и в крупных городах — Махачкале и Хасавюрте.</p>`},
+            language: {img:'images3/avar-language.jpg',title:`Аварский язык`,text:`<p>Аварский язык относится к аварско-андо-цезской группе северокавказских языков. Является lingua franca Дагестана. Использует кириллицу с дополнительными буквами.</p><p>Фонетический строй аварского языка отличается богатством согласных: в нём насчитывается более 30 согласных фонем, включая фарингальные и латеральные. Грамматика построена на системе именных классов — аналоге грамматического рода, однако значительно более сложном. Глагол согласуется с подлежащим по классу.</p><p>Аварский язык служил языком межнационального общения для десятков малочисленных народов Дагестана на протяжении столетий. Первая аварская грамматика была составлена в XIX веке российским учёным Петром Усларом. Сегодня на аварском языке ведётся преподавание в начальной школе, издаётся литература и вещают региональные СМИ.</p>`},
+            religion: {img:'images3/avar-religion.jpg',title:`Религия аварцев`,text:`<p>Ислам (суннитского толка, шафиитский и ханафитский мазхабы). Принят в VII—VIII веках. Сохранились элементы доисламских традиций: культ предков, священные места.</p><p>Аварцы приняли ислам раньше многих других народов Кавказа — первые мечети появились ещё в VIII веке в Дербенте и его окрестностях. В XIX веке в период Кавказской войны аварский имам Шамиль возглавил газават — священную войну против российского завоевания, — что значительно укрепило исламскую идентичность народа. Имам Шамиль стал символом аварского и дагестанского сопротивления.</p><p>Традиционные верования переплелись с исламом: почитание священных камней, деревьев и источников сохраняется в горных сёлах по сей день. Суфийские братства — накшбандийя и кадирийя — сыграли ключевую роль в распространении и укреплении ислама среди аварцев и оказывают влияние на религиозную жизнь республики до сих пор.</p>`},
+            settlement: {img:'images3/avar-map.jpg',title:`Расселение аварцев`,text:`<p>Аварцы населяют горные и предгорные районы Дагестана. Крупные диаспоры в Москве, Санкт-Петербурге, на Урале. За рубежом — в Турции, Иордании, Сирии, Казахстане.</p><p>Исторический центр аварцев — Хунзахское плато на высоте около 1700 метров над уровнем моря. Именно здесь располагалось Аварское ханство — государственное образование, просуществовавшее с XV по XIX век. Труднодоступность горных районов позволила аварцам долгое время сохранять независимость и самобытную культуру.</p><p>После депортаций и переселений советского периода часть аварцев перебралась на равнину — в Кизлярский и Хасавюртовский районы. Сегодня Махачкала является крупнейшим городским центром для аварцев. При этом горные сёла, такие как Гоор, Ругуджа и Чох, сохраняют статус культурных заповедников с уникальной средневековой архитектурой.</p>`},
+            costume: {img:'images3/avar-costume.jpg',title:`Национальный костюм аварцев`,text:`<p>Мужской костюм: бешмет, черкеска (чукха), бурка, папаха, кинжал, серебряный ремень с оружием. Женский: хонга (длинное платье), бесмет (рубаха), богатые украшения (монисто, браслеты, серьги).</p><p>Аварские серебряных дел мастера из сёл Кубачи и Гоцатль славились на весь Кавказ. Кинжал был не просто оружием, но знаком чести и социального статуса: богатство и мастерство инкрустации рукояти и ножен говорили о положении владельца. Передача кинжала по наследству — важный ритуал, символизирующий преемственность поколений.</p><p>Женский костюм отличался у разных аварских обществ. В высокогорных сёлах преобладали тёмные сдержанные тона, а украшения из серебра с чернью были массивными и тяжёлыми. В более тёплых предгорных районах женщины носили яркие шёлковые платья с богатой вышивкой золотыми и серебряными нитями. Головной убор замужней женщины — «чухта» — полностью скрывал волосы.</p>`},
+            village: {img:'images3/avar-village.jpg',title:`Горные сёла аварцев`,text:`<p>Традиционные аулы располагаются на террасах гор. Дома из камня с плоскими крышами. Знаменитые сёла: Хунзах, Гоор, Ругуджа — центры сохранения культуры.</p><p>Аварский аул — образец средневекового горного градостроительства. Дома лепились один к другому, образуя единый оборонительный периметр. Плоская крыша нижнего дома служила двором для верхнего. В центре аула обязательно стояла мечеть и годекан — площадь для мужских собраний, где решались все общественные дела.</p><p>Особого внимания заслуживает село Гоор с его уникальным комплексом средневековых башен: семь боевых башен XII–XIV веков стоят на краю отвесной скалы над пропастью. Не менее впечатляет Чох — одно из древнейших поселений Кавказа, где в одном пространстве сосуществуют средневековые каменные дома и современная жизнь. Эти сёла сегодня активно привлекают туристов.</p>`},
+            music: {img:'images3/avar-music.jpg',title:`Музыка и танцы аварцев`,text:`<p>Лезгинка — гордый мужской танец, ставший визитной карточкой. Инструменты: тар (струнный), зурна (духовая), балабан. Эпические сказания «хӀалтӀи».</p><p>Аварская лезгинка отличается от чеченской и лезгинской версий более сдержанным и гордым характером: мужчина движется плавно и величественно, демонстрируя достоинство, а не удаль. Танец исполняется на свадьбах, праздниках и народных гуляниях. Женская часть лезгинки — плавная, с мягкими движениями рук, символизирующих лебедя.</p><p>Аварский эпос богат историческими песнями о воинах-героях — «дорийлъи». Особое место занимают песни о временах имама Шамиля. Современные аварские исполнители активно синтезируют традиционные мелодии с поп-музыкой, создавая самобытный жанр, популярный по всему Северному Кавказу.</p>`},
+        };
+
+        // ==========================================
+        // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
+        // ==========================================
+        function openInfoModal(key) {
+            const d = infoData[key];
+            if (!d) return;
+            document.getElementById('infoModalImg').src = d.img;
+            document.getElementById('infoModalImg').alt = d.title;
+            document.getElementById('infoModalTitle').textContent = d.title;
+            document.getElementById('infoModalText').innerHTML = d.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
@@ -1369,6 +1470,18 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- Универсальное инфо-модальное окно -->
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

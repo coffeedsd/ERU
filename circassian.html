@@ -161,7 +161,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            cursor: zoom-in;
+            
         }
         
         .info-card:hover .info-card-image img {
@@ -245,7 +245,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             position: relative;
-            cursor: zoom-in;
+            
         }
 
         @media (max-width: 1024px) {
@@ -756,6 +756,79 @@
                 font-size: 1rem;
             }
         }
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -786,9 +859,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images3/circassian-people.jpg" alt="Черкесы в национальных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images3/circassian-people.jpg" alt="Черкесы в национальных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +869,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images3/circassian-language.jpg" alt="Черкесский язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images3/circassian-language.jpg" alt="Черкесский язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +879,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images3/circassian-religion.jpg" alt="Черкесская мечеть" onclick="openLightbox(this.src)">
+                        <img src="images3/circassian-religion.jpg" alt="Черкесская мечеть">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +889,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images3/circassian-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images3/circassian-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +904,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images3/circassian-costume-detail.jpg" alt="Черкесский национальный костюм" onclick="openLightbox(this.src)">
+                        <img src="images3/circassian-costume-detail.jpg" alt="Черкесский национальный костюм">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +925,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('horses')">
                     <div class="info-card-image">
-                        <img src="images3/circassian-horse.jpg" alt="Черкесское коневодство" onclick="openLightbox(this.src)">
+                        <img src="images3/circassian-horse.jpg" alt="Черкесское коневодство">
                     </div>
                     <div class="info-card-content">
                         <h3>Коневодство и скачки</h3>
@@ -862,9 +935,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('music')">
                     <div class="info-card-image">
-                        <img src="images3/circassian-music.jpg" alt="Черкесская народная музыка" onclick="openLightbox(this.src)">
+                        <img src="images3/circassian-music.jpg" alt="Черкесская народная музыка">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1236,6 +1309,34 @@
             }
         });
 
+        const infoData = {
+            population: {img:'images3/circassian-people.jpg',title:`Численность черкесов`,text:`<p>В России проживает около 60 тысяч черкесов. Основное население Карачаево-Черкесской Республики. Также проживают в Краснодарском крае, Ставропольском крае, за рубежом (Турция, Иордания, Сирия, США).</p><p>Черкесы в России — лишь небольшая часть черкесского мира. Основная масса черкесского народа (кабардинцы, адыгейцы, шапсуги, бжедуги и другие субэтнические группы) расселена на Северном Кавказе и в многочисленных зарубежных диаспорах. Черкесская диаспора в Турции насчитывает, по различным оценкам, от 3 до 5 миллионов человек.</p><p>Массовое выселение черкесов из Кавказа произошло после окончания Кавказской войны в 1864 году: сотни тысяч человек были депортированы или бежали в Османскую империю. Это трагическое событие, известное как «Адыгэ Хасэ», черкесы по всему миру считают геноцидом своего народа. 21 мая ежегодно отмечается как День памяти жертв этой трагедии.</p>`},
+            language: {img:'images3/circassian-language.jpg',title:`Черкесский язык`,text:`<p>Черкесский язык относится к адыгской группе северокавказских языков. Близок к кабардинскому и адыгейскому. Имеет два диалекта: западный (бжедугский) и восточный (кабардино-черкесский). Использует кириллицу.</p><p>Адыгские языки — черкесский, кабардинский и адыгейский — многие лингвисты считают диалектами единого адыгского языка. Их объединяет колоссальное богатство согласных: в кабардино-черкесском языке до 48 согласных фонем при всего трёх гласных. Это делает адыгские языки одними из наиболее консонантных в мире.</p><p>Значительная часть зарубежных черкесов утратила родной язык, перейдя на турецкий или арабский. Осознание этой потери стимулирует диаспору к активному изучению и сохранению языка: создаются онлайн-курсы, языковые лагеря и культурные центры в Иордании, Турции, США и Израиле.</p>`},
+            religion: {img:'images3/circassian-religion.jpg',title:`Религия черкесов`,text:`<p>Ислам (суннитского толка, ханафитский мазхаб). Принят в XVII—XIX веках. Сохранились элементы доисламских традиций: культ предков, священные рощи, обряды у дольменов и источников.</p><p>До принятия ислама черкесы исповедовали «Хабзэ» — традиционную народную религию с культом богов природы. Тхьэшхо (Великий Бог), Сосруко (культурный герой нартских саказаний), Тлепш (бог кузнечного дела) — главные персонажи адыгского пантеона. Нартский эпос, общий для всех кавказских народов, особенно богато представлен у черкесов.</p><p>Принятие ислама происходило постепенно и завершилось лишь в XIX веке. При этом черкесский адат — традиционный кодекс чести «Адыгэ Хабзэ» — сохраняет своё значение наравне с шариатом. Этот кодекс регулирует поведение на пиру, правила гостеприимства, отношения между мужчинами и женщинами и является живым сводом народной этики.</p>`},
+            settlement: {img:'images3/circassian-map.jpg',title:`Расселение черкесов`,text:`<p>Черкесы населяют горные и предгорные районы центрального Северного Кавказа. Крупные диаспоры в Москве, Санкт-Петербурге. За рубежом — в Турции (3-4 млн), Иордании, Сирии, США, Египте.</p><p>До Кавказской войны черкесы (адыги) населяли огромную территорию от берегов Чёрного моря до Каспия. Их традиционная родина — Черкесия — включала нынешние Краснодарский и Ставропольский края, Адыгею, Карачаево-Черкесию, Кабардино-Балкарию и часть Абхазии. После трагедии 1864 года от этого пространства остались лишь небольшие анклавы.</p><p>Иорданская диаспора черкесов — одна из наиболее организованных в мире. Черкесы традиционно занимали привилегированное положение при дворе хашимитских королей: Королевская гвардия Иордании исторически формировалась из черкесов, и эта традиция сохраняется до сих пор. Черкесские организации Иордании активно поддерживают культуру и язык своих предков.</p>`},
+            costume: {img:'images3/circassian-costume-detail.jpg',title:`Национальный костюм черкесов`,text:`<p>Считается одним из самых красивых на Кавказе. Мужской: черкеска с серебряными газырями, бешмет, бурка, папаха, кинжал с серебряной инкрустацией. Женский: платье с корсетом, богатейшие украшения, высокая причёска.</p><p>Черкеска — верхняя одежда с газырями (специальными кармашками для пороховых зарядов) — стала общекавказской нормой и была заимствована многими соседними народами и даже российскими казаками. Само слово «черкеска» происходит от названия народа. В XIX веке черкесский костюм стал модным среди российского дворянства — художники и путешественники восхищались его элегантностью.</p><p>Женский черкесский костюм — «сай» — шился из дорогих привозных тканей: шёлка, бархата, парчи. Узкий корсет «кIэкI» девочки начинали носить с раннего детства, формируя осанку. Свадебный наряд стоил целое состояние и хранился в семье как реликвия. Ювелирные украшения из серебра с эмалью, выполненные кабардинскими и дагестанскими мастерами, были предметом гордости каждой семьи.</p>`},
+            horses: {img:'images3/circassian-horse.jpg',title:`Коневодство и скачки черкесов`,text:`<p>Черкесы — мастера коневодства. Традиционные скачки — важная часть культуры. Конь — символ свободы. Сохранились древние обряды освящения коней.</p><p>Кабардинская лошадь — порода, созданная адыгами — считается одной из лучших горных пород мира. Она уверенно передвигается по крутым склонам, обладает превосходной выносливостью и неприхотливостью. Кабардинские скакуны экспортировались в Персию, Турцию и Россию, а российские цари держали кабардинских коней в своих конюшнях.</p><p>Конные игры «джигитовка» и традиционные скачки «шу зэхьэзэхуэ» до сих пор проводятся на черкесских праздниках. Всадник и конь воспринимаются как единое целое — умение ездить верхом было обязательным для каждого мужчины. Выражение «настоящий черкес без коня — не черкес» отражает эту глубокую культурную связь.</p>`},
+            music: {img:'images3/circassian-music.jpg',title:`Музыка и танцы черкесов`,text:`<p>Танец «къафэ» — древний боевой танец с круговыми движениями. Инструменты: шичэпшинэ (струнный), адыгэ пхъэ (барабан), бжэмылъэ (флейта). Эпические сказания «нартские эпосы».</p><p>«Кафэ» (уафэ) — черкесский национальный танец, воплощающий кодекс Адыгэ Хабзэ в движении. Строгая дистанция между партнёрами, изящество жестов, гордая осанка — всё это отражает черкесские нормы поведения. Разучить кафэ правильно невозможно без понимания культурного контекста: каждое движение несёт смысл.</p><p>Нартский эпос черкесов — один из наиболее полно сохранившихся в мире. В нём сотни сказаний о богатырях-нартах, их подвигах, любви и гибели. Исследователи находят параллели с греческой мифологией, скандинавскими сагами и шумерским эпосом. Сказитель «джэгуако» — певец и импровизатор — пользовался в черкесском обществе особым уважением.</p>`},
+        };
+
+        // ==========================================
+        // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
+        // ==========================================
+        function openInfoModal(key) {
+            const d = infoData[key];
+            if (!d) return;
+            document.getElementById('infoModalImg').src = d.img;
+            document.getElementById('infoModalImg').alt = d.title;
+            document.getElementById('infoModalTitle').textContent = d.title;
+            document.getElementById('infoModalText').innerHTML = d.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
@@ -1369,6 +1470,18 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- Универсальное инфо-модальное окно -->
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

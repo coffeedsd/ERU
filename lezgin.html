@@ -161,7 +161,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            cursor: zoom-in;
+            
         }
         
         .info-card:hover .info-card-image img {
@@ -245,7 +245,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             position: relative;
-            cursor: zoom-in;
+            
         }
 
         @media (max-width: 1024px) {
@@ -756,6 +756,79 @@
                 font-size: 1rem;
             }
         }
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -786,9 +859,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images3/lezgin-people.jpg" alt="Лезгины в национальных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images3/lezgin-people.jpg" alt="Лезгины в национальных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +869,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images3/lezgin-language.jpg" alt="Лезгинский язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images3/lezgin-language.jpg" alt="Лезгинский язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +879,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images3/lezgin-religion.jpg" alt="Лезгинская мечеть" onclick="openLightbox(this.src)">
+                        <img src="images3/lezgin-religion.jpg" alt="Лезгинская мечеть">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +889,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images3/lezgin-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images3/lezgin-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +904,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images3/lezgin-costume.jpg" alt="Лезгинский национальный костюм" onclick="openLightbox(this.src)">
+                        <img src="images3/lezgin-costume.jpg" alt="Лезгинский национальный костюм">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +925,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('carpets')">
                     <div class="info-card-image">
-                        <img src="images3/lezgin-carpet-detail.jpg" alt="Лезгинские ковры" onclick="openLightbox(this.src)">
+                        <img src="images3/lezgin-carpet-detail.jpg" alt="Лезгинские ковры">
                     </div>
                     <div class="info-card-content">
                         <h3>Ковроткачество</h3>
@@ -862,9 +935,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('music')">
                     <div class="info-card-image">
-                        <img src="images3/lezgin-music.jpg" alt="Лезгинская народная музыка" onclick="openLightbox(this.src)">
+                        <img src="images3/lezgin-music.jpg" alt="Лезгинская народная музыка">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1236,6 +1309,34 @@
             }
         });
 
+        const infoData = {
+            population: {img:'images3/lezgin-people.jpg',title:`Численность лезгин`,text:`<p>В России проживает около 400 тысяч лезгин. Основное население Южного Дагестана (Дербент, Магарамкент, Докузпаринский район). Также проживают в Азербайджане (около 200 тыс.).</p><p>Лезгины — один из крупнейших народов Южного Дагестана, разделённый государственной границей между Россией и Азербайджаном. В советское время лезгины жили в единой стране, однако после распада СССР оказались разделены: их исторические сёла находятся по обе стороны границы. Это создаёт непростую ситуацию для сохранения единства народа.</p><p>Дербент — древнейший город России (основан около V века до н.э.) — исторически являлся центром лезгинской культуры и торговли. Его стратегическое положение у Каспийского моря делало город ключевым пунктом на Великом шёлковом пути. Крепость Нарын-Кала и средневековые кварталы Дербента включены в список Всемирного наследия ЮНЕСКО.</p>`},
+            language: {img:'images3/lezgin-language.jpg',title:`Лезгинский язык`,text:`<p>Лезгинский язык относится к лезгинской группе северокавказских языков. Является lingua franca Южного Дагестана. Использует кириллицу с дополнительными буквами.</p><p>Лезгинские языки образуют отдельную ветвь нахско-дагестанской семьи. К ней относятся также агульский, рутульский, цахурский, табасаранский и другие языки — всего около 10 языков. Лезгинский — крупнейший из них и традиционно служит языком межнационального общения для народов Южного Дагестана.</p><p>Первая письменность на основе арабского алфавита появилась у лезгин в XIX веке, в советское время был создан латинский, а затем кириллический алфавит. Лезгинская поэзия имеет богатую традицию — особую роль сыграли поэты XIX века, творившие в традициях персидской классической литературы. Выдающийся лезгинский поэт Этим Эмин почитается как народный классик.</p>`},
+            religion: {img:'images3/lezgin-religion.jpg',title:`Религия лезгин`,text:`<p>Ислам (суннитского толка, шафиитский и ханафитский мазхабы). Принят в VIII—X веках. Сохранились элементы доисламских традиций: культ предков, священные места, обряды у источников.</p><p>Лезгины приняли ислам одними из первых на Северном Кавказе: арабские завоеватели пришли в Дагестан уже в VII–VIII веках, и именно Дербент стал первым исламским центром на Кавказе. Дербентская джума-мечеть, построенная в VIII веке, является одной из старейших мечетей России. Глубокий ислам стал неотъемлемой частью лезгинской идентичности.</p><p>Доисламские верования сохранились в виде почитания священных родников «пир» и горных святилищ. Новруз — персидский Новый год — широко отмечается лезгинами наряду с исламскими праздниками, отражая влияние персидской культуры на Южный Дагестан. Культ предков проявляется в особом отношении к родовым кладбищам и поминальным обрядам.</p>`},
+            settlement: {img:'images3/lezgin-map.jpg',title:`Расселение лезгин`,text:`<p>Лезгины населяют Южный Дагестан и северный Азербайджан. Крупные диаспоры в Москве, Санкт-Петербурге. За рубежом — в Турции, Казахстане, Украине.</p><p>Историческая территория лезгин — Лезгистан — охватывает горные и предгорные районы к югу от Дербента по обе стороны нынешней российско-азербайджанской границы. Главные реки этого края — Самур и Гюльгерычай — служили торговыми путями, связывавшими горные сёла с побережьем Каспийского моря.</p><p>Город Касумкент — неофициальная культурная столица лезгин в России. Здесь находятся основные культурные центры, издательства и образовательные учреждения, работающие на лезгинском языке. Организация «Садвал» объединяет лезгин по обе стороны границы, занимается сохранением языка и культуры разделённого народа.</p>`},
+            costume: {img:'images3/lezgin-costume.jpg',title:`Национальный костюм лезгин`,text:`<p>Мужской костюм: черкеска (цIар), бешмет, папаха, серебряный пояс с кинжалом. Женский: длинное платье с корсетом, богатые украшения (монисто, серьги, браслеты), высокая причёска с монетами.</p><p>Лезгинский женский костюм отличается особой яркостью: богатые шёлковые платья с золотыми и серебряными украшениями составляли гордость каждой семьи. Особую ценность представляли украшения из кубачинского серебра — мастера из дагестанского аула Кубачи славились своим ювелирным искусством по всему Кавказу и Среднему Востоку.</p><p>Головной убор замужней лезгинки — «кIелеметI» — украшался монетами, бусинами и вышивкой. По убору можно было определить не только семейный статус, но и родное село женщины: в каждом районе были свои традиции украшения. Мужские папахи из каракуля ценились исходя из качества и плотности завитка — лучшие мастера жили в Дербенте.</p>`},
+            carpets: {img:'images3/lezgin-carpet-detail.jpg',title:`Ковроткачество лезгин`,text:`<p>Лезгинские ковры — одни из самых известных в Дагестане. Уникальные орнаменты, насыщенные цвета, высокое качество. Центры: сёла Касумкент, Магарамкент.</p><p>Лезгинский ковёр отличается от других дагестанских стилем орнамента: строгие геометрические фигуры — ромбы, восьмиугольники, стилизованные животные — складываются в медальонную или ковровую композицию. Красители до XX века были исключительно натуральными: марена давала красный и оранжевый, индиго — синий и зелёный. Нити скручивались вручную из местной шерсти.</p><p>Ковры лезгинских мастеров экспортировались в Персию, Турцию и Россию. Известные разновидности — «ширван», «куба» и «сумах» — производились в том числе лезгинскими мастерицами Южного Дагестана и Северного Азербайджана. Сегодня традиция ковроткачества переживает возрождение: открываются мастерские, проводятся обучающие курсы для молодёжи.</p>`},
+            music: {img:'images3/lezgin-music.jpg',title:`Музыка и танцы лезгин`,text:`<p>Лезгинка — гордый танец с быстрыми движениями ног. Инструменты: зурна (духовая), дарбука (барабан), гармонь. Эпические песнопения «хунар».</p><p>Лезгинка дала имя всему семейству кавказских танцев. Лезгинский вариант этого танца считается одним из самых темпераментных: мужчина исполняет сложные прыжки и вращения с большой скоростью. Характерный элемент — «орёл»: мужчина распрямляет руки в стороны и делает несколько быстрых вращений. Наиболее виртуозные исполнители пользовались огромным уважением в народе.</p><p>Профессиональный певец-импровизатор у лезгин — «ашуг» — являлся хранителем поэтической традиции. Ашуги состязались в поэтическом мастерстве, импровизируя стихи на заданную тему под аккомпанемент саза. Лучшие из них — как поэт Сулейман Стальский, которого Горький назвал «Гомером XX века», — стали национальными классиками.</p>`},
+        };
+
+        // ==========================================
+        // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
+        // ==========================================
+        function openInfoModal(key) {
+            const d = infoData[key];
+            if (!d) return;
+            document.getElementById('infoModalImg').src = d.img;
+            document.getElementById('infoModalImg').alt = d.title;
+            document.getElementById('infoModalTitle').textContent = d.title;
+            document.getElementById('infoModalText').innerHTML = d.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
@@ -1369,6 +1470,18 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- Универсальное инфо-модальное окно -->
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

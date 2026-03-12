@@ -161,7 +161,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            cursor: zoom-in;
+            
         }
         
         .info-card:hover .info-card-image img {
@@ -245,7 +245,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             position: relative;
-            cursor: zoom-in;
+            
         }
 
         @media (max-width: 1024px) {
@@ -756,6 +756,79 @@
                 font-size: 1rem;
             }
         }
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -786,9 +859,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images3/chechen-people.jpg" alt="Чеченцы в национальных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images3/chechen-people.jpg" alt="Чеченцы в национальных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +869,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images3/chechen-language.jpg" alt="Чеченский язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images3/chechen-language.jpg" alt="Чеченский язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +879,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images3/chechen-religion.jpg" alt="Чеченская мечеть" onclick="openLightbox(this.src)">
+                        <img src="images3/chechen-religion.jpg" alt="Чеченская мечеть">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +889,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images3/chechen-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images3/chechen-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +904,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images3/chechen-costume.jpg" alt="Чеченский национальный костюм" onclick="openLightbox(this.src)">
+                        <img src="images3/chechen-costume.jpg" alt="Чеченский национальный костюм">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +925,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('towers')">
                     <div class="info-card-image">
-                        <img src="images3/chechen-tower-detail.jpg" alt="Чеченские башенные комплексы" onclick="openLightbox(this.src)">
+                        <img src="images3/chechen-tower-detail.jpg" alt="Чеченские башенные комплексы">
                     </div>
                     <div class="info-card-content">
                         <h3>Башенная архитектура</h3>
@@ -862,9 +935,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('music')">
                     <div class="info-card-image">
-                        <img src="images3/chechen-music.jpg" alt="Чеченская народная музыка" onclick="openLightbox(this.src)">
+                        <img src="images3/chechen-music.jpg" alt="Чеченская народная музыка">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1236,6 +1309,34 @@
             }
         });
 
+        const infoData = {
+            population: {img:'images3/chechen-people.jpg',title:`Численность чеченцев`,text:`<p>В России проживает около 1,5 миллионов чеченцев. Основное население Чеченской Республики (столица — Грозный). Также проживают в Дагестане, Ингушетии, Москве.</p><p>Чеченцы — один из самых многочисленных народов Северного Кавказа и наиболее быстро растущий в демографическом отношении. Высокая рождаемость и молодая возрастная структура обеспечивают стабильный прирост населения. По прогнозам, к 2030 году численность чеченцев в России превысит 2 миллиона человек.</p><p>Значительная чеченская диаспора сложилась в Европе — прежде всего в Австрии, Германии и Франции — в результате волн эмиграции после двух чеченских войн 1990-х — 2000-х годов. Чеченские общины активно сохраняют язык, традиции и исламскую идентичность за рубежом, поддерживая тесные связи с исторической родиной.</p>`},
+            language: {img:'images3/chechen-language.jpg',title:`Чеченский язык`,text:`<p>Чеченский язык (нохчийн мотт) относится к нахской группе северокавказских языков. Близок к ингушскому. Использует кириллицу с дополнительными буквами.</p><p>Чеченский — один из наиболее сложных языков мира с точки зрения фонологии: в нём насчитывается около 40 согласных и богатая система вокализма. Эргативный строй грамматики означает, что подлежащее переходного глагола оформляется иначе, чем подлежащее непереходного — принципиально иначе, чем в русском языке.</p><p>Письменность на основе латиницы была создана в 1920-х годах, затем переведена на кириллицу в 1938 году. Устная традиция чеченцев исключительно богата: эпические предания «илли» о нартах и народных героях передавались из уст в уста на протяжении столетий. Сегодня чеченский язык является государственным в Чечне наряду с русским, преподаётся в школах и звучит на государственном телевидении.</p>`},
+            religion: {img:'images3/chechen-religion.jpg',title:`Религия чеченцев`,text:`<p>Ислам (суннитского толка, ханафитский мазхаб). Принят в VIII—XIX веках. Сохранились элементы доисламских традиций: культ предков, священные места (пхарчхош).</p><p>Принятие ислама чеченцами было постепенным: горные общества оставались языческими вплоть до XVIII–XIX веков. Суфийское братство накшбандийя сыграло ключевую роль в исламизации — именно через суфийских шейхов ислам проник в самые отдалённые горные ущелья. Тейповая система — разветвлённые родовые кланы — и сегодня является основой социальной организации чеченского общества.</p><p>Священные места «пхарчхош» — святилища у источников, деревьев или скал — чтились задолго до ислама и продолжают почитаться. Культ предков «зиярт» — посещение могил и поминальные обряды — занимает важное место в народной религиозности. Адат (обычное право) регулирует многие аспекты жизни наравне с шариатом.</p>`},
+            settlement: {img:'images3/chechen-map.jpg',title:`Расселение чеченцев`,text:`<p>Чеченцы населяют Северный Кавказ, преимущественно Чеченскую Республику. Крупные диаспоры в Москве, Санкт-Петербурге, на Урале. За рубежом — в Турции, Иордании, Сирии, Казахстане.</p><p>Историческая территория чеченцев охватывает горные ущелья и равнины к северу от Главного Кавказского хребта. Горная часть — «Ламаро» — традиционно считается колыбелью народа: именно здесь сохранились средневековые башенные комплексы и родовые сёла. Равнинная Чечня была освоена позже, в XVII–XVIII веках, когда чеченцы начали спускаться с гор.</p><p>Грозный, основанный как российская крепость в 1818 году, сегодня является одним из самых быстро развивающихся городов России. После разрушений двух войн город был полностью отстроен заново. Башня «Грозный-Сити» и мечеть «Сердце Чечни» имени Ахмата Кадырова стали новыми символами столицы.</p>`},
+            costume: {img:'images3/chechen-costume.jpg',title:`Национальный костюм чеченцев`,text:`<p>Мужской костюм: черкеска (кезар кIаптар), бешмет, папаха (холхазан куй), кинжал (хьалха). Женский: хонга (платье), курта (рубаха), головной убор (кIалакх), украшенный монетами.</p><p>Чеченская папаха — не просто головной убор, а символ чести и достоинства мужчины. Сбить папаху с головы считалось смертельным оскорблением, требующим кровной мести. Традиционно папаху шили из каракуля — шкурки новорождённого ягнёнка — или из меха молодого барашка. Качество папахи говорило о достатке её владельца.</p><p>Женский чеченский костюм отличается закрытостью и строгостью форм при богатстве декора. Вышивка золотыми нитями украшала ворот, манжеты и подол платья. Серебряные украшения — пояс, нагрудные застёжки, браслеты — передавались от матери к дочери как часть приданого. Особую ценность представляли старинные украшения ручной работы мастеров из Дагестана.</p>`},
+            towers: {img:'images3/chechen-tower-detail.jpg',title:`Башенная архитектура чеченцев`,text:`<p>Уникальные средневековые башни: жилые, боевые, полубоевые. Комплексы в Аргунском и Веденском ущельях. Символ чеченской культуры и мастерства.</p><p>Чеченские и ингушские башни — вайнахские башенные комплексы — признаны уникальным архитектурным феноменом. Боевые башни («воув») достигали высоты 25–30 метров и имели до 5–6 этажей с бойницами. Строились без строительных лесов: по мере возведения стен мастера поднимались выше. Легенда гласит, что настоящий мастер должен был построить башню за один сезон.</p><p>Наиболее впечатляющие комплексы — Шаройский, Итум-Калинский и Галанчожский. Башенный комплекс Вовнушки в Ингушетии и аналогичные чеченские комплексы рассматриваются как кандидаты на включение в список Всемирного наследия ЮНЕСКО. Строительство башен прекратилось в XVIII–XIX веках с распространением огнестрельного оружия, делавшего башенную тактику обороны устаревшей.</p>`},
+            music: {img:'images3/chechen-music.jpg',title:`Музыка и танцы чеченцев`,text:`<p>Лезгинка — энергичный мужской танец, ставший визитной карточкой. Инструменты: децигь (скрипка), аккордеон, барабан. Эпические сказания «вайнахский эпос».</p><p>Чеченская лезгинка — один из самых динамичных танцев Кавказа. Мужчина двигается стремительно, делая резкие прыжки и вращения, замирая на носках. Женщина скользит плавно, словно лебедь. Танец — это диалог, в котором мужчина стремится покорить, а женщина остаётся недоступной. Умение красиво танцевать традиционно считалось признаком воспитанного человека.</p><p>Вайнахский нартский эпос — один из древнейших на Кавказе. Герои-нарты совершают подвиги, побеждают чудовищ и богов, отстаивая честь и справедливость. Сказительная традиция «илланча» — исполнение героических песен «илли» — сегодня возрождается усилиями энтузиастов и Министерства культуры Чечни.</p>`},
+        };
+
+        // ==========================================
+        // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
+        // ==========================================
+        function openInfoModal(key) {
+            const d = infoData[key];
+            if (!d) return;
+            document.getElementById('infoModalImg').src = d.img;
+            document.getElementById('infoModalImg').alt = d.title;
+            document.getElementById('infoModalTitle').textContent = d.title;
+            document.getElementById('infoModalText').innerHTML = d.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
@@ -1366,6 +1467,18 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- Универсальное инфо-модальное окно -->
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

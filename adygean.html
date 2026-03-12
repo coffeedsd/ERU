@@ -161,7 +161,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            cursor: zoom-in;
+            
         }
         
         .info-card:hover .info-card-image img {
@@ -245,7 +245,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             position: relative;
-            cursor: zoom-in;
+            
         }
 
         @media (max-width: 1024px) {
@@ -756,6 +756,79 @@
                 font-size: 1rem;
             }
         }
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -786,9 +859,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images3/adygean-people.jpg" alt="Адыгейцы в национальных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images3/adygean-people.jpg" alt="Адыгейцы в национальных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +869,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images3/adygean-language.jpg" alt="Адыгейский язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images3/adygean-language.jpg" alt="Адыгейский язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +879,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images3/adygean-religion.jpg" alt="Адыгейская мечеть" onclick="openLightbox(this.src)">
+                        <img src="images3/adygean-religion.jpg" alt="Адыгейская мечеть">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +889,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images3/adygean-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images3/adygean-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +904,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images3/adygean-costume.jpg" alt="Адыгейский национальный костюм" onclick="openLightbox(this.src)">
+                        <img src="images3/adygean-costume.jpg" alt="Адыгейский национальный костюм">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +925,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('horses')">
                     <div class="info-card-image">
-                        <img src="images3/adygean-horse.jpg" alt="Адыгейское коневодство" onclick="openLightbox(this.src)">
+                        <img src="images3/adygean-horse.jpg" alt="Адыгейское коневодство">
                     </div>
                     <div class="info-card-content">
                         <h3>Коневодство</h3>
@@ -862,9 +935,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('music')">
                     <div class="info-card-image">
-                        <img src="images3/adygean-music.jpg" alt="Адыгейская народная музыка" onclick="openLightbox(this.src)">
+                        <img src="images3/adygean-music.jpg" alt="Адыгейская народная музыка">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1236,6 +1309,34 @@
             }
         });
 
+        const infoData = {
+            population: {img:'images3/adygean-people.jpg',title:`Численность адыгейцев`,text:`<p>В России проживает около 130 тысяч адыгейцев. Основное население Республики Адыгея (столица — Майкоп). Также проживают в Краснодарском крае, Ставропольском крае.</p><p>Адыгейцы — один из адыгских (черкесских) народов, сохранившихся на исторической родине после трагедии 1864 года. Республика Адыгея — уникальный регион: небольшой анклав, полностью окружённый территорией Краснодарского края. Несмотря на то что адыгейцы составляют лишь около четверти населения республики, они являются государствообразующим народом.</p><p>Значительная адыгейская диаспора сосредоточена в Турции, Иордании, Израиле, Сирии и США. Зарубежные черкесы (адыги) активно поддерживают связи с исторической родиной — ежегодно в Адыгею приезжают сотни выходцев из диаспоры, проводятся фестивали и культурные обмены.</p>`},
+            language: {img:'images3/adygean-language.jpg',title:`Адыгейский язык`,text:`<p>Адыгейский язык относится к адыгской группе северокавказских языков. Близок к кабардинскому и черкесскому. Имеет много диалектов. Использует кириллицу.</p><p>Адыгейский язык сложился как литературный стандарт преимущественно на основе бжедугского и темиргоевского диалектов. Как и все адыгские языки, он характеризуется минимализмом гласных (всего 3) и богатством согласных (до 50 фонем). Полисинтетическая структура глагола позволяет выражать в одном слове то, что по-русски требует целого предложения.</p><p>Адыгейская литература, театр и СМИ активно работают в Майкопе. Адыгейский государственный университет ведёт обширную работу по документированию и изучению языка. Особую роль играет Институт гуманитарных исследований Республики Адыгея, публикующий словари, грамматики и фольклорные сборники на адыгейском языке.</p>`},
+            religion: {img:'images3/adygean-religion.jpg',title:`Религия адыгейцев`,text:`<p>Ислам (суннитского толка, ханафитский мазхаб). Принят в XVII—XIX веках. Сохранились элементы доисламских традиций: культ предков, священные рощи, обряды у дольменов.</p><p>Традиционная религия адыгов — «Хабзэ» — включала развитый пантеон богов и духов, связанных с природными явлениями. Тхьэшхо (Великий Бог), Тлепш (бог кузнечного дела и огня), Мезытхьэ (дух леса и охоты) — главные персонажи. Священные рощи «тхьэщIапIэ» служили местами молений; рубить деревья в них было строго запрещено.</p><p>Дольмены — мегалитические гробницы III–II тысячелетий до н.э. — сосредоточены именно в Адыгее и Краснодарском крае в огромном количестве (более 3000 объектов). В народной традиции дольмены называются «домами карликов» или «домами душ» и считаются местами, где обитают духи предков. У некоторых дольменов до сих пор совершаются неофициальные поминальные обряды.</p>`},
+            settlement: {img:'images3/adygean-map.jpg',title:`Расселение адыгейцев`,text:`<p>Адыгейцы населяют предгорные и равнинные районы западного Северного Кавказа. Крупные диаспоры в Москве, Санкт-Петербурге. За рубежом — в Турции, Сирии, Иордании, США.</p><p>Республика Адыгея — живописный регион у северного подножия Кавказских гор. Здесь расположен Кавказский биосферный заповедник — один из крупнейших в России, включённый в список Всемирного наследия ЮНЕСКО. Плато Лаго-Наки, ущелье реки Белой и дольменные поля Майкопского района привлекают туристов со всей России.</p><p>Майкоп — столица Адыгеи — известен как один из важнейших археологических центров Кавказа: именно здесь в 1897 году был открыт «Майкопский курган» эпохи ранней бронзы (около 3500 лет до н.э.), давший название целой археологической культуре. Находки из кургана хранятся в Эрмитаже и представляют исключительную историческую ценность.</p>`},
+            costume: {img:'images3/adygean-costume.jpg',title:`Национальный костюм адыгейцев`,text:`<p>Мужской костюм: черкеска (цей), бешмет, бурка из войлока, папаха, кинжал в ножнах с серебряным поясом. Женский: платье с корсетом, богатые украшения, высокая причёска с монетами.</p><p>Адыгейская черкеска считается одним из самых элегантных вариантов этого общекавказского костюма. Особую выразительность ей придают газыри — карманчики для пороховых зарядов, расположенные симметрично на груди. В XIX веке черкеска стала модной у российского дворянства и офицерства; её носил даже Лев Толстой в период кавказской службы.</p><p>Женский адыгейский костюм «сай» создавался из дорогих привозных тканей — шёлка и бархата. Корсет «кIэкI» формировал осанку с детства. Серебряные украшения — нагрудные застёжки «дышэпщэ», браслеты, кольца — изготавливались местными мастерами или заказывались у кубачинских ювелиров. Свадебный наряд мог содержать несколько килограммов серебра.</p>`},
+            horses: {img:'images3/adygean-horse.jpg',title:`Коневодство адыгейцев`,text:`<p>Адыгейцы — традиционные коневоды. Разводят чистокровных верховых лошадей. Конь — символ свободы и достоинства. Ежегодные скачки и конные фестивали.</p><p>Конь занимал центральное место в адыгейской культуре. Выражение «адыг без коня — не адыг» отражает эту глубокую связь. Мальчиков приучали к верховой езде с самого раннего детства. Подарить коня — высшее выражение уважения. Угнать коня у врага — доблесть. Потерять коня в бою — бесчестье.</p><p>Кабардинская порода (созданная всеми адыгами, включая адыгейцев) и сегодня разводится в Адыгее. Ежегодный фестиваль «Черкесский конь» в Майкопе привлекает участников и зрителей со всего Северного Кавказа. Джигитовка — традиционные конные трюки — демонстрируется на праздниках и считается неотъемлемой частью адыгейской культуры.</p>`},
+            music: {img:'images3/adygean-music.jpg',title:`Музыка и танцы адыгейцев`,text:`<p>Танец «къафэ» — древний боевой танец. Инструменты: шичэпшинэ (струнный), адыгэ пхъэ (барабан), бжэмылъэ (флейта). Народные песни «щыгъу» передают историю и легенды.</p><p>Адыгейский «кафэ» — воплощение Адыгэ Хабзэ в движении. Каждый элемент танца несёт смысл: гордость, воздержание, достоинство. Танцевать «правильно» — значит соответствовать нормам поведения адыга. Неудивительно, что танцевальное мастерство исторически было частью воспитания молодых людей наравне с верховой ездой и владением оружием.</p><p>Певцы-джэгуако — странствующие поэты и музыканты — были духовными хранителями адыгейского общества. Они слагали хвалебные и укорительные песни, сохраняли исторические предания. Нартский эпос адыгейцев — один из наиболее полно записанных на Кавказе: академические сборники насчитывают тысячи страниц текста. Сегодня он активно изучается и переводится на русский и европейские языки.</p>`},
+        };
+
+        // ==========================================
+        // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
+        // ==========================================
+        function openInfoModal(key) {
+            const d = infoData[key];
+            if (!d) return;
+            document.getElementById('infoModalImg').src = d.img;
+            document.getElementById('infoModalImg').alt = d.title;
+            document.getElementById('infoModalTitle').textContent = d.title;
+            document.getElementById('infoModalText').innerHTML = d.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
@@ -1369,6 +1470,18 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- Универсальное инфо-модальное окно -->
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

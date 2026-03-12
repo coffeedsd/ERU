@@ -161,7 +161,7 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
-            cursor: zoom-in;
+            
         }
         
         .info-card:hover .info-card-image img {
@@ -245,7 +245,7 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             position: relative;
-            cursor: zoom-in;
+            
         }
 
         @media (max-width: 1024px) {
@@ -756,6 +756,79 @@
                 font-size: 1rem;
             }
         }
+
+        /* Универсальная кликабельная карточка */
+        .clickable-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .clickable-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            transform: translateY(-3px);
+        }
+        .clickable-card .info-card-content h3 {
+            position: relative;
+            display: inline-block;
+            padding-right: 25px;
+            transition: color 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3 { color: var(--accent-gold); }
+        .clickable-card .info-card-content h3::after {
+            content: '\2197';
+            position: absolute;
+            right: 0; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em; opacity: 0.7;
+            transition: all 0.3s;
+        }
+        .clickable-card:hover .info-card-content h3::after {
+            transform: translateY(-50%) translateX(3px);
+            opacity: 1; color: var(--accent-gold);
+        }
+
+        /* Универсальное модальное окно для карточек */
+        .info-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 10000;
+            justify-content: center; align-items: center;
+            padding: 40px;
+        }
+        .info-modal.active { display: flex; }
+        .info-modal-container {
+            background: var(--bg-card);
+            border-radius: 24px;
+            max-width: 750px; width: 95%;
+            max-height: 88vh; overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            display: flex; flex-direction: column;
+        }
+        .info-modal-image { width: 100%; height: 260px; overflow: hidden; flex-shrink: 0; }
+        .info-modal-image img { width: 100%; height: 100%; object-fit: cover; }
+        .info-modal-body { padding: 36px 40px 40px; overflow-y: auto; }
+        .info-modal-title { font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 16px; }
+        .info-modal-text { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; }
+        .info-modal-text p { margin-bottom: 14px; }
+        .info-modal-text p:last-child { margin-bottom: 0; }
+        .info-modal-close {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 2.5rem; color: white; cursor: pointer;
+            z-index: 10001; background: rgba(0,0,0,0.5);
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.2);
+        }
+        .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
+        @media (max-width: 768px) {
+            .info-modal { padding: 15px; }
+            .info-modal-image { height: 180px; }
+            .info-modal-body { padding: 24px; }
+            .info-modal-title { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
@@ -786,9 +859,9 @@
         <section class="info-section">
             <h2 class="section-title">📋 Общая информация</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('population')">
                     <div class="info-card-image">
-                        <img src="images3/ingush-people.jpg" alt="Ингуши в национальных костюмах" onclick="openLightbox(this.src)">
+                        <img src="images3/ingush-people.jpg" alt="Ингуши в национальных костюмах">
                     </div>
                     <div class="info-card-content">
                         <h3>Численность</h3>
@@ -796,9 +869,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('language')">
                     <div class="info-card-image">
-                        <img src="images3/ingush-language.jpg" alt="Ингушский язык и письменность" onclick="openLightbox(this.src)">
+                        <img src="images3/ingush-language.jpg" alt="Ингушский язык и письменность">
                     </div>
                     <div class="info-card-content">
                         <h3>Язык</h3>
@@ -806,9 +879,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('religion')">
                     <div class="info-card-image">
-                        <img src="images3/ingush-religion.jpg" alt="Ингушская мечеть" onclick="openLightbox(this.src)">
+                        <img src="images3/ingush-religion.jpg" alt="Ингушская мечеть">
                     </div>
                     <div class="info-card-content">
                         <h3>Религия</h3>
@@ -816,9 +889,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('settlement')">
                     <div class="info-card-image">
-                        <img src="images3/ingush-map.jpg" alt="Народное жилище" onclick="openLightbox(this.src)">
+                        <img src="images3/ingush-map.jpg" alt="Народное жилище">
                     </div>
                     <div class="info-card-content">
                         <h3>Расселение</h3>
@@ -831,9 +904,9 @@
         <section class="info-section">
             <h2 class="section-title">🎭 Традиции и культура</h2>
             <div class="info-grid">
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('costume')">
                     <div class="info-card-image">
-                        <img src="images3/ingush-costume.jpg" alt="Ингушский национальный костюм" onclick="openLightbox(this.src)">
+                        <img src="images3/ingush-costume.jpg" alt="Ингушский национальный костюм">
                     </div>
                     <div class="info-card-content">
                         <h3>Национальный костюм</h3>
@@ -852,9 +925,9 @@
                     </div>
                 </div>
                 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('towers')">
                     <div class="info-card-image">
-                        <img src="images3/ingush-tower-detail.jpg" alt="Ингушские башенные комплексы" onclick="openLightbox(this.src)">
+                        <img src="images3/ingush-tower-detail.jpg" alt="Ингушские башенные комплексы">
                     </div>
                     <div class="info-card-content">
                         <h3>Башенная архитектура</h3>
@@ -862,9 +935,9 @@
                     </div>
                 </div>
 
-                <div class="info-card">
+                <div class="info-card clickable-card" onclick="openInfoModal('music')">
                     <div class="info-card-image">
-                        <img src="images3/ingush-music.jpg" alt="Ингушская народная музыка" onclick="openLightbox(this.src)">
+                        <img src="images3/ingush-music.jpg" alt="Ингушская народная музыка">
                     </div>
                     <div class="info-card-content">
                         <h3>Музыка и танцы</h3>
@@ -1236,6 +1309,34 @@
             }
         });
 
+        const infoData = {
+            population: {img:'images3/ingush-people.jpg',title:`Численность ингушей`,text:`<p>В России проживает около 500 тысяч ингушей. Основное население Республики Ингушетия (столица — Магас). Также проживают в Чечне, Северной Осетии, Москве.</p><p>Ингуши — один из самых молодых в демографическом отношении народов России. Средний возраст ингуша значительно ниже среднероссийского показателя. Высокая рождаемость обеспечивает стабильный прирост населения, несмотря на тяжёлые потрясения XX века — депортацию 1944 года и осетино-ингушский конфликт 1992 года.</p><p>Магас — столица Ингушетии — самый молодой и самый маленький по территории региональный центр России. Город был основан в 1994 году фактически с нуля. Его символом стала Башня Согласия — стилизованная ингушская боевая башня высотой 100 метров, возведённая в 2012 году и ставшая новым архитектурным символом республики.</p>`},
+            language: {img:'images3/ingush-language.jpg',title:`Ингушский язык`,text:`<p>Ингушский язык относится к нахской группе северокавказских языков. Очень близок к чеченскому, но имеет отличия в фонетике и лексике. Использует кириллицу.</p><p>Ингушский и чеченский языки настолько близки, что некоторые лингвисты объединяют их под названием «вайнахские языки» или считают диалектами единого языка. Тем не менее различия достаточно существенны: носители двух языков не всегда понимают друг друга без специального изучения. Ингушский язык сохранил ряд архаичных черт, утраченных в чеченском.</p><p>Письменность на ингушском языке была создана в 1920-х годах. Ингушская литература молода, но развивается активно. Особенность ингушского устного творчества — богатство пословиц и поговорок «кица», а также предание о происхождении башен, передающееся от отца к сыну. Сегодня ингушский язык преподаётся во всех школах республики как обязательный предмет.</p>`},
+            religion: {img:'images3/ingush-religion.jpg',title:`Религия ингушей`,text:`<p>Ислам (суннитского толка, ханафитский мазхаб). Принят в XVIII—XIX веках. Сохранились элементы доисламских традиций: культ предков, священные места, башенные обряды.</p><p>Ингуши приняли ислам позже чеченцев — процесс исламизации завершился лишь в XIX веке. До этого в горах сохранялись языческие святилища «эздел», где проводились обряды поклонения богам природы. Главным из них был Тушоли — богиня плодородия и покровительница женщин, чьи святилища до сих пор сохранились в горных ущельях Джейрахского района.</p><p>Традиционный ингушский кодекс «эздел» (благородство, честь) пронизывает всю жизнь общества. Он регулирует отношения между людьми разного возраста и пола, правила гостеприимства, разрешение конфликтов. Сочетание исламских норм и «эздел» создаёт уникальную ингушскую этическую систему, которая высоко ценится и молодым поколением.</p>`},
+            settlement: {img:'images3/ingush-map.jpg',title:`Расселение ингушей`,text:`<p>Ингуши населяют горные и предгорные районы Северного Кавказа. Крупные диаспоры в Москве, Санкт-Петербурге, на Урале. За рубежом — в Казахстане, Турции, Сирии.</p><p>Ингушетия — наименьший по площади субъект Российской Федерации (около 3600 кв. км), при этом один из самых плотно населённых регионов Северного Кавказа. Историческая горная Ингушетия — Джейрахский район — является зоной уникального культурного ландшафта, где сосредоточены сотни средневековых башен, склепов и святилищ.</p><p>Осетино-ингушский конфликт 1992 года и последствия двух чеченских войн привели к значительному перемещению ингушского населения. Многие ингуши до сих пор живут в вынужденном переселении. Возвращение к родовым местам и восстановление исторической справедливости остаются болезненными темами для ингушского общества.</p>`},
+            costume: {img:'images3/ingush-costume.jpg',title:`Национальный костюм ингушей`,text:`<p>Мужской костюм: черкеска, бешмет, бурка, папаха, кинжал в ножнах с серебряной инкрустацией. Женский: длинное платье с корсетом, богатые серебряные украшения, высокая причёска.</p><p>Ингушский мужской костюм схож с общекавказским, однако имеет характерные детали: серебряные пуговицы-застёжки «тIулг» особой формы, пояс «доккха тIеIийжа» с накладными серебряными бляхами. Кинжал «кIорд» — обязательный атрибут — передавался от отца к сыну и мог быть предметом родового договора или дипломатического дара.</p><p>Женский ингушский наряд отличается особой строгостью форм и изяществом отделки. Шёлковые и бархатные ткани тёмных насыщенных цветов дополнялись серебряными нагрудными украшениями. Особую роль играл свадебный костюм: по богатству убора судили о статусе семьи. Искусство вышивки золотыми и серебряными нитями передавалось от матери к дочери.</p>`},
+            towers: {img:'images3/ingush-tower-detail.jpg',title:`Башенная архитектура ингушей`,text:`<p>Уникальные средневековые башни — самые высокие в Чечне и Ингушетии. Комплексы в Джейрахском районе, село Эрзи. Боевые и жилые башни, гребневые крыши.</p><p>Ингушские боевые башни «воув» — архитектурный шедевр горного зодчества. Их отличительная черта — ступенчатая пирамидальная крыша с декоративным зубцом на вершине, напоминающим птичий клюв. Именно ингушские башни считаются наиболее изящными в вайнахской традиции. Строительство башни требовало особого ритуала: в основание закладывали монеты и зерно.</p><p>Башенный комплекс Эрзи («Орёл») — один из крупнейших на Северном Кавказе: более 50 различных башен сгруппированы в единый укреплённый городок. Вовнушки, стоящие на головокружительных скальных выступах, поражают воображение: кажется, что башни вырастают прямо из скалы. Этот комплекс включён в предварительный список ЮНЕСКО как кандидат на статус объекта Всемирного наследия.</p>`},
+            music: {img:'images3/ingush-music.jpg',title:`Музыка и танцы ингушей`,text:`<p>Лезгинка — популярный танец. Инструменты: дехчо (струнный), зурна (духовая), таман (барабан). Эпические сказания и народные песни передают историю народа.</p><p>Ингушская лезгинка — «ловзар» — исполняется на всех торжествах: свадьбах, праздниках, встречах гостей. Мастерство танцора оценивалось по умению двигаться на носках, совершать резкие повороты и сохранять при этом абсолютную гордость осанки. Ошибиться или упасть во время танца было позором для всей семьи.</p><p>Народные песни ингушей — «йоIалла» (лирические) и «эшарш» (исторические) — хранят память о депортации 1944 года, Кавказской войне и родовых преданиях. Институт сказителей «йоккха нах» («старые люди») традиционно играл роль хранителей исторической памяти. Сегодня усилия по сохранению музыкального фольклора ведут Республиканский дом народного творчества и ингушские культурные организации.</p>`},
+        };
+
+        // ==========================================
+        // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
+        // ==========================================
+        function openInfoModal(key) {
+            const d = infoData[key];
+            if (!d) return;
+            document.getElementById('infoModalImg').src = d.img;
+            document.getElementById('infoModalImg').alt = d.title;
+            document.getElementById('infoModalTitle').textContent = d.title;
+            document.getElementById('infoModalText').innerHTML = d.text;
+            document.getElementById('infoModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
@@ -1369,6 +1470,18 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- Универсальное инфо-модальное окно -->
+    <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
+        <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <div class="info-modal-container" onclick="event.stopPropagation()">
+            <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
+            <div class="info-modal-body">
+                <div class="info-modal-title" id="infoModalTitle"></div>
+                <div class="info-modal-text" id="infoModalText"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
