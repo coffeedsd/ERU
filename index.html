@@ -474,83 +474,88 @@
 
         .quiz-stats-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            grid-template-columns: 1fr;
+            gap: 20px;
         }
 
         .quiz-stats-card {
             background: var(--bg-card);
             border-radius: 14px;
-            padding: 24px;
+            padding: 24px 28px;
             border: 1px solid var(--border-color);
         }
 
         .quiz-stats-card h3 {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             color: var(--text-secondary);
             margin-bottom: 16px;
         }
 
-        .quiz-bar-row {
+        .rank-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 8px;
+        }
+
+        .rank-row {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: background 0.2s;
+        }
+        .rank-row:hover { background: rgba(255,255,255,0.06); }
+
+        .rank-medal {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            width: 22px;
+            text-align: center;
         }
 
-        .quiz-bar-label {
-            width: 120px;
-            flex-shrink: 0;
-            color: var(--text-primary);
+        .rank-name {
+            flex: 1;
             font-size: 0.82rem;
+            color: var(--text-primary);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .quiz-bar-track {
-            flex: 1;
-            height: 8px;
-            background: rgba(255,255,255,0.07);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .quiz-bar-fill {
-            height: 100%;
-            border-radius: 4px;
-            background: linear-gradient(90deg, var(--accent-gold), var(--accent-red));
-            transition: width 1.2s ease;
-            width: 0%;
-        }
-
-        .quiz-bar-fill.hard {
-            background: linear-gradient(90deg, #ef4444, #7f1d1d);
-        }
-
-        .quiz-bar-pct {
-            width: 38px;
+        .rank-pct {
+            font-size: 0.85rem;
+            font-weight: 700;
             flex-shrink: 0;
-            text-align: right;
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--accent-gold);
         }
+
+        .rank-row.gold   { border-color: #f59e0b; background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.08)); box-shadow: 0 0 12px rgba(245,158,11,0.15); }
+        .rank-row.silver { border-color: #a8b8d0; background: linear-gradient(135deg, rgba(168,184,208,0.18), rgba(168,184,208,0.06)); box-shadow: 0 0 12px rgba(168,184,208,0.12); }
+        .rank-row.bronze { border-color: #cd7f32; background: linear-gradient(135deg, rgba(205,127,50,0.2), rgba(205,127,50,0.07)); box-shadow: 0 0 12px rgba(205,127,50,0.13); }
+        .rank-row.gold   .rank-pct { color: #fbbf24; font-size: 0.95rem; }
+        .rank-row.silver .rank-pct { color: #c8d8f0; font-size: 0.95rem; }
+        .rank-row.bronze .rank-pct { color: #e8a050; font-size: 0.95rem; }
+        .rank-row.gold   .rank-name { color: #fff; font-weight: 600; }
+        .rank-row.silver .rank-name { color: #e0e8f8; font-weight: 600; }
+        .rank-row.bronze .rank-name { color: #f0d0a0; font-weight: 600; }
+        .rank-row.normal .rank-pct { color: var(--text-secondary); }
+        .rank-row.no-data { opacity: 0.35; }
+        .rank-row.no-data .rank-pct { color: var(--text-secondary); }
 
         .quiz-total-row {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 60px;
             margin-top: 24px;
             padding-top: 20px;
             border-top: 1px solid var(--border-color);
         }
 
-        .quiz-total-item {
-            text-align: center;
-        }
+        .quiz-total-item { text-align: center; }
 
         .quiz-total-item .num {
             font-size: 2rem;
@@ -567,7 +572,7 @@
         }
 
         @media (max-width: 768px) {
-            .quiz-stats-grid { grid-template-columns: 1fr; }
+            .rank-table { grid-template-columns: 1fr 1fr; }
         }
         .author-section {
             padding: 50px;
@@ -1045,35 +1050,50 @@ async function loadQuizStats() {
 function renderQuizStats(data) {
     const grid = document.getElementById('quizStatsGrid');
 
-    if (!data.topBest || data.topBest.length === 0) {
+    if (!data.allPeoples || data.allPeoples.length === 0) {
         grid.innerHTML = '<div class="quiz-stats-loading">Статистика появится после первых прохождений викторин</div>';
         return;
     }
 
-    const bestBars = data.topBest.map(p => `
-        <div class="quiz-bar-row">
-            <span class="quiz-bar-label">${p.name}</span>
-            <div class="quiz-bar-track"><div class="quiz-bar-fill" data-pct="${p.accuracy}"></div></div>
-            <span class="quiz-bar-pct">${p.accuracy}%</span>
-        </div>`).join('');
+    const withData    = data.allPeoples.filter(p => p.accuracy !== null).sort((a, b) => b.accuracy - a.accuracy);
+    const withoutData = data.allPeoples.filter(p => p.accuracy === null);
+    const medals = ['🥇', '🥈', '🥉'];
+    const medalClass = ['gold', 'silver', 'bronze'];
 
-    const hardBars = data.topHardest.map(p => `
-        <div class="quiz-bar-row">
-            <span class="quiz-bar-label">${p.name}</span>
-            <div class="quiz-bar-track"><div class="quiz-bar-fill hard" data-pct="${100 - p.accuracy}"></div></div>
-            <span class="quiz-bar-pct">${p.accuracy}%</span>
-        </div>`).join('');
+    function makeRows(peoples, startIndex) {
+        return peoples.map((p, i) => {
+            const rank = startIndex + i;
+            const cls  = rank < 3 ? medalClass[rank] : 'normal';
+            const icon = rank < 3 ? medals[rank] : '';
+            return `
+            <div class="rank-row ${cls}">
+                <span class="rank-medal">${icon}</span>
+                <span class="rank-name">${p.name}</span>
+                <span class="rank-pct">${p.accuracy}%</span>
+            </div>`;
+        }).join('');
+    }
+
+    function makeNoDataRows(peoples) {
+        return peoples.map(p => `
+            <div class="rank-row no-data">
+                <span class="rank-medal"></span>
+                <span class="rank-name">${p.name}</span>
+                <span class="rank-pct">—</span>
+            </div>`).join('');
+    }
+
+    const studiedCount = withData.length;
 
     grid.innerHTML = `
         <div class="quiz-stats-card">
-            <h3>🥇 Лучше всего знают</h3>
-            ${bestBars}
+            <h3>🏆 Рейтинг народов по результатам викторин</h3>
+            <div class="rank-table">
+                ${makeRows(withData, 0)}
+                ${makeNoDataRows(withoutData)}
+            </div>
         </div>
-        <div class="quiz-stats-card">
-            <h3>📚 Сложнее всего даётся</h3>
-            ${hardBars}
-        </div>
-        <div class="quiz-total-row" style="grid-column:1/-1">
+        <div class="quiz-total-row">
             <div class="quiz-total-item">
                 <div class="num">${data.totalQuizzes}</div>
                 <div class="lbl">Всего прохождений</div>
@@ -1083,16 +1103,10 @@ function renderQuizStats(data) {
                 <div class="lbl">Средний результат</div>
             </div>
             <div class="quiz-total-item">
-                <div class="num">${data.allPeoples ? data.allPeoples.length : 0}</div>
+                <div class="num">${studiedCount}</div>
                 <div class="lbl">Народов изучено</div>
             </div>
         </div>`;
-
-    setTimeout(() => {
-        grid.querySelectorAll('.quiz-bar-fill').forEach(bar => {
-            bar.style.width = bar.dataset.pct + '%';
-        });
-    }, 100);
 }
 
 // Загружаем при старте
