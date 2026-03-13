@@ -57,11 +57,16 @@ app.post('/api/quiz-result', async (req, res) => {
 // GET /api/stats
 app.get('/api/stats', async (req, res) => {
     const docs = await db.collection('quiz_stats').find({}).toArray();
+    const docMap = {};
+    docs.forEach(doc => { docMap[doc._id] = doc; });
 
-    const peoples = docs.map(doc => {
+    const allPeoples = Object.entries(PEOPLES).map(([id, name]) => {
+        const doc = docMap[id];
+        if (!doc || !doc.totalQuizzes) {
+            return { id, name, totalQuizzes: 0, accuracy: null, hardestQuestion: null };
+        }
         const accuracy = doc.totalQuestions > 0
             ? Math.round((doc.totalCorrect / doc.totalQuestions) * 100) : null;
-
         let hardestQuestion = null;
         if (doc.questionStats) {
             const hardest = Object.entries(doc.questionStats).reduce((worst, [, q]) => {
@@ -72,9 +77,10 @@ app.get('/api/stats', async (req, res) => {
             }, null);
             if (hardest) hardestQuestion = { text: hardest.text, errorRate: Math.round(hardest.er * 100) };
         }
+        return { id, name, totalQuizzes: doc.totalQuizzes||0, accuracy, hardestQuestion };
+    });
 
-        return { id: doc._id, name: doc.name, totalQuizzes: doc.totalQuizzes||0, accuracy, hardestQuestion };
-    }).filter(p => p.totalQuizzes > 0).sort((a, b) => b.accuracy - a.accuracy);
+    const withData = allPeoples.filter(p => p.accuracy !== null).sort((a, b) => b.accuracy - a.accuracy);
 
     const totalQuizzes   = docs.reduce((s, d) => s + (d.totalQuizzes||0), 0);
     const totalCorrect   = docs.reduce((s, d) => s + (d.totalCorrect||0), 0);
@@ -83,9 +89,9 @@ app.get('/api/stats', async (req, res) => {
 
     res.json({
         totalQuizzes, overallAccuracy,
-        topBest: peoples.slice(0, 5),
-        topHardest: [...peoples].sort((a, b) => a.accuracy - b.accuracy).slice(0, 5),
-        allPeoples: peoples
+        topBest: withData.slice(0, 5),
+        topHardest: [...withData].sort((a, b) => a.accuracy - b.accuracy).slice(0, 5),
+        allPeoples
     });
 });
 
