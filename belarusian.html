@@ -1305,6 +1305,8 @@
         // ==========================================
         // ВИКТОРИНА
         // ==========================================
+        const PEOPLE_ID = 'belarusian';
+
         const questions = [
             { q: "Сколько белорусов проживает в России?", a: ["Около 200 тысяч", "Около 800 тысяч", "Около 2 миллионов", "Около 5 миллионов"], correct: 1 },
             { q: "К какой языковой группе относится белорусский язык?", a: ["Западнославянской", "Южнославянской", "Восточнославянской", "Севернославянской"], correct: 2 },
@@ -1319,6 +1321,7 @@
         let currentQ = 0;
         let score = 0;
         let answered = false;
+        let quizAnswers = [];
 
         function startQuiz() {
             currentQ = 0;
@@ -1377,6 +1380,7 @@
                 }
             }
 
+            quizAnswers.push(shuffledAnswers[idx]);
             if (shuffledAnswers[idx] === q.correct) {
                 score++;
                 feedback.textContent = '✓ Правильно!';
@@ -1409,6 +1413,33 @@
             else if (score >= 4) msg = '📚 Неплохо, но можно лучше.';
             else msg = '🎓 Стоит перечитать материал.';
             document.getElementById('result-text').textContent = msg;
+            sendQuizResult();
+        }
+
+
+        // ==========================================
+        // ОТПРАВКА РЕЗУЛЬТАТОВ ВИКТОРИНЫ НА БЭКЕНД
+        // ==========================================
+        const BACKEND_URL = 'https://eru-6h89.onrender.com';
+
+        async function sendQuizResult() {
+            const questionResults = questions.map((q, i) => ({
+                id: 'q' + i,
+                text: q.q,
+                correct: quizAnswers[i] === q.correct
+            }));
+            try {
+                await fetch(BACKEND_URL + '/api/quiz-result', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        peopleId: PEOPLE_ID,
+                        score: score,
+                        total: questions.length,
+                        questions: questionResults
+                    })
+                });
+            } catch(e) {}
         }
 
         // Старт при загрузке
