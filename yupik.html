@@ -1351,13 +1351,29 @@
             showQuestion();
         }
 
+        let shuffledAnswers = [];
+
+        function shuffleArray(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
         function showQuestion() {
             const q = questions[currentQ];
+            // Перемешиваем варианты, запоминаем новый индекс правильного
+            const indices = shuffleArray([0, 1, 2, 3]);
+            shuffledAnswers = indices;
+            const correctShuffled = indices.indexOf(q.correct);
+
             let html = '<h3 style="color: var(--accent-gold); margin-bottom: 15px;">Вопрос ' + (currentQ + 1) + ' из 8</h3>';
             html += '<p style="font-size: 1.1rem; margin-bottom: 20px;">' + q.q + '</p>';
             html += '<div class="quiz-options">';
-            for (let i = 0; i < q.a.length; i++) {
-                html += '<button class="quiz-btn" id="btn' + i + '" onclick="answer(' + i + ')">' + q.a[i] + '</button>';
+            for (let i = 0; i < 4; i++) {
+                html += '<button class="quiz-btn" id="btn' + i + '" onclick="answer(' + i + ')">' + q.a[indices[i]] + '</button>';
             }
             html += '</div>';
             html += '<div class="quiz-feedback" id="feedback"></div>';
@@ -1369,22 +1385,23 @@
         function answer(idx) {
             if (answered) return;
             answered = true;
-            
+
             const q = questions[currentQ];
+            const correctShuffled = shuffledAnswers.indexOf(q.correct);
             const btns = document.querySelectorAll('.quiz-btn');
             const feedback = document.getElementById('feedback');
-            
+
             for (let i = 0; i < btns.length; i++) {
                 btns[i].disabled = true;
-                if (i === q.correct) {
+                if (i === correctShuffled) {
                     btns[i].classList.add('correct');
-                } else if (i === idx && i !== q.correct) {
+                } else if (i === idx && i !== correctShuffled) {
                     btns[i].classList.add('wrong');
                 }
             }
-            
-            quizAnswers.push(idx);
-            if (idx === q.correct) {
+
+            quizAnswers.push(shuffledAnswers[idx]);
+            if (shuffledAnswers[idx] === q.correct) {
                 score++;
                 feedback.textContent = '✓ Правильно!';
                 feedback.className = 'quiz-feedback correct';
