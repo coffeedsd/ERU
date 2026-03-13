@@ -24,7 +24,7 @@ app.use(express.json());
 
 const PEOPLES = {
     russian:'Русские', ukrainian:'Украинцы', belarusian:'Белорусы',
-    tatar:'Татары', bashkir:'Башкиры', chuvash:'Чуваши', yakut:'Якуты (Саха)',
+    tatar:'Татары', bashkir:'Башкиры', chuvash:'Чуваши', yakut:'Якуты',
     komi:'Коми', mari:'Марийцы', udmurt:'Удмурты', adygean:'Адыгейцы',
     avar:'Аварцы', chechen:'Чеченцы', circassian:'Черкесы', ingush:'Ингуши',
     kabardian:'Кабардинцы', lezgin:'Лезгины', itelmen:'Ительмены',
