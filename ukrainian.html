@@ -291,6 +291,38 @@
         .info-modal-close:hover { background: var(--accent-gold); transform: rotate(90deg); border-color: var(--accent-gold); }
         @media (max-width: 768px) {
             .info-modal { padding: 15px; }
+        .info-modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px; height: 48px;
+            background: rgba(0,0,0,0.55);
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+            transition: all 0.25s;
+            user-select: none;
+            line-height: 1;
+        }
+        .info-modal-nav:hover {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .info-modal-nav.prev { left: 16px; }
+        .info-modal-nav.next { right: 16px; }
+        @media (max-width: 768px) {
+            .info-modal-nav { width: 38px; height: 38px; font-size: 1.1rem; }
+            .info-modal-nav.prev { left: 6px; }
+            .info-modal-nav.next { right: 6px; }
+        }
+
             .info-modal-image { height: 180px; }
             .info-modal-body { padding: 24px; }
             .info-modal-title { font-size: 1.4rem; }
@@ -1056,6 +1088,8 @@
 
     <div class="info-modal" id="infoModal" onclick="closeInfoModal()">
         <span class="info-modal-close" onclick="closeInfoModal()">&times;</span>
+        <button class="info-modal-nav prev" onclick="event.stopPropagation(); navigateModal(-1)">&#8592;</button>
+        <button class="info-modal-nav next" onclick="event.stopPropagation(); navigateModal(1)">&#8594;</button>
         <div class="info-modal-container" onclick="event.stopPropagation()">
             <div class="info-modal-image"><img src="" alt="" id="infoModalImg"></div>
             <div class="info-modal-body">
@@ -1272,6 +1306,8 @@
             music: {img:'images/ukrainian-music.jpg',title:`Музыка и танцы украинцев`,text:`<p>Украинская народная музыка — одна из богатейших в Европе. Гопак — самый известный танец: мужчины исполняют высокие прыжки и акробатические трюки, женщины — плавные движения с изящными жестами рук. Гуцульские, лемковские и подольские танцы хранят региональное своеобразие.</p><p>Бандура — национальный инструмент Украины — имеет от 55 до 68 струн и звучит как смесь арфы и лютни. Кобзари и лирники — бродячие певцы — были хранителями народной памяти: исполняли думи — эпические баллады о казацкой вольнице и народных героях. Эта традиция устной поэзии уникальна в мировом фольклоре.</p><p>Украинское многоголосное пение покоряет красотой и сложностью. Обрядовые колядки, щедрівки, веснянки и купальские песни передавались из поколения в поколение. Щедрик в обработке Миколы Леонтовича стал всемирно известной рождественской мелодией Carol of the Bells.</p>`},
         };
         function openInfoModal(cardId) {
+            currentModalCardId = cardId;
+            modalCardOrder = Object.keys(infoCards);
             const card = infoCards[cardId];
             if (!card) return;
             document.getElementById('infoModalImg').src = card.img;
@@ -1281,7 +1317,18 @@
             document.getElementById('infoModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        function closeInfoModal() {
+        let currentModalCardId = null;
+        let modalCardOrder = [];
+
+        function navigateModal(direction) {
+            if (!currentModalCardId || modalCardOrder.length === 0) return;
+            const idx = modalCardOrder.indexOf(currentModalCardId);
+            if (idx === -1) return;
+            const newIdx = (idx + direction + modalCardOrder.length) % modalCardOrder.length;
+            openInfoModal(modalCardOrder[newIdx]);
+        }
+
+                function closeInfoModal() {
             document.getElementById('infoModal').classList.remove('active');
             document.body.style.overflow = '';
         }
