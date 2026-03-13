@@ -1363,6 +1363,8 @@
         initGallery();
 
         let lightboxSrcs = [];
+        let holidayList = [];
+        let holidayIndex = 0;
         holidayList = [
             { name: 'Кэвэт (Праздник оленей)', video: 'videos5/chukchi-kevet.mp4' },
             { name: 'Нулинт (Праздник кита)', video: 'videos5/chukchi-nulint.mp4' },
@@ -1373,8 +1375,6 @@
         // ==========================================
         // ВИДЕО ПРАЗДНИКОВ
         // ==========================================
-        let holidayList = [];
-        let holidayIndex = 0;
 
         function openHolidayVideo(index) {
             holidayIndex = index;
@@ -1516,6 +1516,9 @@
         // ==========================================
         // ИНФО-МОДАЛЬНОЕ ОКНО ДЛЯ КАРТОЧЕК
         // ==========================================
+        let currentModalCardId = null;
+        let modalCardOrder = [];
+
         function openInfoModal(key) {
             currentModalCardId = key;
             modalCardOrder = Object.keys(infoData);
@@ -1528,9 +1531,6 @@
             document.getElementById('infoModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        let currentModalCardId = null;
-        let modalCardOrder = [];
-
         function navigateModal(direction) {
             if (!currentModalCardId || modalCardOrder.length === 0) return;
             const idx = modalCardOrder.indexOf(currentModalCardId);

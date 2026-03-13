@@ -1333,6 +1333,8 @@
         initGallery();
 
         let lightboxSrcs = [];
+        let holidayList = [];
+        let holidayIndex = 0;
         holidayList = [
             { name: 'Ураза-байрам (Ид аль-Фитр)', video: 'videos5/tatar-uraza.mp4' },
             { name: 'Курбан-байрам (Ид аль-Адха)', video: 'videos5/tatar-kurban.mp4' },
@@ -1343,8 +1345,6 @@
         // ==========================================
         // ВИДЕО ПРАЗДНИКОВ
         // ==========================================
-        let holidayList = [];
-        let holidayIndex = 0;
 
         function openHolidayVideo(index) {
             holidayIndex = index;
@@ -1429,6 +1429,9 @@
         });
 
 
+        let currentModalCardId = null;
+        let modalCardOrder = [];
+
         function openInfoModal(cardId) {
             currentModalCardId = cardId;
             modalCardOrder = Object.keys(infoCards);
@@ -1441,9 +1444,6 @@
             document.getElementById('infoModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        let currentModalCardId = null;
-        let modalCardOrder = [];
-
         function navigateModal(direction) {
             if (!currentModalCardId || modalCardOrder.length === 0) return;
             const idx = modalCardOrder.indexOf(currentModalCardId);

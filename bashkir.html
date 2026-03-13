@@ -1331,6 +1331,8 @@
         initGallery();
 
         let lightboxSrcs = [];
+        let holidayList = [];
+        let holidayIndex = 0;
         holidayList = [
             { name: 'Сабантуй', video: 'videos5/bashkir-sabantuy.mp4' },
             { name: 'Бал тыйын (Медовый Спас)', video: 'videos5/bashkir-honey.mp4' },
@@ -1341,8 +1343,6 @@
         // ==========================================
         // ВИДЕО ПРАЗДНИКОВ
         // ==========================================
-        let holidayList = [];
-        let holidayIndex = 0;
 
         function openHolidayVideo(index) {
             holidayIndex = index;
@@ -1427,6 +1427,9 @@
         });
 
 
+        let currentModalCardId = null;
+        let modalCardOrder = [];
+
         function openInfoModal(cardId) {
             currentModalCardId = cardId;
             modalCardOrder = Object.keys(infoCards);
@@ -1439,9 +1442,6 @@
             document.getElementById('infoModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
-        let currentModalCardId = null;
-        let modalCardOrder = [];
-
         function navigateModal(direction) {
             if (!currentModalCardId || modalCardOrder.length === 0) return;
             const idx = modalCardOrder.indexOf(currentModalCardId);
