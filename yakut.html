@@ -543,6 +543,105 @@
 
             .lightbox-next { right: 8px; }
         }
+
+        /* ==========================================
+           МОДАЛЬНОЕ ОКНО ВИДЕО ПРАЗДНИКОВ
+           ========================================== */
+        .holiday-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .holiday-modal.active { display: flex; }
+        .holiday-modal-inner {
+            position: relative;
+            width: 100%;
+            max-width: 860px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+        .holiday-modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-align: center;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+            letter-spacing: 0.03em;
+        }
+        .holiday-modal-counter {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: -10px;
+        }
+        .holiday-modal video {
+            width: 100%;
+            max-height: 65vh;
+            border-radius: 12px;
+            background: #000;
+            outline: none;
+        }
+        .holiday-modal-close {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 2.2rem;
+            color: white;
+            cursor: pointer;
+            z-index: 10001;
+            background: rgba(0,0,0,0.6);
+            width: 46px; height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+            line-height: 1;
+        }
+        .holiday-modal-close:hover {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            transform: rotate(90deg);
+        }
+        .holiday-modal-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(20px);
+            width: 52px; height: 52px;
+            background: rgba(245,158,11,0.25);
+            border: 2px solid rgba(245,158,11,0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #f5a623;
+            transition: all 0.3s;
+            z-index: 10001;
+            line-height: 1;
+        }
+        .holiday-modal-arrow:hover {
+            background: rgba(245,158,11,0.6);
+            border-color: #f5a623;
+            color: white;
+            transform: translateY(20px) scale(1.1);
+        }
+        .holiday-modal-arrow.prev { left: -70px; }
+        .holiday-modal-arrow.next { right: -70px; }
+        @media (max-width: 900px) {
+            .holiday-modal-arrow.prev { left: 6px; top: auto; bottom: -64px; transform: none; }
+            .holiday-modal-arrow.next { right: 6px; top: auto; bottom: -64px; transform: none; }
+            .holiday-modal-arrow:hover { transform: scale(1.1); }
+            .holiday-modal-inner { padding-bottom: 70px; }
+        }
         /* ==========================================
            КНОПКА "НАВЕРХ"
            ========================================== */
@@ -953,28 +1052,28 @@
                 <li>
                     <span class="fact-icon">☀️</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-ysyakh.jpg', false)">Ысыах (Ыһыах)</strong>
+                        <strong class="holiday-link" onclick="openHolidayVideo(0)">Ысыах (Ыһыах)</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Главный национальный праздник — встреча летнего солнцестояния. Обряд освящения кумися («алгысь»), кумысные забеги, народные игры, хоровод «осуохай», скачки.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🐴</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-horse.jpg', false)">День якутской лошади</strong>
+                        <strong class="holiday-link" onclick="openHolidayVideo(1)">День якутской лошади</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник коневодов. Скачки, борьба на конях, конкурс красоты среди лошадей, угощения кумысом.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">❄️</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-reindeer.jpg', false)">День оленевода</strong>
+                        <strong class="holiday-link" onclick="openHolidayVideo(2)">День оленевода</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Праздник северных якутов. Скачки на оленьих упряжках, конкурсы среди пастухов, обряды благословения стада.</p>
                     </div>
                 </li>
                 <li>
                     <span class="fact-icon">🔥</span>
                     <div>
-                        <strong class="holiday-link" onclick="openLightbox('images5/yakut-ritual.jpg', false)">Обряд Ысыах</strong>
+                        <strong class="holiday-link" onclick="openHolidayVideo(3)">Обряд Ысыах</strong>
                         <p style="color: var(--text-secondary); margin-top: 5px;">Поклонение трём стихиям: Огню (Аан Тойон), Земле (Айыы Ийэ) и Воде (Дьахтар Айыы). Зажигание «алыс» (священного костра).</p>
                     </div>
                 </li>
@@ -1239,6 +1338,52 @@
         initGallery();
 
         let lightboxSrcs = [];
+        holidayList = [
+            { name: 'Ысыах (Ыһыах)', video: 'videos5/yakut-ysyakh.mp4' },
+            { name: 'День якутской лошади', video: 'videos5/yakut-horse.mp4' },
+            { name: 'День оленевода', video: 'videos5/yakut-reindeer.mp4' },
+            { name: 'Обряд Ысыах', video: 'videos5/yakut-ritual.mp4' }
+        ];
+
+        // ==========================================
+        // ВИДЕО ПРАЗДНИКОВ
+        // ==========================================
+        let holidayList = [];
+        let holidayIndex = 0;
+
+        function openHolidayVideo(index) {
+            holidayIndex = index;
+            const h = holidayList[index];
+            document.getElementById('holidayModalTitle').textContent = h.name;
+            document.getElementById('holidayModalCounter').textContent =
+                (index + 1) + ' / ' + holidayList.length;
+            const video = document.getElementById('holidayVideo');
+            document.getElementById('holidayVideoSrc').src = h.video;
+            video.load();
+            video.play().catch(() => {});
+            document.getElementById('holidayModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function holidayNav(dir) {
+            const video = document.getElementById('holidayVideo');
+            video.pause();
+            holidayIndex = (holidayIndex + dir + holidayList.length) % holidayList.length;
+            const h = holidayList[holidayIndex];
+            document.getElementById('holidayModalTitle').textContent = h.name;
+            document.getElementById('holidayModalCounter').textContent =
+                (holidayIndex + 1) + ' / ' + holidayList.length;
+            document.getElementById('holidayVideoSrc').src = h.video;
+            video.load();
+            video.play().catch(() => {});
+        }
+
+        function closeHolidayModal() {
+            document.getElementById('holidayVideo').pause();
+            document.getElementById('holidayModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         let lightboxIndex = 0;
 
         function openLightbox(src, fromGallery) {
@@ -1522,6 +1667,22 @@
         // Старт при загрузке
         startQuiz();
     </script>
+
+    <!-- МОДАЛЬНОЕ ОКНО ВИДЕО ПРАЗДНИКОВ -->
+    <div class="holiday-modal" id="holidayModal" onclick="closeHolidayModal()">
+        <div class="holiday-modal-inner" onclick="event.stopPropagation()">
+            <span class="holiday-modal-close" onclick="closeHolidayModal()">&times;</span>
+            <button class="holiday-modal-arrow prev" onclick="holidayNav(-1)">&#8592;</button>
+            <button class="holiday-modal-arrow next" onclick="holidayNav(1)">&#8594;</button>
+            <div class="holiday-modal-title" id="holidayModalTitle"></div>
+            <div class="holiday-modal-counter" id="holidayModalCounter"></div>
+            <video id="holidayVideo" controls autoplay>
+                <source id="holidayVideoSrc" src="" type="video/mp4">
+                Ваш браузер не поддерживает видео.
+            </video>
+        </div>
+    </div>
+
 </body>
 </html>
 
