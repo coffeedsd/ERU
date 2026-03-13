@@ -1348,8 +1348,6 @@
         // ==========================================
 
         function vkEmbedUrl(vkId) {
-            // vkId формат: "oid_id", например "-123456_789012"
-            // Замените значения в holidayList на реальные ID с VK
             if (!vkId || vkId === 'ЗАГЛУШКА') return '';
             const parts = vkId.split('_');
             return 'https://vk.com/video_ext.php?oid=' + parts[0] + '&id=' + parts[1] + '&hd=2';
